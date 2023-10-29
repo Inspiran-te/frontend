@@ -9,6 +9,7 @@ import LinkedIN from '../../assets/LinkedINicon.svg'
 import Letter from '../../assets/letterInput.svg'
 import { Button } from '../../ui-components/Button';
 import { Block } from '../../ui-components/Block';
+import { Input } from '../../ui-components/Input';
 
 export const Login = () => {
 
@@ -48,7 +49,7 @@ export const Login = () => {
                             borderRadius='50px'
                             padding='16px 24px 16px 24px'>
                             <img src={Letter} alt="" />
-                            <input type="text" placeholder='example@gmail.com' />
+                            <Input type="text" placeholder='example@gmail.com'/>
                         </Block>
                         <label htmlFor="">Пароль</label>
                         <Block backgroundColor='#F7F7F8' 
