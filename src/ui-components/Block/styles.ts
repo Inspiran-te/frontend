@@ -10,5 +10,7 @@ export const BlockWrapper = styled.button<IBlockProps>`
     flex-direction: ${(props) => props.flexDirection};
     border-radius: ${(props) => props.borderRadius || "0"};
     padding: ${(props) => props.padding};
+    width: ${(props) => props.width}; 
+    height: ${(props) => props.height}; 
 `
 

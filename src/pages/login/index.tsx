@@ -7,6 +7,7 @@ import Google from '../../assets/GoogleIcon.svg'
 import Github from '../../assets/GithubIcon.svg'
 import LinkedIN from '../../assets/LinkedINicon.svg'
 import Letter from '../../assets/letterInput.svg'
+import LockIcon from '../../assets/lockIcon.svg'
 import { Button } from '../../ui-components/Button';
 import { Block } from '../../ui-components/Block';
 import { Input } from '../../ui-components/Input';
@@ -47,18 +48,30 @@ export const Login = () => {
                             display='flex' 
                             alignItems='center' 
                             borderRadius='50px'
-                            padding='16px 24px 16px 24px'>
+                            padding='16px 24px 16px 24px'
+                            width='392px'>
                             <img src={Letter} alt="" />
-                            <Input type="text" placeholder='example@gmail.com'/>
+                            <Input type="text" 
+                            placeholder='example@gmail.com'
+                            backgroundColor='#F7F7F8' 
+                            border='none'
+                            outline='none'/>
                         </Block>
                         <label htmlFor="">Пароль</label>
                         <Block backgroundColor='#F7F7F8' 
                             display='flex' 
                             alignItems='center' 
                             borderRadius='50px'
-                            padding='16px 24px 16px 24px'>
-                            <img src={Letter} alt="" />
-                            <input type="text" placeholder='example@gmail.com' />
+                            padding='16px 24px 16px 24px'
+                            width='392px'
+                            >
+                            <img src={LockIcon} alt="" />
+                            <Input type="text" 
+                            placeholder='Введите пароль' 
+                            backgroundColor='#F7F7F8' 
+                            border='none'
+                            outline='none'
+                            />
                         </Block>
                         <Button>Войти</Button>
                         <span>Забыли пароль?</span><span>Восстановить здесь</span>

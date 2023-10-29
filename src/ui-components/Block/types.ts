@@ -12,4 +12,6 @@ export interface IBlockProps {
     flexDirection?: string;
     children?: ReactNode; 
     borderRadius?: string;
+    width?: string;
+    height?: string;
   }
