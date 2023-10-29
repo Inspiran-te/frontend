@@ -14,4 +14,10 @@ export interface IButtonProps {
     alignItems?: string;
     flexDirection?: string;
     children?: ReactNode; 
+    borderRadius?: string;
+    width?: string;
+    height?: string;
+    padding?: string;
+    border?: string;
+    justifyContent?: string;
   }

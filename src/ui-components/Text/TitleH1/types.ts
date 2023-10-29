@@ -1,4 +1,6 @@
-export interface ILabel {
+import { ReactNode } from "react";
+
+export interface ITitleH1 {
     text?: string;
     color?: string;
     marginBottom?: string;
@@ -7,5 +9,4 @@ export interface ILabel {
     fontBold?: string;
     fontWeight?: string;
     fontFamily?: string;
-    
 }

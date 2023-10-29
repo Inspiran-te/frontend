@@ -12,5 +12,6 @@ export const BlockWrapper = styled.button<IBlockProps>`
     padding: ${(props) => props.padding};
     width: ${(props) => props.width}; 
     height: ${(props) => props.height}; 
+    border: ${(props) => props.border}; 
 `
 

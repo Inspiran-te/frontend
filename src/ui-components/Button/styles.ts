@@ -8,6 +8,14 @@ export const ButtonWrapper = styled.button<IButtonProps>`
     align-items: ${(props) => props.alignItems};
     display: ${(props) => props.display};
     flex-direction: ${(props) => props.flexDirection};
-    
+    border-radius: ${(props) => props.borderRadius};
+    width: ${(props) => props.width};
+    height: ${(props) => props.height};
+    padding: ${(props) => props.padding};
+    border: ${(props) => props.border};
+    justify-content: ${(props) => props.justifyContent};
+    &:hover {
+        cursor: pointer;
+    }
 `
 

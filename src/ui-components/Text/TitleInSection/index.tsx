@@ -4,9 +4,9 @@ import { ITitleInSection as Props } from "./types";
 
 const { TitleSectionWrapper, TitleText } = defaultComponentStyles;
 
-const TitleInSection: FC<Props> = ({ title, marginBottom,  marginTop, color, fontSize, width}) => (
-    <TitleSectionWrapper marginBottom={marginBottom} marginTop={marginTop} width={width}>
-        <TitleText color={color} fontSize={fontSize}>
+const TitleInSection: FC<Props> = ({ title, ...props}) => (
+    <TitleSectionWrapper {...props}>
+        <TitleText {...props}>
         {title}
         </TitleText>
     </TitleSectionWrapper>

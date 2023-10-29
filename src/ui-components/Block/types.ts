@@ -14,4 +14,5 @@ export interface IBlockProps {
     borderRadius?: string;
     width?: string;
     height?: string;
+    border?: string;
   }
