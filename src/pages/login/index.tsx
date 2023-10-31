@@ -1,5 +1,5 @@
 import React from 'react'
-import { ButtonsWrapper, Container, Image, Line, Wrapper, WrapperLeft, WrapperRight } from './styles'
+import { ButtonsWrapper, Container, Image, Wrapper, WrapperLeft, WrapperRight } from './styles'
 import Logo from '../../assets/logo.svg'
 import ImageLoginPage from '../../assets/svg-pic.png'
 import TitleInSection from '../../ui-components/Text/TitleInSection'
@@ -17,6 +17,8 @@ import Label from '../../ui-components/Label'
 import Span from '../../ui-components/Span'
 import TitleH1 from '../../ui-components/Text/TitleH1'
 import { theme } from '../../theme/theme'
+import { GreyLine } from '../../ui-components/Line'
+import Link from '../../ui-components/Route'
 
 export const Login = () => {
 
@@ -31,15 +33,17 @@ export const Login = () => {
 									 fontFamily='Unbounded'
 									 marginBottom='16px' />
 					<Span>
-						<Span text='Еще нет аккаунта?  '
+						<Span text='Еще нет аккаунта? '
 									color={theme.colors.grey}
 									fontSize='16px'
 									fontFamily='Nunito' />
-						<Span text='Регистрация'
+						<Link text='Регистрация'
 									cursor='pointer'
 									color={theme.colors.Primary_Purple}
 									fontWeight='500'
-									fontFamily='Nunito' />
+									fontFamily='Nunito'
+									to='/auth/register'
+									textDecoration='none' />
 					</Span>
 
 					<Span text='Войти через'
@@ -88,7 +92,7 @@ export const Login = () => {
 
 					</ButtonsWrapper>
 
-					<Line />
+					<GreyLine marginTop='32px' marginBottom='32px' />
 
 					<Span text='Или с помощью почты и пароля'
 								marginBottom='18px'
@@ -147,12 +151,12 @@ export const Login = () => {
 										backgroundColor={theme.colors.Primary_Purple}
 										border='none'
 										justifyContent='center'>
-							<Span text='Войти' color='#FFFFFF' marginRight='10px' fontFamily='Nunito' fontSize='18px'/>
+							<Span text='Войти' color='#FFFFFF' marginRight='10px' fontFamily='Nunito' fontSize='18px' />
 							<img src={Arrow} alt='' />
 						</Button>
 					</div>
 					<Span marginTop='20px'>
-						<Span text='Забыли пароль? ' color={theme.colors.grey} fontSize='16px' />
+						<Span text='Забыли пароль? ' color={theme.colors.grey} fontSize='14px' />
 						<Span text='Восстановить здесь' cursor='pointer'
 									color={theme.colors.Primary_Purple}
 									fontWeight='500' />

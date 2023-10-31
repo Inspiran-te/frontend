@@ -10,8 +10,5 @@ export const InputWrapper = styled.input<InputProps>`
   height: ${(props) => props.height};
   outline: ${(props) => props.outline};
   font-family: ${props => props.fontFamily};
-	
-	&::placeholder{
-	font-size: ${props => props.fontSize};
-	}
+  font-size: ${props => props.fontSize}
 `

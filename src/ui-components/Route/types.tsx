@@ -1,6 +1,6 @@
 import { ReactNode } from 'react'
 
-export interface ISpan {
+export interface ILink {
 	text?: string;
 	color?: string;
 	width?: string;
@@ -16,4 +16,6 @@ export interface ISpan {
 	cursor?: string;
 	display?: string;
 	flexDirection?: string
+	to?: string;
+	textDecoration?: string
 }
