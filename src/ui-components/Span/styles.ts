@@ -11,4 +11,5 @@ export const SpanWrapper = styled.span<ISpan>`
     width: ${props => props.width}; 
     text-align:  ${props => props.textAlign}; 
     cursor: ${props => props.cursor};
+	  font-family: ${props => props.fontFamily};
 `

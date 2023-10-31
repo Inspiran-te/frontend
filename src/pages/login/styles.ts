@@ -3,16 +3,15 @@ import { ContainerProps } from "./types";
 import {theme} from '../../theme/theme'
 
 export const Container = styled.div<ContainerProps>`
-  width: 1440px;
-  height: 900px;
   display: flex;
   justify-content: center;
   align-items: center;
 `;
 
 export const Wrapper = styled.div<ContainerProps>`
-  width: 1360px;
-  height: 860px;
+	min-width: 94%;
+	padding: 20px;
+	margin: 20px 40px 20px 40px;
   background-color: ${props => props.theme.colors.blue_light};
   display: flex;
   justify-content: center;
@@ -31,7 +30,6 @@ export const WrapperLeft = styled.div`
 `;
 
 export const WrapperRight = styled.div`
-  width: 549px;
   height: 235px;
   background-color: ${props => props.theme.colors.blue_light};
   display: flex;
