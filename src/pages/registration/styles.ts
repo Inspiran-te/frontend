@@ -20,7 +20,6 @@ export const Wrapper = styled.div<ContainerProps>`
 `
 export const WrapperLeft = styled.div`
   width: 600px;
-  height: 840px;
   background-color: ${props => props.theme.colors.white};
   display: flex;
   justify-content: center;
@@ -50,3 +49,15 @@ export const ButtonsWrapper = styled.div`
   gap: 8px;
   margin-top: 16px;
 `
+
+export const Line = styled.div`
+  width: 440px;
+  height: 2px;
+  opacity: 0.1;
+  background: ${props => props.theme.colors.grey};
+  margin-top: 32px;
+  margin-bottom: 32px
+`
+
+
+

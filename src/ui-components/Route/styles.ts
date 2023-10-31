@@ -1,7 +1,8 @@
 import styled from 'styled-components'
-import { ISpan } from './types'
+import { NavLink } from 'react-router-dom'
+import { ILink } from './types'
 
-export const SpanWrapper = styled.span<ISpan>`
+export const Link = styled(NavLink)<ILink>`
   margin-bottom: ${props => props.marginBottom};
   margin-top: ${props => props.marginTop};
   margin-right: ${props => props.marginRight};
@@ -13,5 +14,6 @@ export const SpanWrapper = styled.span<ISpan>`
   cursor: ${props => props.cursor};
   font-family: ${props => props.fontFamily};
 	display: ${props => props.display};
-	flex-direction: ${props => props.flexDirection}
+	flex-direction: ${props => props.flexDirection};
+	text-decoration: ${props => props.textDecoration};
 `

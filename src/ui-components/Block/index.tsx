@@ -1,8 +1,7 @@
-import { FC, ButtonHTMLAttributes } from "react";
-import { BlockWrapper } from "./styles";
-import { IBlockProps } from "./types";
+import { BlockWrapper } from './styles'
+import { IBlockProps } from './types'
 
 export const Block: React.FC<IBlockProps> = ({ children, ...props }) => (
-    <BlockWrapper {...props}>{children}</BlockWrapper>
-  );
+	<BlockWrapper {...props}>{children}</BlockWrapper>
+)
   
