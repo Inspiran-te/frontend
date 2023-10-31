@@ -7,5 +7,6 @@ export const TitleWrapper = styled.h1<ITitleH1>`
     font-size: ${props => props.fontSize}; 
     font-bold: ${props => props.fontBold};
     font-weight: ${props => props.fontWeight}; 
-    color: ${props => props.color}; 
+    color: ${props => props.color};
+	  font-family: ${props => props.fontFamily};
 `
