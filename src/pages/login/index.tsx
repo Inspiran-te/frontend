@@ -61,7 +61,7 @@ export const Login = () => {
 										height='68px'
 										backgroundColor={theme.colors.white}
 										padding='6px 8px 12px 8px'>
-							<img src={Google} alt='' />
+							<img src={Google} alt='Google' />
 							<Span text='Google' color='black' fontFamily='Nunito' />
 						</Button>
 
@@ -73,7 +73,7 @@ export const Login = () => {
 										height='68px'
 										backgroundColor={theme.colors.black}
 										padding='6px 8px 12px 8px'>
-							<img src={Github} alt='' />
+							<img src={Github} alt='Github' />
 							<Span text='Github' color='white' fontFamily='Nunito' />
 						</Button>
 
@@ -86,7 +86,7 @@ export const Login = () => {
 										backgroundColor={theme.colors.blue}
 										padding='6px 8px 12px 8px'
 										border='none'>
-							<img src={LinkedIN} alt='' />
+							<img src={LinkedIN} alt='LinkedIN' />
 							<Span text='Linkedin' color='white' fontFamily='Nunito' />
 						</Button>
 
