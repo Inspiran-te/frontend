@@ -1,11 +1,11 @@
 import { FC } from 'react'
 import { ILabel } from './types'
-import { LabelWrapper } from './styles'
 
+import * as SC from './styles'
 const Label: FC<ILabel> = ({ text, ...props }) => (
-	<LabelWrapper {...props}>
+	<SC.LabelWrapper {...props}>
 		{text}
-	</LabelWrapper>
+	</SC.LabelWrapper>
 )
 
 export default Label
