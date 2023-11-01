@@ -1,4 +1,4 @@
-import { InputHTMLAttributes, Ref } from 'react'
+import { InputHTMLAttributes } from 'react'
 
 export interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
 	marginBottom?: string;

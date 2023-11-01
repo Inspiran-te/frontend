@@ -1,4 +1,8 @@
-export interface ContainerProps {
+import React from 'react'
+
+export interface IWrapperProps {
+	padding?: string;
+	margin?: string;
 	width?: string;
 	height?: string;
 	backgroundColor?: string;
@@ -6,4 +10,5 @@ export interface ContainerProps {
 	justifyContent?: string;
 	alignItems?: string;
 	borderRadius?: string;
+	children?: React.ReactNode
 }

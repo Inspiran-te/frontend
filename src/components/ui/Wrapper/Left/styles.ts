@@ -1,23 +1,14 @@
 import { styled } from 'styled-components'
-import { theme } from '../../../theme/theme'
+import { IWrapperLeftProps } from './types'
 
-export const ButtonsWrapper = styled.div`
-  display: flex;
-  gap: 8px;
-  margin-top: 16px;
-  margin-left: 40px;
-  margin-right: 40px;
-`
-
-export const WrapperLeft = styled.div`
+export const WrapperLeft = styled.div<IWrapperLeftProps>`
   width: 600px;
-  height: 840px;
+  height: ${props => props.height};
   background-color: ${props => props.theme.colors.white};
   display: flex;
   justify-content: center;
   align-items: center;
   border-radius: 40px;
   flex-direction: column;
-  margin-left: 17px;
   box-sizing: border-box;
 `

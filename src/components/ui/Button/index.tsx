@@ -1,5 +1,4 @@
-import { FC, ButtonHTMLAttributes } from 'react'
-
+import React from 'react'
 import { IButtonProps } from './types'
 import * as SC from './styles'
 
