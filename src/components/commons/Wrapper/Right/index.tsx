@@ -18,7 +18,7 @@ export const WrapperRight = () => {
 						marginBottom='36px'
 						fontFamily='Unbounded'
 			/>
-			<img src={ImageLoginPage} alt='' />
+			<img src={ImageLoginPage} alt='ImageLoginPage' />
 		</SC.WrapperRight>
 	)
 }
