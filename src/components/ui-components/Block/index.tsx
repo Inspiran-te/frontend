@@ -1,7 +1,6 @@
-import { BlockWrapper } from './styles'
 import { IBlockProps } from './types'
-
+import * as SC from './styles'
 export const Block: React.FC<IBlockProps> = ({ children, ...props }) => (
-	<BlockWrapper {...props}>{children}</BlockWrapper>
+	<SC.BlockWrapper {...props}>{children}</SC.BlockWrapper>
 )
   
