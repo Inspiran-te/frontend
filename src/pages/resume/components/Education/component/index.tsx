@@ -78,7 +78,7 @@ export const EducationBlock = () => {
         <Block display='flex' alignItems='center'>
 
             <Block display='flex' flexDirection='column'>
-                <Label text='Год окончания' marginTop='16px' fontFamily='Nunito' marginBottom='5px' />
+                <Label text='Год начала' marginTop='16px' fontFamily='Nunito' marginBottom='5px' />
                 <Input type='text'
                     placeholder='Год'
                     backgroundColor={theme.colors.grey_Light}
