@@ -1,7 +1,7 @@
 import styled from 'styled-components'
-import { IBlockProps } from './types'
+import { ITextProps } from './types'
 
-export const BlockWrapper = styled.div<IBlockProps>`
+export const TextAreaWrapper = styled.textarea<ITextProps>`
   margin-bottom: ${props => props.marginBottom};
   margin-top: ${props => props.marginTop};
   margin-left: ${props => props.marginLeft};
@@ -22,7 +22,8 @@ export const BlockWrapper = styled.div<IBlockProps>`
   color: ${props => props.color};
   box-sizing: ${props => props.boxSizing};
   text-align: ${props => props.textAlign};
-  position: ${props => props.position};
-  top: ${props => props.top};
+  rows: ${props => props.rows};
+  cols: ${props => props.cols};
+  placeholder: ${props => props.placeholder};
 `
 

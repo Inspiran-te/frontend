@@ -3,6 +3,7 @@ import { ReactNode } from 'react'
 export interface IButtonProps {
 	title?: string;
 	color?: string;
+	margin?: string;
 	marginBottom?: string;
 	marginTop?: string;
 	fontSize?: string;

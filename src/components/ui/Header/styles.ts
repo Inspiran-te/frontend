@@ -1,7 +1,7 @@
 import styled from 'styled-components'
-import { IBlockProps } from './types'
+import { IHeaderProps } from './types'
 
-export const BlockWrapper = styled.div<IBlockProps>`
+export const HeaderWrapper = styled.header<IHeaderProps>`
   margin-bottom: ${props => props.marginBottom};
   margin-top: ${props => props.marginTop};
   margin-left: ${props => props.marginLeft};
@@ -15,7 +15,7 @@ export const BlockWrapper = styled.div<IBlockProps>`
   width: ${(props) => props.width};
   height: ${(props) => props.height};
   border: ${(props) => props.border};
-	font-size: ${props => props.fontSize};
+  font-size: ${props => props.fontSize};
   justify-content: ${props => props.justifyContent};
   font-weight: ${props => props.fontWeight};
   font-family: ${props => props.fontFamily};

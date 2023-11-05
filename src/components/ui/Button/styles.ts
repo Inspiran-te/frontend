@@ -14,6 +14,7 @@ export const ButtonWrapper = styled.button<IButtonProps>`
   padding: ${(props) => props.padding};
   border: ${(props) => props.border};
   justify-content: ${(props) => props.justifyContent};
+  margin: ${(props) => props.margin};
 
   &:hover {
     cursor: pointer;

@@ -8,6 +8,10 @@ export interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
 	width?: string;
 	height?: string;
 	outline?: string;
-	fontFamily?: string
-	fontSize?: string
+	fontFamily?: string;
+	fontSize?: string;
+	padding?: string;
+	borderRadius?: string;
+	rows?: string;
+	cols?: string;
 }

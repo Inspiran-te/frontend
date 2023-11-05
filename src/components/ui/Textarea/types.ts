@@ -1,6 +1,6 @@
 import { ReactNode } from 'react'
 
-export interface IBlockProps {
+export interface ITextProps {
 	title?: string;
 	color?: string;
 	padding?: string;
@@ -23,6 +23,7 @@ export interface IBlockProps {
 	marginRight?: string;
 	boxSizing?: string;
 	textAlign?: string;
-	position?: string;
-	top?: string;
+	rows?: string;
+	cols?: string;
+	placeholder?: string;
 }

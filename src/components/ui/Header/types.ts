@@ -1,6 +1,6 @@
 import { ReactNode } from 'react'
 
-export interface IBlockProps {
+export interface IHeaderProps {
 	title?: string;
 	color?: string;
 	padding?: string;
