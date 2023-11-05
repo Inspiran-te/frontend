@@ -14,10 +14,15 @@ import ArrowDown from '../../../../assets/ArrowDown.svg'
 import Smile from '../../../../assets/smile.png'
 import PlusIcon from '../../../../assets/plusIcon.svg'
 import { changeOpenBlock } from '../../../../helpers'
+import { EducationBlock } from './component'
 
 export const Education = () => {
     const [isOpen, setIsOpen] = useState(true);
- 
+    const [educationBlocks, setEducationBlocks] = useState<JSX.Element[]>([]);
+
+    const duplicateEducationBlocks = () => {
+        setEducationBlocks([...educationBlocks, <EducationBlock key={educationBlocks.length} />]);
+    };
     return (
         <Block display='flex'
             justifyContent='center'
@@ -278,6 +283,9 @@ export const Education = () => {
                     />
 
                 </Block>
+                {educationBlocks && educationBlocks.map((block, index) => (
+                    <div key={index}>{block}</div>
+                ))}
 
                 <Button display='flex'
                     justifyContent='center'
@@ -286,7 +294,7 @@ export const Education = () => {
                     borderRadius='50px'
                     padding='20px 40px 20px 40px'
                     marginTop='40px'
-
+                    onClick={duplicateEducationBlocks}
                     width='400px'>
                     <Image src={PlusIcon} alt="" />
                     <Span marginLeft='5px' fontFamily='Nunito' fontSize='18px'

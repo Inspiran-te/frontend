@@ -14,9 +14,15 @@ import { Button } from '../../../../components/ui/Button'
 import Label from '../../../../components/ui/Label'
 import { Line } from '../../../../components/ui/Line/styles'
 import { changeOpenBlock } from '../../../../helpers'
+import { WorkBlock } from './component/index'
 
 export const Expirience = () => {
     const [isOpen, setIsOpen] = useState(true);
+    const [workBlocks, setWorkBlocks] = useState<JSX.Element[]>([]);
+
+    const duplicateWorkBlocks = () => {
+        setWorkBlocks([...workBlocks, <WorkBlock key={workBlocks.length} />]);
+    };
 
     return (
         <Block display='flex'
@@ -269,6 +275,10 @@ export const Expirience = () => {
 
                 </Block>
 
+                {workBlocks && workBlocks.map((block, index) => (
+                    <div key={index}>{block}</div>
+                ))}
+
                 <Button display='flex'
                     justifyContent='center'
                     alignItems='center'
@@ -277,7 +287,8 @@ export const Expirience = () => {
                     padding='20px 40px 20px 40px'
                     marginTop='24px'
                     marginBottom='5px'
-                    width='400px'>
+                    width='400px'
+                    onClick={duplicateWorkBlocks}>
                     <Image src={PlusIcon} alt="" />
                     <Span fontFamily='Nunito' fontSize='18px'
                         text='Добавить место работы' />
