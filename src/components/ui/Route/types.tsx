@@ -18,4 +18,6 @@ export interface ILink {
 	flexDirection?: string
 	to?: string;
 	textDecoration?: string
+	gap?: string;
+	active?: boolean; 
 }

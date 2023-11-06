@@ -1,6 +1,7 @@
 import { Registration } from '../../pages/registration'
 import { Login } from '../../pages/login'
 import { RecoverPassword } from '../../pages/recover'
+import { Resume } from '../../pages/resume'
 
 export const PublicRoutes = [
 	{
@@ -17,7 +18,11 @@ export const PublicRoutes = [
 			{
 				path: 'recover',
 				element: <RecoverPassword />
-			}
+			},
+			{
+				path: 'resume',
+				element: <Resume />
+			},
 		]
 	}
 ]

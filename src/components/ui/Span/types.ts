@@ -4,6 +4,7 @@ export interface ISpan {
 	text?: string;
 	color?: string;
 	width?: string;
+	height?: string;
 	marginBottom?: string;
 	marginTop?: string;
 	fontSize?: string;
@@ -15,5 +16,7 @@ export interface ISpan {
 	marginRight?: string;
 	cursor?: string;
 	display?: string;
-	flexDirection?: string
+	flexDirection?: string;
+	marginLeft?: string;
+	padding?: string;
 }

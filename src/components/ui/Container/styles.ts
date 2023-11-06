@@ -5,4 +5,5 @@ export const Container = styled.div<IContainerProps>`
   display: flex;
   justify-content: center;
   align-items: center;
+  background-color: ${(props) => props.backgroundColor};
 `

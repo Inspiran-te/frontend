@@ -10,5 +10,9 @@ export const InputWrapper = styled.input<InputProps>`
   height: ${(props) => props.height};
   outline: ${(props) => props.outline};
   font-family: ${props => props.fontFamily};
-  font-size: ${props => props.fontSize}
+  font-size: ${props => props.fontSize};
+  padding: ${props => props.padding};
+  border-radius: ${props => props.borderRadius};
+  rows: ${props => props.rows};
+  cols: ${props => props.cols};
 `
