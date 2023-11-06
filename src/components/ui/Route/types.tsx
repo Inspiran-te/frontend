@@ -2,7 +2,7 @@ import { ReactNode } from 'react'
 
 export interface ILink {
 	text?: string;
-	color?: string;
+	color?: string | object;
 	width?: string;
 	marginBottom?: string;
 	marginTop?: string;

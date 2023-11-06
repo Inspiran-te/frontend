@@ -7,6 +7,6 @@ export const theme = {
 		grey_Light: '#F7F7F8',
 		grey: '#878B99',
 		blue_light: '#D0E5F7',
-		disable_grey: "#DFE1EB"
+		disable_grey: '#DFE1EB'
 	}
 }

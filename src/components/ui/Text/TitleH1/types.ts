@@ -7,4 +7,5 @@ export interface ITitleH1 {
 	fontBold?: string;
 	fontWeight?: string;
 	fontFamily?: string;
+	textAlign?: string;
 }

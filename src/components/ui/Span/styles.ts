@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 import { ISpan } from './types'
 
-export const SpanWrapper = styled.span<ISpan>`
+export const Span = styled.span<ISpan>`
   margin-bottom: ${props => props.marginBottom};
   margin-top: ${props => props.marginTop};
   margin-right: ${props => props.marginRight};

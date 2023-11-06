@@ -9,7 +9,7 @@ export const AppRoutes = () => {
 
 	//const routes = auth ? PrivateRoutes : PublicRoutes
 
-	const element = useRoutes([...(PublicRoutes)])
+	const element = useRoutes([...(PublicRoutes), ...(PrivateRoutes)])
 	console.log('AppRoutes', PublicRoutes)
 	return <>{element}</>
 }
