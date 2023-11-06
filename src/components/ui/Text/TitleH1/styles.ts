@@ -9,4 +9,5 @@ export const TitleWrapper = styled.h1<ITitleH1>`
   font-weight: ${props => props.fontWeight};
   color: ${props => props.color};
   font-family: ${props => props.fontFamily};
+	text-align: ${props => props.textAlign};
 `

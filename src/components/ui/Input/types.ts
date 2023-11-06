@@ -1,6 +1,7 @@
 import { InputHTMLAttributes } from 'react'
 
 export interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
+	marginRight?: string
 	marginBottom?: string;
 	marginTop?: string;
 	backgroundColor?: string;

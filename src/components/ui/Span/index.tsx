@@ -3,10 +3,10 @@ import { ISpan } from './types'
 import * as SC from './styles'
 
 const Span: FC<ISpan> = ({ text, children, ...props }) => (
-	<SC.SpanWrapper {...props}>
+	<SC.Span {...props}>
 		{text}
 		{children}
-	</SC.SpanWrapper>
+	</SC.Span>
 )
 
 export default Span
