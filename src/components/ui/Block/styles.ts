@@ -1,9 +1,11 @@
 import styled from 'styled-components'
 import { IBlockProps } from './types'
 
-export const BlockWrapper = styled.button<IBlockProps>`
+export const BlockWrapper = styled.div<IBlockProps>`
   margin-bottom: ${props => props.marginBottom};
   margin-top: ${props => props.marginTop};
+  margin-left: ${props => props.marginLeft};
+  margin-right: ${props => props.marginRight};
   background-color: ${(props) => props.backgroundColor};
   align-items: ${(props) => props.alignItems};
   display: ${(props) => props.display};
@@ -14,5 +16,13 @@ export const BlockWrapper = styled.button<IBlockProps>`
   height: ${(props) => props.height};
   border: ${(props) => props.border};
 	font-size: ${props => props.fontSize};
+  justify-content: ${props => props.justifyContent};
+  font-weight: ${props => props.fontWeight};
+  font-family: ${props => props.fontFamily};
+  color: ${props => props.color};
+  box-sizing: ${props => props.boxSizing};
+  text-align: ${props => props.textAlign};
+  position: ${props => props.position};
+  top: ${props => props.top};
 `
 

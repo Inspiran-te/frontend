@@ -16,4 +16,13 @@ export interface IBlockProps {
 	height?: string;
 	border?: string;
 	fontSize?: string
+	fontFamily?: string;
+	fontWeight?: string;
+	justifyContent?: string;
+	marginLeft?: string;
+	marginRight?: string;
+	boxSizing?: string;
+	textAlign?: string;
+	position?: string;
+	top?: string;
 }

@@ -16,6 +16,7 @@ import { GreyLine } from '../ui/Line'
 import Link from '../../components/ui/Route'
 import { WrapperLeft } from '../ui/Wrapper/Left'
 import { ButtonsWrapper } from '../ui/Wrapper/Buttons'
+import Image from '../ui/Img'
 
 export const RegistrationWrapperLeft = () => {
 
@@ -34,11 +35,11 @@ export const RegistrationWrapperLeft = () => {
 							fontFamily='Nunito' />
 				<Link text='Войти'
 							cursor='pointer'
-							color={theme.colors.Primary_Purple}
 							fontWeight='500'
 							fontFamily='Nunito'
 							to='/auth/login'
-							textDecoration='none' />
+							textDecoration='none'
+							active />
 			</Span>
 
 			<Span text='Войти через'
@@ -56,7 +57,7 @@ export const RegistrationWrapperLeft = () => {
 								height='68px'
 								backgroundColor={theme.colors.white}
 								padding='6px 8px 12px 8px'>
-					<img src={Google} alt='' />
+					<Image src={Google} alt='' />
 					<Span text='Google' color='black' fontFamily='Nunito' />
 				</Button>
 
@@ -68,7 +69,7 @@ export const RegistrationWrapperLeft = () => {
 								height='68px'
 								backgroundColor={theme.colors.black}
 								padding='6px 8px 12px 8px'>
-					<img src={Github} alt='' />
+					<Image src={Github} alt='' />
 					<Span text='Github' color='white' fontFamily='Nunito' />
 				</Button>
 
@@ -81,27 +82,26 @@ export const RegistrationWrapperLeft = () => {
 								backgroundColor={theme.colors.blue}
 								padding='6px 8px 12px 8px'
 								border='none'>
-					<img src={LinkedIN} alt='' />
+					<Image src={LinkedIN} alt='' />
 					<Span text='Linkedin' color='white' fontFamily='Nunito' />
 				</Button>
-
 			</ButtonsWrapper>
 
-			<GreyLine marginBottom='20px' marginTop='20px' />
+			<GreyLine width='440px' marginBottom='20px' marginTop='20px' />
 
 			<Span text='Или с помощью почты и пароля'
 						marginBottom='18px'
 						fontFamily='Nunito'
 			/>
 
-			<div>
+			<Block>
 				<Label text='Имя' marginTop='16px' fontFamily='Nunito' />
 				<Block backgroundColor={theme.colors.grey_Light}
 							 display='flex'
 							 alignItems='center'
 							 borderRadius='50px'
-							 padding='16px 24px 16px 24px'
-							 width='440px'
+							 padding='16px 0px 16px 24px'
+							 width='95%'
 							 marginBottom='16px'
 							 border='none'
 							 marginTop='5px'
@@ -115,13 +115,13 @@ export const RegistrationWrapperLeft = () => {
 								 fontFamily='Nunito'
 								 fontSize='18px' />
 				</Block>
+
 				<Label text='Фамилия' marginTop='16px' fontFamily='Nunito' />
 				<Block backgroundColor={theme.colors.grey_Light}
 							 display='flex'
 							 alignItems='center'
 							 borderRadius='50px'
-							 padding='16px 24px 16px 24px'
-							 width='440px'
+							 padding='16px 0px 16px 24px'
 							 marginBottom='16px'
 							 border='none'
 							 marginTop='5px'>
@@ -134,17 +134,17 @@ export const RegistrationWrapperLeft = () => {
 								 fontFamily='Nunito'
 								 fontSize='18px' />
 				</Block>
+
 				<Label text='E-mail' marginTop='16px' fontFamily='Nunito' />
 				<Block backgroundColor={theme.colors.grey_Light}
 							 display='flex'
 							 alignItems='center'
 							 borderRadius='50px'
-							 padding='16px 24px 16px 24px'
-							 width='440px'
+							 padding='16px 0px 16px 24px'
 							 marginBottom='16px'
 							 border='none'
 							 marginTop='5px'>
-					<img src={Letter} alt='' />
+					<Image src={Letter} alt='' />
 					<Input type='text'
 								 placeholder='example@gmail.com'
 								 backgroundColor={theme.colors.grey_Light}
@@ -154,18 +154,17 @@ export const RegistrationWrapperLeft = () => {
 								 fontFamily='Nunito'
 								 fontSize='18px' />
 				</Block>
+
 				<Label text='Пароль' />
 				<Block backgroundColor={theme.colors.grey_Light}
 							 display='flex'
 							 alignItems='center'
 							 borderRadius='50px'
-							 padding='16px 24px 16px 24px'
-							 width='440px'
-							 marginBottom='28px'
+							 padding='16px 0px 16px 24px'
 							 border='none'
 							 marginTop='5px'
 				>
-					<img src={LockIcon} alt='' />
+					<Image src={LockIcon} alt='' />
 					<Input type='password'
 								 placeholder='Придумайте пароль'
 								 backgroundColor={theme.colors.grey_Light}
@@ -174,9 +173,18 @@ export const RegistrationWrapperLeft = () => {
 								 width='328px'
 								 fontFamily='Nunito'
 								 fontSize='18px'
+								 marginRight='9px'
 					/>
-					<img src={PasswordEye} alt='' />
+					<Image src={PasswordEye} alt='' />
 				</Block>
+
+				<Span marginTop='16px' marginBottom='20px' display='flex' flexDirection='column' color={theme.colors.grey}
+							fontSize='14px' padding='0 24px 0 24px'>
+					<Span text='Заглавные и строчные буквы латинского алфавита (A-z)' />
+					<Span text='Цифры и спец.символы (!@#$_%^&*)' />
+					<Span text='8 символов' />
+				</Span>
+
 				<Button display='flex'
 								alignItems='center'
 								borderRadius='50px'
@@ -185,16 +193,16 @@ export const RegistrationWrapperLeft = () => {
 								backgroundColor={theme.colors.Primary_Purple}
 								border='none'
 								justifyContent='center'>
-					<Span text='Регистрация' color='#FFFFFF' marginRight='10px' fontFamily='Nunito' fontSize='18px' />
+					<Span text='Зарегистрироваться' color='#FFFFFF' marginRight='10px' fontFamily='Nunito' fontSize='18px' />
 				</Button>
-			</div>
-			<Span marginTop='20px' marginBottom='26px' display='flex' flexDirection='column'>
-				<Span text='Нажимая кнопку «Зарегистрироваться», вы принимаете условия' color={theme.colors.grey}
-							fontSize='14px' />
+
+			</Block>
+
+			<Span marginTop='20px' marginBottom='26px' display='flex' flexDirection='column' fontSize='14px'>
+				<Span text='Нажимая кнопку «Зарегистрироваться», вы принимаете условия' color={theme.colors.grey} />
 				<Span text='пользовательского соглашения' cursor='pointer'
 							color={theme.colors.Primary_Purple}
-							fontWeight='500'
-							fontSize='14px' />
+							fontWeight='500' />
 			</Span>
 
 		</WrapperLeft>

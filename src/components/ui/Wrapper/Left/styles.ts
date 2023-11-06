@@ -11,4 +11,5 @@ export const WrapperLeft = styled.div<IWrapperLeftProps>`
   border-radius: 40px;
   flex-direction: column;
   box-sizing: border-box;
+	text-align: ${props => props.textAlign};
 `

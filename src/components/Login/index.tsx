@@ -17,6 +17,7 @@ import Label from '../ui/Label'
 import Span from '../ui/Span'
 import TitleH1 from '../ui/Text/TitleH1'
 import Link from '../ui/Route'
+import Image from '../ui/Img'
 
 export const LoginWrapperLeft = () => {
 
@@ -35,11 +36,11 @@ export const LoginWrapperLeft = () => {
 							fontFamily='Nunito' />
 				<Link text='Регистрация'
 							cursor='pointer'
-							color={theme.colors.Primary_Purple}
 							fontWeight='500'
 							fontFamily='Nunito'
 							to='/auth/register'
-							textDecoration='none' />
+							textDecoration='none'
+							active />
 			</Span>
 
 			<Span text='Войти через'
@@ -57,7 +58,7 @@ export const LoginWrapperLeft = () => {
 								height='68px'
 								backgroundColor={theme.colors.white}
 								padding='6px 8px 12px 8px'>
-					<img src={Google} alt='Google' />
+					<Image src={Google} alt='Google' />
 					<Span text='Google' color='black' fontFamily='Nunito' />
 				</Button>
 
@@ -69,7 +70,7 @@ export const LoginWrapperLeft = () => {
 								height='68px'
 								backgroundColor={theme.colors.black}
 								padding='6px 8px 12px 8px'>
-					<img src={Github} alt='Github' />
+					<Image src={Github} alt='Github' />
 					<Span text='Github' color='white' fontFamily='Nunito' />
 				</Button>
 
@@ -82,31 +83,30 @@ export const LoginWrapperLeft = () => {
 								backgroundColor={theme.colors.blue}
 								padding='6px 8px 12px 8px'
 								border='none'>
-					<img src={LinkedIN} alt='LinkedIN' />
+					<Image src={LinkedIN} alt='LinkedIN' />
 					<Span text='Linkedin' color='white' fontFamily='Nunito' />
 				</Button>
 
 			</ButtonsWrapper>
 
-			<GreyLine marginTop='32px' marginBottom='32px' />
+			<GreyLine width='440px' marginTop='32px' marginBottom='32px' />
 
 			<Span text='Или с помощью почты и пароля'
 						marginBottom='18px'
 						fontFamily='Nunito'
 			/>
 
-			<div>
+			<Block>
 				<Label text='E-mail' marginTop='16px' fontFamily='Nunito' />
 				<Block backgroundColor={theme.colors.grey_Light}
 							 display='flex'
 							 alignItems='center'
 							 borderRadius='50px'
-							 padding='16px 24px 16px 24px'
-							 width='440px'
+							 padding='16px 0px 16px 24px'
 							 marginBottom='16px'
 							 border='none'
 							 marginTop='5px'>
-					<img src={Letter} alt='' />
+					<Image src={Letter} alt='' />
 					<Input type='text'
 								 placeholder='example@gmail.com'
 								 backgroundColor={theme.colors.grey_Light}
@@ -114,20 +114,20 @@ export const LoginWrapperLeft = () => {
 								 outline='none'
 								 width='328px'
 								 fontFamily='Nunito'
-								 fontSize='18px' />
+								 fontSize='18px'
+								 marginRight='9px' />
 				</Block>
 				<Label text='Пароль' />
 				<Block backgroundColor={theme.colors.grey_Light}
 							 display='flex'
 							 alignItems='center'
 							 borderRadius='50px'
-							 padding='16px 24px 16px 24px'
-							 width='440px'
+							 padding='16px 0px 16px 24px'
 							 marginBottom='28px'
 							 border='none'
 							 marginTop='5px'
 				>
-					<img src={LockIcon} alt='' />
+					<Image src={LockIcon} alt='' />
 					<Input type='password'
 								 placeholder='Введите пароль'
 								 backgroundColor={theme.colors.grey_Light}
@@ -137,7 +137,7 @@ export const LoginWrapperLeft = () => {
 								 fontFamily='Nunito'
 								 fontSize='18px'
 					/>
-					<img src={PasswordEye} alt='' />
+					<Image src={PasswordEye} alt='' />
 				</Block>
 				<Button display='flex'
 								alignItems='center'
@@ -148,14 +148,16 @@ export const LoginWrapperLeft = () => {
 								border='none'
 								justifyContent='center'>
 					<Span text='Войти' color='#FFFFFF' marginRight='10px' fontFamily='Nunito' fontSize='18px' />
-					<img src={Arrow} alt='' />
+					<Image src={Arrow} alt='' />
 				</Button>
-			</div>
+			</Block>
 			<Span marginTop='20px' fontFamily='Nunito'>
 				<Span text='Забыли пароль? ' color={theme.colors.grey} fontSize='14px' />
-				<Span text='Восстановить здесь' cursor='pointer'
-							color={theme.colors.Primary_Purple}
-							fontWeight='500' />
+				<Link text='Восстановить здесь' cursor='pointer'
+							to='/auth/recover'
+							active
+							fontWeight='500'
+							textDecoration='none' />
 			</Span>
 		</WrapperLeft>
 	)
