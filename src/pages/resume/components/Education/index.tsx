@@ -38,12 +38,12 @@ export const Education = () => {
                 justifyContent='space-between'
                 alignItems='center'
                 width='100%'
-            >
+                >
 
                 <Block display='flex'
                     justifyContent='center'
                     alignItems='center'
-                >
+                    >
                     <Image src={EducationIcon} alt="" />
                     <Span fontFamily='Unbounded'
                         fontSize='24px'
@@ -218,7 +218,7 @@ export const Education = () => {
                         padding='26px 20px 26px 20px'
                         height='40px'
                         width='370px'
-                    >
+                        >
                         <Image width='24px' height='24px' src={Smile} alt="" />
 
                         <Span marginLeft='20px'
