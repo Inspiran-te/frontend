@@ -35,7 +35,7 @@ export const Header = () => {
 						 color={theme.colors.grey}
 			>
 				<Link to='/api/main' marginRight='24px' textDecoration='none'>Главная</Link>
-				<Link to='/api/resume' marginRight='24px' active textDecoration='none'>Резюме</Link>
+				<Link to='/api/resume' marginRight='24px' textDecoration='none'>Резюме</Link>
 				<Link to='/api/responsetable' marginRight='24px' textDecoration='none'>Таблица откликов</Link>
 				<Link to='/api/knowledgebase' marginRight='24px' textDecoration='none'>База знаний</Link>
 				<Link to='/api/careeradvices' marginRight='24px' textDecoration='none'>Карьерные консультации</Link>

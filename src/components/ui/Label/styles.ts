@@ -7,4 +7,6 @@ export const LabelWrapper = styled.label<ILabel>`
   font-size: ${props => props.fontSize};
   font-bold: ${props => props.fontBold};
   font-family: ${props => props.fontFamily};
+  display: ${props => props.display};
+  align-items: ${props => props.alignItems};
 `
