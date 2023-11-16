@@ -9,4 +9,8 @@ export const LabelWrapper = styled.label<ILabel>`
   font-family: ${props => props.fontFamily};
   display: ${props => props.display};
   align-items: ${props => props.alignItems};
+  border-radius: ${props => props.borderRadius};
+  background-color: ${props => props.backgroundColor};
+  width: ${props => props.width};
+  height: ${props => props.height};
 `

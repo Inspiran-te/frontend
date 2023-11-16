@@ -13,4 +13,9 @@ export interface ILabel {
 	htmlFor?: string;
 	display?: string;
 	alignItems?: string;
+	borderRadius?: string;
+	backgroundColor?: string;
+	width?: string;
+	height?: string;
+	
 }
