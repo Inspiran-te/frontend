@@ -49,32 +49,6 @@ export const ElementsTable = ({ data }: ElementTableProps) => {
 
                 </Block>
             ))}
-
-
-            {/* <Span text={data.}
-                fontSize='12px'
-                fontWeight='400'
-                fontFamily='Nunito' />
-            <Span text='Вакансия (ссылка)'
-                fontSize='12px'
-                fontWeight='400'
-                fontFamily='Nunito' />
-            <Span text='Должность'
-                fontSize='12px'
-                fontWeight='400'
-                fontFamily='Nunito' />
-            <Span text='Контакты рекрутера'
-                fontSize='12px'
-                fontWeight='400'
-                fontFamily='Nunito' />
-            <Span text='Статус'
-                fontSize='12px'
-                fontWeight='400'
-                fontFamily='Nunito' />
-            <Span text='Комментарии'
-                fontSize='12px'
-                fontWeight='400'
-                fontFamily='Nunito' /> */}
         </>
     )
 }
