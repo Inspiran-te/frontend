@@ -22,7 +22,7 @@ export const PrivateRoutes = [
 				element: <ResponseTable />
 			},
 			{
-				path: 'knowledgebase',
+				path: 'knowledgebase/*',
 				element: <KnowledgeBase />
 			},
 			{

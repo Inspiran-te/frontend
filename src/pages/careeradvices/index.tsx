@@ -1,3 +1,7 @@
 import React from 'react'
+import Loader from '../../components/ui/Loader'
 
-export const CareerAdvices= () => <div>Это страница карьерных консультаций</div>
+export const CareerAdvices= () => <div>
+
+
+</div>
