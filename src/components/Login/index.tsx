@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Google from '../../assets/GoogleIcon.svg'
 import Github from '../../assets/GithubIcon.svg'
 import LinkedIN from '../../assets/LinkedINicon.svg'
@@ -18,8 +18,49 @@ import Span from '../ui/Span'
 import TitleH1 from '../ui/Text/TitleH1'
 import Link from '../ui/Route'
 import Image from '../ui/Img'
+import { useLoginMutation } from '../../api/auth'
+import { useNavigate } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
+import { ILoginRequest } from '../../api/auth/types'
+import { setCredentials } from '../../features/authSlice'
 
 export const LoginWrapperLeft = () => {
+	const [user, setUser] = useState<ILoginRequest>({
+		username: '',
+		password: '',
+		accessToken: '',
+		refreshToken: '',
+		id: ''
+	})
+
+
+	const navigate = useNavigate()
+	const dispatch = useDispatch()
+	const [login] = useLoginMutation()
+
+	const handleLoginUser = async () => {
+		try {
+			if (user) {
+				await login(user).unwrap()
+					.then((result) => {
+						const { id, refreshToken, accessToken } = result
+						dispatch(
+							setCredentials({
+								auth: {
+									id,
+									access: accessToken,
+									refresh: refreshToken,
+									authenticated: true
+								}
+							})
+						)
+						navigate('/api/main')
+					})
+			}
+		} catch (error) {
+			console.error('Login failed:', error)
+		}
+	}
 
 	return (
 		<WrapperLeft height='840px'>
@@ -115,7 +156,12 @@ export const LoginWrapperLeft = () => {
 								 width='328px'
 								 fontFamily='Nunito'
 								 fontSize='18px'
-								 marginRight='9px' />
+								 marginRight='9px'
+								 onChange={(e) => {
+									 setUser({ ...user, username: e.target.value })
+									 console.log(e.target.value)
+								 }}
+					/>
 				</Block>
 				<Label text='Пароль' />
 				<Block backgroundColor={theme.colors.grey_Light}
@@ -136,6 +182,9 @@ export const LoginWrapperLeft = () => {
 								 width='328px'
 								 fontFamily='Nunito'
 								 fontSize='18px'
+								 onChange={(e) => {
+									 setUser({ ...user, password: e.target.value })
+								 }}
 					/>
 					<Image src={PasswordEye} alt='' />
 				</Block>
@@ -146,7 +195,9 @@ export const LoginWrapperLeft = () => {
 								padding='20px 40px 20px 40px'
 								backgroundColor={theme.colors.Primary_Purple}
 								border='none'
-								justifyContent='center'>
+								justifyContent='center'
+								onClick={handleLoginUser}
+				>
 					<Span text='Войти' color='#FFFFFF' marginRight='10px' fontFamily='Nunito' fontSize='18px' />
 					<Image src={Arrow} alt='' />
 				</Button>
