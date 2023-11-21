@@ -3,6 +3,7 @@ import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
 import { Doughnut } from 'react-chartjs-2';
 import { theme } from '../../../theme/theme';
 
+
 ChartJS.register(ArcElement, Tooltip, Legend);
 
 export const data = {
@@ -23,12 +24,21 @@ export const data = {
   ],
 };
 const options = {
-  cutout: '72%', // Установите желаемую ширину круга в процентах
+  cutout: '72%',
+  plugins: {
+    tooltip: {
+      enabled: false,
+    },
+    legend: {
+      display: false,
+    },
+    text: 'Текст в центре'
+  }
 };
 export function DoughnutChart() {
     return (
       
-        <Doughnut data={data} options={options}/>
+        <Doughnut data={data} options={options} />
      
     );
   }

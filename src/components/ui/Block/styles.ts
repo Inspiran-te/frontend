@@ -24,5 +24,9 @@ export const BlockWrapper = styled.div<IBlockProps>`
   text-align: ${props => props.textAlign};
   position: ${props => props.position};
   top: ${props => props.top};
+  box-shadow: ${props => props.boxShadow};
+  border-bottom: ${props => props.borderBottom};
+  flex-wrap: ${props => props.flexWrap};
+  gap: ${props => props.gap};
 `
 

@@ -11,28 +11,28 @@ export const Header = () => {
 
 	return (
 		<Headers display='flex'
-						 justifyContent='space-between'
-						 alignItems='center'
-						 borderRadius='66px'
-						 backgroundColor={theme.colors.white}
-						 padding='14px 25px 14px 25px'
-						 marginTop='16px'
-						 border='none'
-						 position='sticky'
-						 top='0px'
-						 boxSizing='border-box'
+			justifyContent='space-between'
+			alignItems='center'
+			borderRadius='66px'
+			backgroundColor={theme.colors.white}
+			padding='14px 25px 14px 25px'
+			marginTop='16px'
+			border='none'
+			position='sticky'
+			top='0px'
+			boxSizing='border-box'
 		>
 
 			<Image width='52px' height='52px' src={Logo} alt='' />
 
 			<Block backgroundColor={theme.colors.white}
-						 display='flex'
-						 alignItems='center'
-						 border='none'
-						 fontSize='18px'
-						 fontFamily='Nunito'
-						 fontWeight='400'
-						 color={theme.colors.grey}
+				display='flex'
+				alignItems='center'
+				border='none'
+				fontSize='18px'
+				fontFamily='Nunito'
+				fontWeight='400'
+				color={theme.colors.grey}
 			>
 				<Link to='/api/main' marginRight='24px' textDecoration='none'>Главная</Link>
 				<Link to='/api/resume' marginRight='24px' textDecoration='none'>Резюме</Link>
