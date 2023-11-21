@@ -1,10 +1,11 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Google from '../../assets/GoogleIcon.svg'
 import Github from '../../assets/GithubIcon.svg'
 import LinkedIN from '../../assets/LinkedINicon.svg'
 import Letter from '../../assets/letterInput.svg'
 import LockIcon from '../../assets/lockIcon.svg'
 import PasswordEye from '../../assets/EyeOn.png'
+import SuccessIcon from '../../assets/SuccessIcon.svg'
 import { Button } from '../ui/Button'
 import { Block } from '../ui/Block'
 import { Input } from '../ui/Input'
@@ -17,8 +18,64 @@ import Link from '../../components/ui/Route'
 import { WrapperLeft } from '../ui/Wrapper/Left'
 import { ButtonsWrapper } from '../ui/Wrapper/Buttons'
 import Image from '../ui/Img'
+import { useRegistrationMutation } from '../../api/auth'
+import { IRegistrationRequest, IRegistrationResponse } from '../../api/auth/types'
+import { Modal } from '../ui/Modal'
+import Arrow from '../../assets/arrow.svg'
+import { useNavigate } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
+import { setCredentials } from '../../features/authSlice'
 
 export const RegistrationWrapperLeft = () => {
+	const [newUser, setNewUser] = useState<IRegistrationRequest>({
+		name: '',
+		surname: '',
+		email: '',
+		password: '',
+		id: '',
+		accessToken: '',
+		refreshToken: ''
+	})
+	const [isModalVisible, setIsModalVisible] = useState(false)
+	const [passwordShown, setPasswordShown] = useState(false)
+	const navigate = useNavigate()
+	const dispatch = useDispatch()
+
+	const [registration] = useRegistrationMutation<IRegistrationResponse>()
+
+	const handleRegisterUser = async () => {
+		try {
+			if (newUser) {
+				await registration(newUser)
+					.unwrap()
+					.then((result) => {
+						const { id, refreshToken, accessToken } = result
+						setIsModalVisible(true)
+						dispatch(
+							setCredentials({
+								auth: {
+									id,
+									access: accessToken,
+									refresh: refreshToken,
+									authenticated: false
+								}
+							})
+						)
+					})
+			}
+		} catch (error) {
+			console.error('Registration failed:', error)
+		}
+	}
+
+	const onModalClose = () => {
+		setIsModalVisible(false)
+		navigate('/auth/login')
+	}
+
+	const showPassword = () => {
+		setPasswordShown(!passwordShown)
+	}
 
 	return (
 		<WrapperLeft>
@@ -39,7 +96,7 @@ export const RegistrationWrapperLeft = () => {
 							fontFamily='Nunito'
 							to='/auth/login'
 							textDecoration='none'
-							active />
+							color={theme.colors.Primary_Purple} />
 			</Span>
 
 			<Span text='Войти через'
@@ -105,15 +162,23 @@ export const RegistrationWrapperLeft = () => {
 							 marginBottom='16px'
 							 border='none'
 							 marginTop='5px'
-							 fontSize='18px'>
-					<Input type='text'
-								 placeholder='Иван'
-								 backgroundColor={theme.colors.grey_Light}
-								 border='none'
-								 outline='none'
-								 width='328px'
-								 fontFamily='Nunito'
-								 fontSize='18px' />
+							 fontSize='18px'
+
+				>
+					<Input
+						type='text'
+						placeholder='Иван'
+						backgroundColor={theme.colors.grey_Light}
+						border='none'
+						outline='none'
+						width='328px'
+						fontFamily='Nunito'
+						fontSize='18px'
+						value={newUser.name}
+						onChange={(e) => {
+							setNewUser({ ...newUser, name: e.target.value })
+						}}
+					/>
 				</Block>
 
 				<Label text='Фамилия' marginTop='16px' fontFamily='Nunito' />
@@ -132,7 +197,11 @@ export const RegistrationWrapperLeft = () => {
 								 outline='none'
 								 width='328px'
 								 fontFamily='Nunito'
-								 fontSize='18px' />
+								 fontSize='18px'
+								 value={newUser.surname}
+								 onChange={(e) => {
+									 setNewUser({ ...newUser, surname: e.target.value })
+								 }} />
 				</Block>
 
 				<Label text='E-mail' marginTop='16px' fontFamily='Nunito' />
@@ -152,7 +221,11 @@ export const RegistrationWrapperLeft = () => {
 								 outline='none'
 								 width='328px'
 								 fontFamily='Nunito'
-								 fontSize='18px' />
+								 fontSize='18px'
+								 value={newUser.email}
+								 onChange={(e) => {
+									 setNewUser({ ...newUser, email: e.target.value })
+								 }} />
 				</Block>
 
 				<Label text='Пароль' />
@@ -165,7 +238,7 @@ export const RegistrationWrapperLeft = () => {
 							 marginTop='5px'
 				>
 					<Image src={LockIcon} alt='' />
-					<Input type='password'
+					<Input type={passwordShown ? 'text' : 'password'}
 								 placeholder='Придумайте пароль'
 								 backgroundColor={theme.colors.grey_Light}
 								 border='none'
@@ -174,8 +247,11 @@ export const RegistrationWrapperLeft = () => {
 								 fontFamily='Nunito'
 								 fontSize='18px'
 								 marginRight='9px'
-					/>
-					<Image src={PasswordEye} alt='' />
+								 value={newUser.password}
+								 onChange={(e) => {
+									 setNewUser({ ...newUser, password: e.target.value })
+								 }} />
+					<Image src={PasswordEye} alt='' onClick={showPassword} cursor='pointer' />
 				</Block>
 
 				<Span marginTop='16px' marginBottom='20px' display='flex' flexDirection='column' color={theme.colors.grey}
@@ -192,7 +268,9 @@ export const RegistrationWrapperLeft = () => {
 								padding='20px 40px 20px 40px'
 								backgroundColor={theme.colors.Primary_Purple}
 								border='none'
-								justifyContent='center'>
+								justifyContent='center'
+								onClick={handleRegisterUser}
+				>
 					<Span text='Зарегистрироваться' color='#FFFFFF' marginRight='10px' fontFamily='Nunito' fontSize='18px' />
 				</Button>
 
@@ -204,6 +282,33 @@ export const RegistrationWrapperLeft = () => {
 							color={theme.colors.Primary_Purple}
 							fontWeight='500' />
 			</Span>
+
+			{isModalVisible ? <Modal visible={isModalVisible}>
+				<img src={SuccessIcon} alt='Success' />
+				<TitleH1 text='Спасибо'
+								 fontSize='50px'
+								 fontWeight='500'
+								 fontBold='700'
+								 fontFamily='Unbounded'
+								 marginBottom='16px' />
+				<Span text='Ваш аккаунт создан!'
+							fontFamily='Nunito'
+							marginTop='20px'
+							marginBottom='40px' />
+				<Button display='flex'
+								alignItems='center'
+								borderRadius='50px'
+								width='440px'
+								padding='20px 40px 20px 40px'
+								backgroundColor={theme.colors.Primary_Purple}
+								border='none'
+								justifyContent='center'
+								onClick={onModalClose}
+				>
+					<Span text='Войти' color='#FFFFFF' marginRight='10px' fontFamily='Nunito' fontSize='18px' />
+					<Image src={Arrow} alt='' />
+				</Button>
+			</Modal> : null}
 
 		</WrapperLeft>
 	)

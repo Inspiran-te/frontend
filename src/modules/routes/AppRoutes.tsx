@@ -1,15 +1,16 @@
 import { useRoutes } from 'react-router-dom'
-
+import { store } from '../../redux/store'
 import { PrivateRoutes } from './PrivateRoutes'
 import { PublicRoutes } from './PublicRoutes'
 
 export const AppRoutes = () => {
-	//Todo Добавить auth (после аутенфикации отображается PrivateRoutes)
-	//const auth = false
+	const authenticated = store.getState().auth.auth.authenticated
 
-	//const routes = auth ? PrivateRoutes : PublicRoutes
+	const routes = authenticated ? [...PrivateRoutes, ...PublicRoutes(authenticated)] : PublicRoutes(authenticated);
 
-	const element = useRoutes([...(PublicRoutes), ...(PrivateRoutes)])
-	console.log('AppRoutes', PublicRoutes)
+	const element = useRoutes([...routes]);
+
+	console.log('AppRoutes', routes)
+
 	return <>{element}</>
 }
