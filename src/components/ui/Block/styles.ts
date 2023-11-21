@@ -26,5 +26,7 @@ export const BlockWrapper = styled.div<IBlockProps>`
   top: ${props => props.top};
   box-shadow: ${props => props.boxShadow};
   border-bottom: ${props => props.borderBottom};
+  flex-wrap: ${props => props.flexWrap};
+  gap: ${props => props.gap};
 `
 

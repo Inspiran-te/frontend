@@ -27,4 +27,6 @@ export interface IBlockProps {
 	top?: string;
 	boxShadow?: string;
 	borderBottom?: string;
+	flexWrap?: string;
+	gap?: string;
 }
