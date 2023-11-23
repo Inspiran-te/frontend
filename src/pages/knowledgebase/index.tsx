@@ -11,8 +11,9 @@ import { Routing } from './components/routing'
 export const KnowledgeBase = () => {
 
     return (
-        <Container backgroundColor={theme.colors.grey_Light}>
-            <Block width='100%'
+        <Container backgroundColor={theme.colors.grey_Light} >
+            <Block width='100%' 
+            
                 display='flex'
                 flexDirection='column'
                 border='none'

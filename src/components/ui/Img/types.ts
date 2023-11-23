@@ -14,4 +14,6 @@ export interface IImage {
 	src?: string;
 	alt?: string;
 	onClick?: () => void;
+	cursor?: string;
+	boxShadow?: string;
 }

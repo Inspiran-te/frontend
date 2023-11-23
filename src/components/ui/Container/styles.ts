@@ -6,4 +6,5 @@ export const Container = styled.div<IContainerProps>`
   justify-content: center;
   align-items: center;
   background-color: ${(props) => props.backgroundColor};
+  height: ${(props) => props.height};
 `

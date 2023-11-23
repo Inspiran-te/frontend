@@ -21,7 +21,7 @@ export const Routing = () => {
     return (
         <Block backgroundColor={theme.colors.white}
             borderRadius='24px 24px 24px 24px'
-            marginTop='37px' height='500px'>
+            marginTop='37px' height='700px'>
             <Block
                 display='flex'
                 alignItems='center'

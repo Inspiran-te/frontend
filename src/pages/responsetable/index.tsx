@@ -12,6 +12,7 @@ import arrow from '../../assets/arrowRightWhite.svg'
 import { ImagesComponent } from './components/Images'
 import { CheckBoxComponent } from './components/Checkboxes'
 import { HeaderElementsTable } from './components/HeaderElementsTable'
+import linePurple from '../../assets/LineTwo.svg'
 
 const DATA = [
     {
