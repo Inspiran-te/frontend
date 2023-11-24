@@ -17,7 +17,8 @@ export const Analytics = () => {
             borderRadius='24px'
             marginLeft='20px'
             marginTop='28px'
-            padding='20px 20px 20px 20px'>
+            padding='20px 20px 20px 20px'
+            marginBottom='20px'>
             <Block display='flex' justifyContent='space-between'>
                 <Span text='Аналитика' fontSize='18px'
                     fontFamily='Nunito' />
@@ -50,7 +51,8 @@ export const Analytics = () => {
             </Block>
             <Block display='flex'
                 justifyContent='center'
-                marginTop='20px'>
+                marginTop='20px'
+                >
                 <Block border='1px solid #DFE1EB'
                     borderRadius='8px'
                     width='100px'
@@ -74,7 +76,7 @@ export const Analytics = () => {
                     display='flex'
                     flexDirection='column'
                     justifyContent='center'
-                    alignItems='center'>
+                    alignItems='center' >
                     <DoughnutChart />
                     <Span text='Тестовые'
                         fontSize='12px'

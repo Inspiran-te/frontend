@@ -18,6 +18,8 @@ export const ConsultantCard = () => {
             boxSizing='border-box'
             padding='20px 20px 20px 20px'
             backgroundColor={theme.colors.white}
+            boxShadow='0px 4px 20px 0px rgba(9, 13, 34, 0.08)'
+            
             >
 
             <Block display='flex' justifyContent='space-between'>
@@ -51,7 +53,8 @@ export const ConsultantCard = () => {
             fontSize='18px' 
             fontFamily='Nunito'
             color={theme.colors.Primary_Purple}
-            backgroundColor={theme.colors.white} >
+            backgroundColor={theme.colors.white} 
+            >
               Записаться  
             </Button>
 

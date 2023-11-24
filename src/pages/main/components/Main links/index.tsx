@@ -17,7 +17,7 @@ export const MainLinks = () => {
             textAlign='left'
             borderRadius='24px'
             backgroundColor={theme.colors.white}
-            padding='20px 0px 40px 40px'
+            padding='40px 0px 62px 40px'
             marginTop='28px'>
             <Block>
                 <TitleH2

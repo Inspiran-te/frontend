@@ -21,8 +21,8 @@ export const Main = () => {
 
                 <Header />
 
-                <Block display='flex'>
-                    <Block>
+                <Block display='flex' justifyContent='space-between'>
+                    <Block width='80%'>
                         <UploadResumeComp />
                         <MainLinks />
                     </Block>

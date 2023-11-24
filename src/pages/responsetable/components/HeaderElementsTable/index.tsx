@@ -20,12 +20,15 @@ export const HeaderElementsTable = () => {
                 fontSize='12px'
                 fontWeight='400'
                 fontFamily='Nunito'
+                
             />
 
             <Span text='Должность'
                 fontSize='12px'
                 fontWeight='400'
                 fontFamily='Nunito'
+                padding='0px 40px 0px 0px'
+                marginRight='20px'
             />
 
             <Span text='Контакты рекрутера'

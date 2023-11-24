@@ -13,7 +13,9 @@ export const CheckBoxComponent = () => {
 
         <Block display='flex'
             alignItems='center'
-            padding='0px 0px 0px 30px'>
+            padding='0px 0px 0px 30px'
+            justifyContent='space-between'
+            marginRight='20px'>
             <Block display='flex'
                 flexDirection='column'
                 justifyContent='center'
@@ -23,7 +25,7 @@ export const CheckBoxComponent = () => {
                 marginLeft='10px'
             >
                 <Image src={Check}
-                    marginTop='54px' />
+                    marginTop='70px' />
                 <Span text='150'
                     fontSize='18px'
                     color={theme.colors.Primary_Purple}
@@ -35,7 +37,11 @@ export const CheckBoxComponent = () => {
                 />
             </Block>
 
-            <Image src={LinePurple} />
+            <Block boxSizing='border-box'
+                width='100%' >
+                <Image src={LinePurple} 
+                width='100%' />
+            </Block>
 
             <Block display='flex'
                 flexDirection='column'
@@ -45,7 +51,7 @@ export const CheckBoxComponent = () => {
                 alignItems='center'
             >
                 <Image src={Check}
-                    marginTop='78px' />
+                    marginTop='90px' />
                 <Span text='150'
                     fontSize='18px'
                     color={theme.colors.Primary_Purple}
@@ -61,7 +67,11 @@ export const CheckBoxComponent = () => {
                 </Block>
             </Block>
 
-            <Image src={LinePurple} />
+            <Block boxSizing='border-box'
+                width='100%' >
+                <Image src={LinePurple} 
+                width='100%' />
+            </Block>
 
             <Block display='flex'
                 flexDirection='column'
@@ -71,7 +81,7 @@ export const CheckBoxComponent = () => {
                 alignItems='center'
             >
                 <Image src={Check}
-                    marginTop='76px' />
+                    marginTop='90px' />
                 <Span text='150'
                     fontSize='18px'
                     color={theme.colors.Primary_Purple}
@@ -91,7 +101,11 @@ export const CheckBoxComponent = () => {
                 </Block>
             </Block>
 
-            <Image src={LinePurple} />
+            <Block boxSizing='border-box'
+                width='100%' >
+                <Image src={LinePurple} 
+                width='100%' />
+            </Block>
 
             <Block display='flex'
                 flexDirection='column'
@@ -101,7 +115,7 @@ export const CheckBoxComponent = () => {
                 alignItems='center'
             >
                 <Image src={Check}
-                    marginTop='56px' />
+                    marginTop='68px' />
                 <Span text='150'
                     fontSize='18px'
                     color={theme.colors.Primary_Purple}
@@ -113,7 +127,11 @@ export const CheckBoxComponent = () => {
                 />
             </Block>
 
-            <Image src={LinePurple2} />
+            <Block boxSizing='border-box'
+                width='100%' >
+                <Image src={LinePurple}
+                width='100%' />
+            </Block>
 
             <Block display='flex'
                 flexDirection='column'
@@ -123,7 +141,7 @@ export const CheckBoxComponent = () => {
                 alignItems='center'
             >
                 <Image src={Check}
-                    marginTop='78px' />
+                    marginTop='89px' />
                 <Span text='150'
                     fontSize='18px'
                     color={theme.colors.Primary_Purple}
@@ -144,7 +162,11 @@ export const CheckBoxComponent = () => {
                 </Block>
             </Block>
 
-            <Image src={LinePurple} />
+            <Block boxSizing='border-box' 
+                width='100%' >
+                <Image src={LinePurple} 
+                width='100%' />
+            </Block>
 
             <Block display='flex'
                 flexDirection='column'
@@ -154,7 +176,7 @@ export const CheckBoxComponent = () => {
                 alignItems='center'
             >
                 <Image src={Check}
-                    marginTop='56px' />
+                    marginTop='68px' />
                 <Span text='150'
                     fontSize='18px'
                     color={theme.colors.Primary_Purple}
