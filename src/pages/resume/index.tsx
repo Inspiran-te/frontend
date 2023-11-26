@@ -19,38 +19,95 @@ import { Input } from '../../components/ui/Input'
 import axios from 'axios';
 import Label from '../../components/ui/Label'
 import { UploadedResume } from './components/UploadedResume'
+import { IInputsData } from './types'
 
 export const Resume = () => {
 	const [resumeUser, setResumeUser] = useState('')
-	const [inputsData, setInputsData] = useState<Record<string, string>>({});
+	const [inputsData, setInputsData] = useState<IInputsData>({
+		contact: {
+			name: '',
+			surname: '',
+			email: '',
+			phone: '',
+			linkedin: '',
+			github: '',
+			behance: '',
+			site: '',
+			country: ''
+		},
+		summary: {
+			summary: ''
+		},
+		skill: {
+			skills: ''
+		},
+		education: {
+			institutions: [
+				{
+					name: '',
+					position: '',
+					startDate: null,
+					endDate: null,
+					description: ''
+				}
+			]
+		},
+		experience: {
+			companies: [
+				{
+					name: '',
+					position: '',
+					startDate: null,
+					endDate: null,
+					description: ''
+				}
+			]
+		}
+
+	});
+	console.log('inputsData', inputsData);
+	
 	const userId = useSelector((state: RootState) => state.auth.auth.id);
 	const userToken = useSelector((state: RootState) => state.auth.auth.access);
 
 	const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		const { name, value } = e.target;
-		setInputsData((prevState) => ({ ...prevState, [name]: value }));
+		setInputsData((prevState) => ({
+			
+		  ...prevState,
+		  contact: {
+			...prevState.contact,
+			[name]: value
+		  },
+		  summary: {
+			...prevState.summary,
+			[name]: value
+		  },
+		  skill: {
+			...prevState.skill,
+			skills: value
+		  },
+		  
+		}));
 	};
 
-	const handleResumeUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
-		const selectedFile = e.target.files![0];
-
-		if (selectedFile) {
-			const formData = new FormData();
-			formData.append('file', selectedFile);
-
-			try {
-				await axios.post(`http://45.141.79.27:8084/pdf/uploadedPdf/${userId}`, formData, {
-					headers: {
-						'Content-Type': 'multipart/form-data',
-						'Authorization': `Bearer ${userToken}`,
-					}
-				});
-				console.log('успешно выполнено');
-			} catch (error) {
-				console.error(error);
+	const addInstitution = () => {
+		setInputsData((prevState) => ({
+			...prevState,
+			education: {
+			  ...prevState.education,
+			  institutions: [
+				{
+				  name: '',
+				  position: '',
+				  startDate: null,
+				  endDate: null,
+				  description: ''
+				}
+			  ]
 			}
-		}
-	};
+		  }));
+	}
 	const hasResume = async () => {
 		try {
 			const response = await axios.get(`http://45.141.79.27:8084/pdf/uploaded/${userId}`,
@@ -65,7 +122,28 @@ export const Resume = () => {
 		}
 
 	};
+	const handleResumeUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+		const selectedFile = e.target.files![0];
 
+		if (selectedFile) {
+			const formData = new FormData();
+			formData.append('file', selectedFile);
+
+			try {
+				await axios.post(`http://45.141.79.27:8084/pdf/uploadedPdf/${userId}`, formData, {
+					headers: {
+						'Content-Type': 'multipart/form-data',
+						'Authorization': `Bearer ${userToken}`,
+					}
+				});
+				hasResume()
+				console.log('успешно выполнено');
+			} catch (error) {
+				console.error(error);
+			}
+		}
+	};
+	
 	const deleteUploadUserResume = async () => {
 		try {
 			await axios.delete(`http://45.141.79.27:8084/pdf/uploaded/${userId}`,
@@ -133,9 +211,9 @@ export const Resume = () => {
 				</Block>
 				{resumeUser && <UploadedResume deleteUploadUserResume={deleteUploadUserResume}/>}
 
-				<Contacts />
-				<Sammery />
-				<Skills />
+				<Contacts handleInputChange={handleInputChange} inputsData={inputsData}/>
+				<Sammery handleInputChange={handleInputChange} inputsData={inputsData}/>
+				<Skills handleInputChange={handleInputChange} inputsData={inputsData}/>
 				<Expirience />
 				<Education />
 

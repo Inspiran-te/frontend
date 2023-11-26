@@ -9,8 +9,9 @@ import ArrowDown from '../../../../assets/ArrowDown.svg'
 import Smile from '../../../../assets/smile.png'
 import samIcon from '../../../../assets/SammeryIcon.svg'
 import { changeOpenBlock } from '../../../../helpers'
+import { SummeryProps } from './types'
 
-export const Sammery = () => {
+export const Sammery: React.FC<SummeryProps> = ({ handleInputChange, inputsData }) => {
     const [isOpen, setIsOpen] = useState(true);
     
     return (
@@ -54,6 +55,9 @@ export const Sammery = () => {
                         fontSize='18px'
                         padding='24px 24px 24px 24px'
                         borderRadius='24px'
+                        name='summary'
+						value={inputsData.summary.summary}
+                        onChange={handleInputChange} 
                     />
 
                     <Block backgroundColor='#EFEFF9'

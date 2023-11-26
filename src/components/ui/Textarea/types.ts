@@ -26,4 +26,7 @@ export interface ITextProps {
 	rows?: string;
 	cols?: string;
 	placeholder?: string;
+	name?: string;
+	value?: string;
+	onChange?: (e: React.ChangeEvent<HTMLInputElement>)=> void
 }
