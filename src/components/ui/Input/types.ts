@@ -15,4 +15,6 @@ export interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
 	borderRadius?: string;
 	rows?: string;
 	cols?: string;
+	opacity?: string;
+	zIndex?: number;
 }

@@ -12,17 +12,87 @@ import { Skills } from './components/Skills'
 import { Expirience } from './components/Expirience'
 import { Header } from '../../components/Header'
 import Image from '../../components/ui/Img'
+import { useEffect, useState } from 'react'
+import { useSelector } from 'react-redux';
+import { RootState } from '../../redux/store'
+import { Input } from '../../components/ui/Input'
+import axios from 'axios';
+import Label from '../../components/ui/Label'
+import { UploadedResume } from './components/UploadedResume'
 
 export const Resume = () => {
+	const [resumeUser, setResumeUser] = useState('')
+	const [inputsData, setInputsData] = useState<Record<string, string>>({});
+	const userId = useSelector((state: RootState) => state.auth.auth.id);
+	const userToken = useSelector((state: RootState) => state.auth.auth.access);
+
+	const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+		const { name, value } = e.target;
+		setInputsData((prevState) => ({ ...prevState, [name]: value }));
+	};
+
+	const handleResumeUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+		const selectedFile = e.target.files![0];
+
+		if (selectedFile) {
+			const formData = new FormData();
+			formData.append('file', selectedFile);
+
+			try {
+				await axios.post(`http://45.141.79.27:8084/pdf/uploadedPdf/${userId}`, formData, {
+					headers: {
+						'Content-Type': 'multipart/form-data',
+						'Authorization': `Bearer ${userToken}`,
+					}
+				});
+				console.log('успешно выполнено');
+			} catch (error) {
+				console.error(error);
+			}
+		}
+	};
+	const hasResume = async () => {
+		try {
+			const response = await axios.get(`http://45.141.79.27:8084/pdf/uploaded/${userId}`,
+				{
+					headers: {
+						'Authorization': `Bearer ${userToken}`,
+					}
+				});
+			setResumeUser(response.data)
+		} catch (error) {
+			console.error(error);
+		}
+
+	};
+
+	const deleteUploadUserResume = async () => {
+		try {
+			await axios.get(`http://45.141.79.27:8084/pdf/uploaded/${userId}`,
+				{
+					headers: {
+						'Authorization': `Bearer ${userToken}`,
+					}
+				});
+			setResumeUser('')
+		} catch (error) {
+			console.error(error);
+		}
+	}
+
+
+	useEffect(() => {
+		hasResume()
+	}, [])
 
 	return (
 		<Container backgroundColor={theme.colors.grey_Light}>
 			<Block width='100%'
-						 display='flex'
-						 flexDirection='column'
-						 border='none'
-						 boxSizing='border-box'
-						 padding='0px 40px 0px 40px'>
+				display='flex'
+				flexDirection='column'
+				border='none'
+				boxSizing='border-box'
+				padding='0px 40px 0px 40px'>
 
 				<Header />
 
@@ -33,33 +103,35 @@ export const Resume = () => {
 						fontWeight='400'
 						fontSize='36px' />
 					<Span text='Сюда вы можете загрузить своё резюме и/или воспользоваться нашей формой для для создания CV.'
-								fontFamily='Nunito'
-								fontSize='18px'
-								fontWeight='400'
-								marginTop='24px' />
+						fontFamily='Nunito'
+						fontSize='18px'
+						fontWeight='400'
+						marginTop='24px' />
 
 					<Button display='flex'
-									justifyContent='center'
-									alignItems='center'
-									border='2px solid #7400FF'
-									borderRadius='50px'
-									padding='20px 40px 20px 40px'
-									marginTop='24px'
-									marginBottom='5px'>
-						<Image src={ImgDownload} alt='' />
-						<Span fontFamily='Nunito' fontSize='18px'
-									text='Загрузить своё резюме' />
+						justifyContent='center'
+						alignItems='center'
+						border='2px solid #7400FF'
+						borderRadius='50px'
+						padding='20px 40px 20px 40px'
+						marginTop='24px'
+						marginBottom='5px'>
+						<Image src={ImgDownload} />
+						<Input id='fileAdd' marginRight='-250px' type='file' onChange={handleResumeUpload} opacity='0' />
+						<Label htmlFor='fileAdd' fontFamily='Nunito' fontSize='18px'
+							text='Загрузить своё резюме' />
 					</Button>
 
 					<Span fontFamily='Nunito' fontSize='16px'
-								text='Формат для загрузки pdf. Размер файла не должен привышать __ Мб.'
-								color={theme.colors.grey} />
+						text='Формат для загрузки pdf. Размер файла не должен привышать 10 Мб.'
+						color={theme.colors.grey} />
 					<Block marginTop='48px'>
 						<Span fontFamily='Nunito' fontSize='18px'
-									text='Чтобы создать резюме, которое можно будет отправлять напрямую рекрутерам и HR, заполните все поля. Вы в любое время сможете внести изменения :)'
+							text='Чтобы создать резюме, которое можно будет отправлять напрямую рекрутерам и HR, заполните все поля. Вы в любое время сможете внести изменения :)'
 						/>
 					</Block>
 				</Block>
+				{resumeUser && <UploadedResume deleteUploadUserResume={deleteUploadUserResume}/>}
 
 				<Contacts />
 				<Sammery />
@@ -68,16 +140,16 @@ export const Resume = () => {
 				<Education />
 
 				<Button display='flex'
-								justifyContent='center'
-								alignItems='center'
-								border='none'
-								borderRadius='50px'
-								padding='20px 40px 20px 40px'
-								margin='0 auto'
-								backgroundColor={theme.colors.disable_grey}
-								width='400px'>
+					justifyContent='center'
+					alignItems='center'
+					border='none'
+					borderRadius='50px'
+					padding='20px 40px 20px 40px'
+					margin='0 auto'
+					backgroundColor={theme.colors.disable_grey}
+					width='400px'>
 					<Span marginLeft='5px' fontFamily='Nunito' fontSize='18px'
-								text='Сохранить' color={theme.colors.grey} />
+						text='Сохранить' color={theme.colors.grey} />
 				</Button>
 
 			</Block>

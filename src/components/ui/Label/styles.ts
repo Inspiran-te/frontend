@@ -13,4 +13,5 @@ export const LabelWrapper = styled.label<ILabel>`
   background-color: ${props => props.backgroundColor};
   width: ${props => props.width};
   height: ${props => props.height};
+  htmlFor: ${props => props.htmlFor};
 `

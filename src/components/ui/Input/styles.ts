@@ -16,4 +16,6 @@ export const InputWrapper = styled.input<InputProps>`
   border-radius: ${props => props.borderRadius};
   rows: ${props => props.rows};
   cols: ${props => props.cols};
+  opacity: ${props => props.opacity};
+  z-index: ${props => props.zIndex};
 `
