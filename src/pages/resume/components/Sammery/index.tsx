@@ -44,7 +44,7 @@ export const Sammery: React.FC<SummeryProps> = ({ handleInputChange, inputsData 
             </Block>
 
             {isOpen && <>
-                <Block display='flex' justifyContent='center' marginTop='40px'>
+                <Block display='flex' justifyContent='space-between' marginTop='40px'>
                     <TextArea
                         rows="3"
                         cols="100"

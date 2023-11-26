@@ -22,4 +22,5 @@ export interface IButtonProps {
 	border?: string;
 	justifyContent?: string;
 	onClick?: () => void;
+	cursor?: string;
 }

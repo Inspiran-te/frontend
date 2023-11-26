@@ -4,8 +4,8 @@ import { Block } from '../ui/Block'
 import Image from '../../components/ui/Img'
 import AvatarUser from '../../assets/AvatarUser.png'
 import Logo from '../../assets/logo.svg'
-import Link from '../../components/ui/Route'
 import { Headers } from '../ui/Header/Index'
+import LinkForHeader from '../ui/Route/RouteForHeader'
 
 export const Header = () => {
 
@@ -32,14 +32,14 @@ export const Header = () => {
 				fontSize='18px'
 				fontFamily='Nunito'
 				fontWeight='400'
-				color={theme.colors.grey}
+
 			>
-				<Link to='/api/main' marginRight='24px' textDecoration='none'>Главная</Link>
-				<Link to='/api/resume' marginRight='24px' textDecoration='none'>Резюме</Link>
-				<Link to='/api/responsetable' marginRight='24px' textDecoration='none'>Таблица откликов</Link>
-				<Link to='/api/knowledgebase' marginRight='24px' textDecoration='none'>База знаний</Link>
-				<Link to='/api/careeradvices' marginRight='24px' textDecoration='none'>Карьерные консультации</Link>
-				<Link to='/api/help' marginRight='24px' textDecoration='none'>Помощь</Link>
+				<LinkForHeader to='/api/main' marginRight='24px' textDecoration='none'>Главная</LinkForHeader>
+				<LinkForHeader to='/api/resume' marginRight='24px' textDecoration='none'>Резюме</LinkForHeader>
+				<LinkForHeader to='/api/responsetable' marginRight='24px' textDecoration='none'>Таблица откликов</LinkForHeader>
+				<LinkForHeader to='/api/knowledgebase' marginRight='24px' textDecoration='none'>База знаний</LinkForHeader>
+				<LinkForHeader to='/api/careeradvices' marginRight='24px' textDecoration='none'>Карьерные консультации</LinkForHeader>
+				<LinkForHeader to='/api/help' marginRight='24px' textDecoration='none'>Помощь</LinkForHeader>
 			</Block>
 
 			<Image src={AvatarUser} alt='' />

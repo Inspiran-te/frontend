@@ -65,49 +65,71 @@ export const Resume = () => {
 		}
 
 	});
-	console.log('inputsData', inputsData);
-	
+
 	const userId = useSelector((state: RootState) => state.auth.auth.id);
 	const userToken = useSelector((state: RootState) => state.auth.auth.access);
 
 	const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		const { name, value } = e.target;
 		setInputsData((prevState) => ({
-			
-		  ...prevState,
-		  contact: {
-			...prevState.contact,
-			[name]: value
-		  },
-		  summary: {
-			...prevState.summary,
-			[name]: value
-		  },
-		  skill: {
-			...prevState.skill,
-			skills: value
-		  },
-		  
+
+			...prevState,
+			contact: {
+				...prevState.contact,
+				[name]: value
+			},
+			summary: {
+				...prevState.summary,
+				[name]: value
+			},
+			skill: {
+				...prevState.skill,
+				skills: value
+			},
+			education: {
+				...prevState.education,
+				institutions: [
+					{
+						name: '',
+						position: '',
+						startDate: null,
+						endDate: null,
+						description: ''
+					}
+				]
+			},
+			experience: {
+				...prevState.experience,
+				companies: [
+					{
+						name: '',
+						position: '',
+						startDate: null,
+						endDate: null,
+						description: ''
+					}
+				]
+			},
 		}));
 	};
 
-	const addInstitution = () => {
-		setInputsData((prevState) => ({
-			...prevState,
-			education: {
-			  ...prevState.education,
-			  institutions: [
-				{
-				  name: '',
-				  position: '',
-				  startDate: null,
-				  endDate: null,
-				  description: ''
-				}
-			  ]
-			}
-		  }));
-	}
+	// const addInstitution = () => {
+	// 	setInputsData((prevState) => ({
+	// 		...prevState,
+	// 		education: {
+	// 		  ...prevState.education,
+	// 		  institutions: [
+	// 			{
+	// 			  name: '',
+	// 			  position: '',
+	// 			  startDate: null,
+	// 			  endDate: null,
+	// 			  description: ''
+	// 			}
+	// 		  ]
+	// 		}
+	// 	  }));
+	// }
 	const hasResume = async () => {
 		try {
 			const response = await axios.get(`http://45.141.79.27:8084/pdf/uploaded/${userId}`,
@@ -143,7 +165,7 @@ export const Resume = () => {
 			}
 		}
 	};
-	
+
 	const deleteUploadUserResume = async () => {
 		try {
 			await axios.delete(`http://45.141.79.27:8084/pdf/uploaded/${userId}`,
@@ -157,7 +179,6 @@ export const Resume = () => {
 			console.error(error);
 		}
 	}
-
 
 	useEffect(() => {
 		hasResume()
@@ -193,9 +214,10 @@ export const Resume = () => {
 						borderRadius='50px'
 						padding='20px 40px 20px 40px'
 						marginTop='24px'
-						marginBottom='5px'>
+						marginBottom='5px'
+					>
 						<Image src={ImgDownload} />
-						<Input id='fileAdd' marginRight='-250px' type='file' onChange={handleResumeUpload} opacity='0' />
+						<Input id='fileAdd' cursor='pointer' marginRight='-250px' type='file' onChange={handleResumeUpload} opacity='0' />
 						<Label htmlFor='fileAdd' fontFamily='Nunito' fontSize='18px'
 							text='Загрузить своё резюме' />
 					</Button>
@@ -209,11 +231,11 @@ export const Resume = () => {
 						/>
 					</Block>
 				</Block>
-				{resumeUser && <UploadedResume deleteUploadUserResume={deleteUploadUserResume}/>}
+				{resumeUser && <UploadedResume deleteUploadUserResume={deleteUploadUserResume} />}
 
-				<Contacts handleInputChange={handleInputChange} inputsData={inputsData}/>
-				<Sammery handleInputChange={handleInputChange} inputsData={inputsData}/>
-				<Skills handleInputChange={handleInputChange} inputsData={inputsData}/>
+				<Contacts handleInputChange={handleInputChange} inputsData={inputsData} />
+				<Sammery handleInputChange={handleInputChange} inputsData={inputsData} />
+				<Skills handleInputChange={handleInputChange} inputsData={inputsData} />
 				<Expirience />
 				<Education />
 

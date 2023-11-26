@@ -18,4 +18,5 @@ export const InputWrapper = styled.input<InputProps>`
   cols: ${props => props.cols};
   opacity: ${props => props.opacity};
   z-index: ${props => props.zIndex};
+  cursor: ${props => props.cursor};
 `

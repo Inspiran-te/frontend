@@ -45,7 +45,7 @@ export const Skills: React.FC<SkillsProps> = ({ handleInputChange, inputsData })
                 {!isOpen && <Image src={ArrowDown} alt="" onClick={() => changeOpenBlock(isOpen, setIsOpen)} />}
 
             </Block>
-            {isOpen && <Block display='flex' justifyContent='center' marginTop='40px'>
+            {isOpen && <Block display='flex' justifyContent='space-between' marginTop='40px'>
                 <TextArea
                     rows="3"
                     cols="100"

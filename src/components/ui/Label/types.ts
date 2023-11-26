@@ -17,4 +17,5 @@ export interface ILabel {
 	backgroundColor?: string;
 	width?: string;
 	height?: string;
+	cursor?: string;
 }
