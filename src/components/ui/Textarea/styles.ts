@@ -25,5 +25,7 @@ export const TextAreaWrapper = styled.textarea<ITextProps>`
   rows: ${props => props.rows};
   cols: ${props => props.cols};
   placeholder: ${props => props.placeholder};
+  name: ${props => props.name};
+  value: ${props => props.value};
 `
 

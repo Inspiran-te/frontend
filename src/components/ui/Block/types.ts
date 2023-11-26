@@ -29,4 +29,5 @@ export interface IBlockProps {
 	borderBottom?: string;
 	flexWrap?: string;
 	gap?: string;
+	onClick?: () => void;
 }

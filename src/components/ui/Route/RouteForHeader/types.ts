@@ -1,6 +1,6 @@
-import { ReactNode } from 'react'
+import { ReactNode, CSSProperties } from 'react'
 
-export interface ILink {
+export interface ILinkHeader {
 	text?: string;
 	color?: string;
 	width?: string;
@@ -20,4 +20,6 @@ export interface ILink {
 	textDecoration?: string
 	gap?: string;
 	active?: boolean; 
+	isActive?: boolean;
+	style?: CSSProperties; 
 }

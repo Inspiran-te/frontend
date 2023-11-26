@@ -1,9 +1,9 @@
 import styled from 'styled-components'
 import { NavLink } from 'react-router-dom'
-import { ILink } from './types'
-import { theme } from '../../../theme/theme'
+import { ILinkHeader } from './types'
+import { theme } from '../../../../theme/theme'
 
-export const Link = styled(NavLink)<ILink>`
+export const LinkHeader = styled(NavLink)<ILinkHeader>`
   margin-bottom: ${props => props.marginBottom};
   margin-top: ${props => props.marginTop};
   margin-right: ${props => props.marginRight};
@@ -18,12 +18,8 @@ export const Link = styled(NavLink)<ILink>`
   flex-direction: ${props => props.flexDirection};
   text-decoration: ${props => props.textDecoration};
   gap: ${props => props.gap};
-
+  
   &:active {
     color: ${theme.colors.Primary_Purple};
   }
-  &:visited {
-    color: ${theme.colors.Primary_Purple};
-  }
 `
-
