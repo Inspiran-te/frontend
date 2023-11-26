@@ -68,7 +68,7 @@ export const Resume = () => {
 
 	const deleteUploadUserResume = async () => {
 		try {
-			await axios.get(`http://45.141.79.27:8084/pdf/uploaded/${userId}`,
+			await axios.delete(`http://45.141.79.27:8084/pdf/uploaded/${userId}`,
 				{
 					headers: {
 						'Authorization': `Bearer ${userToken}`,
