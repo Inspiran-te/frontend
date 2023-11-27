@@ -13,4 +13,7 @@ export const ImageWrapper = styled.img<IImage>`
   height: ${props => props.height};
   src: ${props => props.src};
   alt: ${props => props.alt};
+  box-shadow: ${props => props.boxShadow};
+  border: ${props => props.border};
+	cursor: ${props => props.cursor};
 `

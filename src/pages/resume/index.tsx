@@ -12,8 +12,177 @@ import { Skills } from './components/Skills'
 import { Expirience } from './components/Expirience'
 import { Header } from '../../components/Header'
 import Image from '../../components/ui/Img'
+import { useEffect, useState } from 'react'
+import { useSelector } from 'react-redux'
+import { RootState } from '../../redux/store'
+import { Input } from '../../components/ui/Input'
+import axios from 'axios'
+import Label from '../../components/ui/Label'
+import { UploadedResume } from './components/UploadedResume'
+import { IInputsData } from './types'
 
 export const Resume = () => {
+	const [resumeUser, setResumeUser] = useState('')
+	const [inputsData, setInputsData] = useState<IInputsData>({
+		contact: {
+			name: '',
+			surname: '',
+			email: '',
+			phone: '',
+			linkedin: '',
+			github: '',
+			behance: '',
+			site: '',
+			country: ''
+		},
+		summary: {
+			summary: ''
+		},
+		skill: {
+			skills: ''
+		},
+		education: {
+			institutions: [
+				{
+					name: '',
+					position: '',
+					startDate: null,
+					endDate: null,
+					description: ''
+				}
+			]
+		},
+		experience: {
+			companies: [
+				{
+					name: '',
+					position: '',
+					startDate: null,
+					endDate: null,
+					description: ''
+				}
+			]
+		}
+
+	})
+
+	const userId = useSelector((state: RootState) => state.auth.auth.id)
+	const userToken = useSelector((state: RootState) => state.auth.auth.access)
+
+	const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+		const { name, value } = e.target
+		setInputsData((prevState) => ({
+
+			...prevState,
+			contact: {
+				...prevState.contact,
+				[name]: value
+			},
+			summary: {
+				...prevState.summary,
+				[name]: value
+			},
+			skill: {
+				...prevState.skill,
+				skills: value
+			},
+			education: {
+				...prevState.education,
+				institutions: [
+					{
+						name: '',
+						position: '',
+						startDate: null,
+						endDate: null,
+						description: ''
+					}
+				]
+			},
+			experience: {
+				...prevState.experience,
+				companies: [
+					{
+						name: '',
+						position: '',
+						startDate: null,
+						endDate: null,
+						description: ''
+					}
+				]
+			}
+		}))
+	}
+
+	// const addInstitution = () => {
+	// 	setInputsData((prevState) => ({
+	// 		...prevState,
+	// 		education: {
+	// 		  ...prevState.education,
+	// 		  institutions: [
+	// 			{
+	// 			  name: '',
+	// 			  position: '',
+	// 			  startDate: null,
+	// 			  endDate: null,
+	// 			  description: ''
+	// 			}
+	// 		  ]
+	// 		}
+	// 	  }));
+	// }
+	const hasResume = async () => {
+		try {
+			const response = await axios.get(`http://45.141.79.27:8084/pdf/uploaded/${userId}`,
+				{
+					headers: {
+						'Authorization': `Bearer ${userToken}`
+					}
+				})
+			setResumeUser(response.data)
+		} catch (error) {
+			console.error(error)
+		}
+
+	}
+	const handleResumeUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+		const selectedFile = e.target.files![0]
+
+		if (selectedFile) {
+			const formData = new FormData()
+			formData.append('file', selectedFile)
+
+			try {
+				await axios.post(`http://45.141.79.27:8084/pdf/uploadedPdf/${userId}`, formData, {
+					headers: {
+						'Content-Type': 'multipart/form-data',
+						'Authorization': `Bearer ${userToken}`
+					}
+				})
+				hasResume()
+				console.log('успешно выполнено')
+			} catch (error) {
+				console.error(error)
+			}
+		}
+	}
+
+	const deleteUploadUserResume = async () => {
+		try {
+			await axios.delete(`http://45.141.79.27:8084/pdf/uploaded/${userId}`,
+				{
+					headers: {
+						'Authorization': `Bearer ${userToken}`
+					}
+				})
+			setResumeUser('')
+		} catch (error) {
+			console.error(error)
+		}
+	}
+
+	useEffect(() => {
+		hasResume()
+	}, [])
 
 	return (
 		<Container backgroundColor={theme.colors.grey_Light}>
@@ -22,7 +191,8 @@ export const Resume = () => {
 						 flexDirection='column'
 						 border='none'
 						 boxSizing='border-box'
-						 padding='0px 40px 0px 40px'>
+						 padding='0px 40px 0px 40px'
+						 marginBottom='46px'>
 
 				<Header />
 
@@ -45,14 +215,17 @@ export const Resume = () => {
 									borderRadius='50px'
 									padding='20px 40px 20px 40px'
 									marginTop='24px'
-									marginBottom='5px'>
-						<Image src={ImgDownload} alt='' />
-						<Span fontFamily='Nunito' fontSize='18px'
-									text='Загрузить своё резюме' />
+									marginBottom='5px'
+					>
+						<Image src={ImgDownload} />
+						<Input id='fileAdd' cursor='pointer' marginRight='-250px' type='file' onChange={handleResumeUpload}
+									 opacity='0' />
+						<Label htmlFor='fileAdd' fontFamily='Nunito' fontSize='18px'
+									 text='Загрузить своё резюме' />
 					</Button>
 
 					<Span fontFamily='Nunito' fontSize='16px'
-								text='Формат для загрузки pdf. Размер файла не должен привышать __ Мб.'
+								text='Формат для загрузки pdf. Размер файла не должен привышать 10 Мб.'
 								color={theme.colors.grey} />
 					<Block marginTop='48px'>
 						<Span fontFamily='Nunito' fontSize='18px'
@@ -60,10 +233,11 @@ export const Resume = () => {
 						/>
 					</Block>
 				</Block>
+				{resumeUser && <UploadedResume deleteUploadUserResume={deleteUploadUserResume} />}
 
-				<Contacts />
-				<Sammery />
-				<Skills />
+				<Contacts handleInputChange={handleInputChange} inputsData={inputsData} />
+				<Sammery handleInputChange={handleInputChange} inputsData={inputsData} />
+				<Skills handleInputChange={handleInputChange} inputsData={inputsData} />
 				<Expirience />
 				<Education />
 

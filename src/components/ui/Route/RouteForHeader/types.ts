@@ -1,0 +1,25 @@
+import { ReactNode, CSSProperties } from 'react'
+
+export interface ILinkHeader {
+	text?: string;
+	color?: string;
+	width?: string;
+	marginBottom?: string;
+	marginTop?: string;
+	fontSize?: string;
+	fontBold?: string;
+	fontWeight?: string;
+	fontFamily?: string;
+	children?: ReactNode;
+	textAlign?: string;
+	marginRight?: string;
+	cursor?: string;
+	display?: string;
+	flexDirection?: string
+	to?: string;
+	textDecoration?: string
+	gap?: string;
+	active?: boolean; 
+	isActive?: boolean;
+	style?: CSSProperties; 
+}

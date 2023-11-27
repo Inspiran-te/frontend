@@ -9,8 +9,9 @@ import ArrowDown from '../../../../assets/ArrowDown.svg'
 import Smile from '../../../../assets/smile.png'
 import SkillsIcon from '../../../../assets/skillsIcon.svg'
 import { changeOpenBlock } from '../../../../helpers'
+import { SkillsProps } from './types'
 
-export const Skills = () => {
+export const Skills: React.FC<SkillsProps> = ({ handleInputChange, inputsData }) => {
     const [isOpen, setIsOpen] = useState(true);
 
     return (
@@ -44,7 +45,7 @@ export const Skills = () => {
                 {!isOpen && <Image src={ArrowDown} alt="" onClick={() => changeOpenBlock(isOpen, setIsOpen)} />}
 
             </Block>
-            {isOpen && <Block display='flex' justifyContent='center' marginTop='40px'>
+            {isOpen && <Block display='flex' justifyContent='space-between' marginTop='40px'>
                 <TextArea
                     rows="3"
                     cols="100"
@@ -56,6 +57,8 @@ export const Skills = () => {
                     fontSize='18px'
                     padding='24px 24px 24px 24px'
                     borderRadius='24px'
+                    value={inputsData.skill.skills}
+                    onChange={handleInputChange} 
                 />
 
                 <Block backgroundColor='#EFEFF9'
