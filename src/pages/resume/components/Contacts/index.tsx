@@ -174,8 +174,8 @@ export const Contacts: React.FC<ContactsProps> = ({ handleInputChange, inputsDat
 
 				<Block backgroundColor='#EFEFF9' display='flex'
 							 justifyContent='center' marginLeft='50px'
-							 borderRadius='20px' padding='26px 20px 0px 20px'
-							 height='130px' marginTop='40px'>
+							 borderRadius='20px' padding='55px 20px 20px 20px'
+							 height='100px' marginTop='40px'>
 					<Image width='24px' height='24px' src={Smile} alt='' />
 					<Span marginLeft='20px'
 								color={theme.colors.black}
