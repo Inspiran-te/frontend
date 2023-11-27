@@ -132,7 +132,7 @@ export const Resume = () => {
 	// }
 	const hasResume = async () => {
 		try {
-			const response = await axios.get(`http://45.141.79.27:8084/pdf/uploaded/${userId}`,
+			const response = await axios.get(`https://45.141.79.27:8084/pdf/uploaded/${userId}`,
 				{
 					headers: {
 						'Authorization': `Bearer ${userToken}`
@@ -152,7 +152,7 @@ export const Resume = () => {
 			formData.append('file', selectedFile)
 
 			try {
-				await axios.post(`http://45.141.79.27:8084/pdf/uploadedPdf/${userId}`, formData, {
+				await axios.post(`https://45.141.79.27:8084/pdf/uploadedPdf/${userId}`, formData, {
 					headers: {
 						'Content-Type': 'multipart/form-data',
 						'Authorization': `Bearer ${userToken}`
@@ -168,7 +168,7 @@ export const Resume = () => {
 
 	const deleteUploadUserResume = async () => {
 		try {
-			await axios.delete(`http://45.141.79.27:8084/pdf/uploaded/${userId}`,
+			await axios.delete(`https://45.141.79.27:8084/pdf/uploaded/${userId}`,
 				{
 					headers: {
 						'Authorization': `Bearer ${userToken}`
