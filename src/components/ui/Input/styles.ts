@@ -19,4 +19,8 @@ export const InputWrapper = styled.input<InputProps>`
   opacity: ${props => props.opacity};
   z-index: ${props => props.zIndex};
   cursor: ${props => props.cursor};
+	
+	&:hover {
+		border-color: red;
+	}
 `

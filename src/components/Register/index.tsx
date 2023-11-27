@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import Google from '../../assets/GoogleIcon.svg'
 import Github from '../../assets/GithubIcon.svg'
 import LinkedIN from '../../assets/LinkedINicon.svg'
@@ -38,6 +38,7 @@ export const RegistrationWrapperLeft = () => {
 	})
 	const [isModalVisible, setIsModalVisible] = useState(false)
 	const [passwordShown, setPasswordShown] = useState(false)
+	const [isFormValid, setIsFormValid] = useState(false)
 	const navigate = useNavigate()
 	const dispatch = useDispatch()
 
@@ -76,6 +77,11 @@ export const RegistrationWrapperLeft = () => {
 	const showPassword = () => {
 		setPasswordShown(!passwordShown)
 	}
+
+	useEffect(() => {
+		const isValid = newUser.name !== '' && newUser.surname !== '' && newUser.email !== '' && newUser.password !== ''
+		setIsFormValid(isValid)
+	}, [newUser])
 
 	return (
 		<WrapperLeft>
@@ -163,6 +169,7 @@ export const RegistrationWrapperLeft = () => {
 							 border='none'
 							 marginTop='5px'
 							 fontSize='18px'
+							 borderColor='red'
 
 				>
 					<Input
@@ -266,12 +273,14 @@ export const RegistrationWrapperLeft = () => {
 								borderRadius='50px'
 								width='440px'
 								padding='20px 40px 20px 40px'
-								backgroundColor={theme.colors.Primary_Purple}
+								backgroundColor={isFormValid ? theme.colors.Primary_Purple : theme.colors.disable_grey}
 								border='none'
 								justifyContent='center'
 								onClick={handleRegisterUser}
+								disabled={!isFormValid}
 				>
-					<Span text='Зарегистрироваться' color='#FFFFFF' marginRight='10px' fontFamily='Nunito' fontSize='18px' />
+					<Span text='Зарегистрироваться' color={isFormValid ? theme.colors.white : theme.colors.grey}
+								marginRight='10px' fontFamily='Nunito' fontSize='18px' />
 				</Button>
 
 			</Block>

@@ -11,7 +11,7 @@ export const WrapperRight = () => {
 	return (
 		<SC.WrapperRight>
 			<SC.Image src={Logo} alt='Logo' />
-			<TitleInSection title='Name' fontSize='60px' fontBold='400' fontFamily='Nunito' />
+			<TitleInSection title='JobGo' fontSize='60px' fontBold='400' fontFamily='Nunito' />
 			<Span text='Одна система для всех ваших вакансий'
 						fontSize='22px'
 						fontWeight='500'

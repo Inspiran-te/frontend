@@ -34,12 +34,12 @@ export const Header = () => {
 				fontWeight='400'
 
 			>
-				<LinkForHeader to='/api/main' marginRight='24px' textDecoration='none'>Главная</LinkForHeader>
-				<LinkForHeader to='/api/resume' marginRight='24px' textDecoration='none'>Резюме</LinkForHeader>
-				<LinkForHeader to='/api/responsetable' marginRight='24px' textDecoration='none'>Таблица откликов</LinkForHeader>
-				<LinkForHeader to='/api/knowledgebase' marginRight='24px' textDecoration='none'>База знаний</LinkForHeader>
-				<LinkForHeader to='/api/careeradvices' marginRight='24px' textDecoration='none'>Карьерные консультации</LinkForHeader>
-				<LinkForHeader to='/api/help' marginRight='24px' textDecoration='none'>Помощь</LinkForHeader>
+				<LinkForHeader to='/api/main' marginRight='24px' textDecoration='none' color={theme.colors.grey}>Главная</LinkForHeader>
+				<LinkForHeader to='/api/resume' marginRight='24px' textDecoration='none' color={theme.colors.grey}>Резюме</LinkForHeader>
+				<LinkForHeader to='/api/responsetable' marginRight='24px' textDecoration='none' color={theme.colors.grey}>Таблица откликов</LinkForHeader>
+				<LinkForHeader to='/api/knowledgebase' marginRight='24px' textDecoration='none' color={theme.colors.grey}>База знаний</LinkForHeader>
+				<LinkForHeader to='/api/careeradvices' marginRight='24px' textDecoration='none' color={theme.colors.grey}>Карьерные консультации</LinkForHeader>
+				<LinkForHeader to='/api/help' marginRight='24px' textDecoration='none' color={theme.colors.grey}>Помощь</LinkForHeader>
 			</Block>
 
 			<Image src={AvatarUser} alt='' />

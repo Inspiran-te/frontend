@@ -19,7 +19,7 @@ export const LinkHeader = styled(NavLink)<ILinkHeader>`
   text-decoration: ${props => props.textDecoration};
   gap: ${props => props.gap};
   
-  &:active {
+  &.active {
     color: ${theme.colors.Primary_Purple};
   }
 `
