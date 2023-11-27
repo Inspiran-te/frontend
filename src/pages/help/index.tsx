@@ -23,7 +23,7 @@ export const Help = () => {
                 border='none'
                 boxSizing='border-box'
                 padding='0px 40px 20px 40px'
-                marginBottom='200px'
+                marginBottom='149px'
                 >
 
                 <Header />

@@ -27,7 +27,7 @@ const options = {
   cutout: '72%',
   plugins: {
     tooltip: {
-      enabled: false,
+      enabled: true,
     },
     legend: {
       display: false,
