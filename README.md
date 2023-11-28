@@ -1,4 +1,4 @@
-# JobSearchPlatform Frontend
+# JobGo Frontend
 
 ## Клонирование проекта
 
