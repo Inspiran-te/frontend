@@ -15,8 +15,9 @@ import Label from '../../../../components/ui/Label'
 import { Line } from '../../../../components/ui/Line/styles'
 import { changeOpenBlock } from '../../../../helpers'
 import { WorkBlock } from './component/index'
+import { ExpirienceProps } from './types'
 
-export const Expirience = () => {
+export const Expirience: React.FC<ExpirienceProps> = ({ handleInputChange, inputsData }) => {
     const [isOpen, setIsOpen] = useState(true);
     const [workBlocks, setWorkBlocks] = useState<JSX.Element[]>([]);
 
@@ -70,7 +71,10 @@ export const Expirience = () => {
                             fontFamily='Nunito'
                             fontSize='18px'
                             padding='16px 24px 16px 24px'
-                            borderRadius='50px' />
+                            borderRadius='50px' 
+                            onChange={handleInputChange}
+                                name='experience.name'
+                                value={inputsData.experience.companies[0].name}/>
                     </Block>
 
                     <Block display='flex' flexDirection='column' marginLeft='20px'>
@@ -85,6 +89,9 @@ export const Expirience = () => {
                             fontSize='18px'
                             padding='16px 24px 16px 24px'
                             borderRadius='50px'
+                            onChange={handleInputChange}
+                                name='experience.position'
+                                value={inputsData.experience.companies[0].position}
                         />
                     </Block>
 
@@ -104,6 +111,9 @@ export const Expirience = () => {
                             fontSize='18px'
                             padding='16px 24px 16px 24px'
                             borderRadius='50px'
+                            onChange={handleInputChange}
+                            name='experience.startDate'
+                            value={inputsData.experience.companies[0].startDate}
                         />
                     </Block>
 
@@ -119,6 +129,9 @@ export const Expirience = () => {
                             fontSize='18px'
                             padding='16px 24px 16px 24px'
                             borderRadius='50px'
+                            onChange={handleInputChange}
+                            name='experience.endDate'
+                            value={inputsData.experience.companies[0].endDate}
                         />
                     </Block>
 
@@ -141,6 +154,9 @@ export const Expirience = () => {
                         fontSize='18px'
                         padding='24px 24px 24px 24px'
                         borderRadius='24px'
+                        onChange={handleInputChange}
+                            name='experience.description'
+                            value={inputsData.experience.companies[0].description}
                     />
 
                     <Block backgroundColor='#EFEFF9'

@@ -57,7 +57,8 @@ export const Skills: React.FC<SkillsProps> = ({ handleInputChange, inputsData })
                     fontSize='18px'
                     padding='24px 24px 24px 24px'
                     borderRadius='24px'
-                    value={inputsData.skill.skills}
+                    name='skill.skills'
+                    value={inputsData.skill.skills[0]}
                     onChange={handleInputChange} 
                 />
 

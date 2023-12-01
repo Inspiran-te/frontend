@@ -15,8 +15,9 @@ import Smile from '../../../../assets/smile.png'
 import PlusIcon from '../../../../assets/plusIcon.svg'
 import { changeOpenBlock } from '../../../../helpers'
 import { EducationBlock } from './component'
+import { EducationProps } from './types'
 
-export const Education = () => {
+export const Education: React.FC<EducationProps> = ({ handleInputChange, inputsData}) => {
     const [isOpen, setIsOpen] = useState(true);
     const [educationBlocks, setEducationBlocks] = useState<JSX.Element[]>([]);
 
@@ -74,7 +75,10 @@ export const Education = () => {
                                 fontFamily='Nunito'
                                 fontSize='18px'
                                 padding='16px 24px 16px 24px'
-                                borderRadius='50px' />
+                                borderRadius='50px'
+                                onChange={handleInputChange}
+                                name='education.name'
+                                value={inputsData.education.institutions[0].name} />
                         </Block>
 
                         <Block display='flex' flexDirection='column' marginLeft='20px'>
@@ -93,6 +97,9 @@ export const Education = () => {
                                 fontSize='18px'
                                 padding='16px 24px 16px 24px'
                                 borderRadius='50px'
+                                onChange={handleInputChange}
+                                name='education.position'
+                                value={inputsData.education.institutions[0].position}
                             />
                         </Block>
                     </Block>
@@ -135,6 +142,10 @@ export const Education = () => {
                             fontSize='18px'
                             padding='16px 24px 16px 24px'
                             borderRadius='50px'
+                            onChange={handleInputChange}
+                            name='education.startDate'
+                            value={inputsData.education.institutions[0].startDate}
+
                         />
                     </Block>
 
@@ -150,6 +161,9 @@ export const Education = () => {
                             fontSize='18px'
                             padding='16px 24px 16px 24px'
                             borderRadius='50px'
+                            onChange={handleInputChange}
+                            name='education.endDate'
+                            value={inputsData.education.institutions[0].endDate}
                         />
                     </Block>
 
@@ -168,6 +182,9 @@ export const Education = () => {
                         fontSize='18px'
                         padding='24px 24px 24px 24px'
                         borderRadius='24px'
+                        onChange={handleInputChange}
+                        name='education.description'
+                        value={inputsData.education.institutions[0].description}
                     />
 
                 </Block>
@@ -191,7 +208,8 @@ export const Education = () => {
                                 fontFamily='Nunito'
                                 fontSize='18px'
                                 padding='16px 24px 16px 24px'
-                                borderRadius='50px' />
+                                borderRadius='50px' 
+                                />
                         </Block>
 
                         <Block display='flex' flexDirection='column' marginLeft='20px'>

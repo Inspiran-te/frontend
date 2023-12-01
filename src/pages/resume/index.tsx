@@ -19,47 +19,48 @@ import { Input } from '../../components/ui/Input'
 import axios from 'axios'
 import Label from '../../components/ui/Label'
 import { UploadedResume } from './components/UploadedResume'
-import { IInputsData } from './types'
+import { IInputsData, IInstitution } from './types'
 
 export const Resume = () => {
 	const [resumeUser, setResumeUser] = useState('')
+	const [isFormFull, setIsFormFull] = useState(false);
 	const [inputsData, setInputsData] = useState<IInputsData>({
 		contact: {
-			name: '',
-			surname: '',
-			email: '',
-			phone: '',
-			linkedin: '',
-			github: '',
-			behance: '',
-			site: '',
-			country: ''
+			name: "",
+			surname: "",
+			email: "",
+			phone: "",
+			linkedin: "",
+			github: "",
+			behance: "",
+			site: "",
+			country: ""
 		},
 		summary: {
-			summary: ''
+			summary: ""
 		},
 		skill: {
-			skills: ''
+			skills: [""]
 		},
 		education: {
 			institutions: [
 				{
-					name: '',
-					position: '',
-					startDate: null,
-					endDate: null,
-					description: ''
+					name: "",
+					position: "",
+					startDate: "",
+					endDate: "",
+					description: ""
 				}
 			]
 		},
 		experience: {
 			companies: [
 				{
-					name: '',
-					position: '',
-					startDate: null,
-					endDate: null,
-					description: ''
+					name: "",
+					position: "",
+					startDate: "",
+					endDate: "",
+					description: ""
 				}
 			]
 		}
@@ -70,66 +71,73 @@ export const Resume = () => {
 	const userToken = useSelector((state: RootState) => state.auth.auth.access)
 
 	const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-		const { name, value } = e.target
-		setInputsData((prevState) => ({
+		const { name, value } = e.target;
 
-			...prevState,
-			contact: {
-				...prevState.contact,
-				[name]: value
-			},
-			summary: {
-				...prevState.summary,
-				[name]: value
-			},
-			skill: {
+		if (name.startsWith("contact")) {
+			const contactField = name.split(".")[1];
+
+			setInputsData((prevState) => ({
+				...prevState,
+				contact: {
+					...prevState.contact,
+					[contactField]: value,
+				},
+			}));
+		} else if (name.startsWith("summary")) {
+			const summaryField = name.split(".")[1];
+
+			setInputsData((prevState) => ({
+				...prevState,
+				summary: {
+					...prevState.summary,
+					[summaryField]: value,
+				},
+			}));
+		} else if (name.startsWith("skill")) {
+			// const skillField = name.split(".")[1];
+		
+			setInputsData((prevState) => ({
+			  ...prevState,
+			  skill: {
 				...prevState.skill,
-				skills: value
-			},
-			education: {
-				...prevState.education,
-				institutions: [
-					{
-						name: '',
-						position: '',
-						startDate: null,
-						endDate: null,
-						description: ''
-					}
-				]
-			},
-			experience: {
-				...prevState.experience,
-				companies: [
-					{
-						name: '',
-						position: '',
-						startDate: null,
-						endDate: null,
-						description: ''
-					}
-				]
-			}
-		}))
-	}
+				skills: [value],
+			  },
+			}));
+		} else if (name.startsWith("education")) {
+			const educationField = name.split(".")[1];
 
-	// const addInstitution = () => {
-	// 	setInputsData((prevState) => ({
-	// 		...prevState,
-	// 		education: {
-	// 		  ...prevState.education,
-	// 		  institutions: [
-	// 			{
-	// 			  name: '',
-	// 			  position: '',
-	// 			  startDate: null,
-	// 			  endDate: null,
-	// 			  description: ''
-	// 			}
-	// 		  ]
-	// 		}
-	// 	  }));
-	// }
+			setInputsData((prevState) => ({
+				...prevState,
+				education: {
+					...prevState.education,
+					institutions: [
+						{
+							...prevState.education.institutions[0],
+							[educationField]: value,
+						},
+					],
+				},
+			}));
+		} else if (name.startsWith("experience")) {
+			const experienceField = name.split(".")[1];
+
+			setInputsData((prevState) => ({
+				...prevState,
+				experience: {
+					...prevState.experience,
+					companies: [
+						{
+							...prevState.experience.companies[0],
+							[experienceField]: value,
+						},
+					],
+				},
+			}));
+		}
+	};
+	console.log('inputsData', inputsData);
+
+
 	const hasResume = async () => {
 		try {
 			const response = await axios.get(`http://45.141.79.27:8084/pdf/uploaded/${userId}`,
@@ -180,19 +188,56 @@ export const Resume = () => {
 		}
 	}
 
+	const saveRezumeCV = async () => {
+		try {
+			await axios.post(`http://45.141.79.27:8084/resume/${userId}`, inputsData, {
+				headers: {
+					
+					'Authorization': `Bearer ${userToken}`,
+					'Content-Type': 'application/json'
+				}
+			})
+
+			console.log('успешно выполнено сохранение резюме')
+		} catch (error) {
+			console.error(error)
+		}
+	}
+
+
 	useEffect(() => {
 		hasResume()
 	}, [])
 
+	useEffect(() => {
+		const isContactValid = Object.values(inputsData.contact).every(value => value !== '');
+		const isSummaryValid = inputsData.summary.summary !== '';
+		const isSkillValid = inputsData.skill.skills.length > 0;
+		const isEducationValid = inputsData.education.institutions.every(institution => {
+			return Object.values(institution).every(value => value !== '');
+		});
+		const isExperienceValid = inputsData.experience.companies.every(company => {
+			return Object.values(company).every(value => value !== '');
+		});
+
+		setIsFormFull(
+			isContactValid &&
+			isSummaryValid &&
+			isSkillValid &&
+			isEducationValid &&
+			isExperienceValid
+		);
+	}, [inputsData]);
+
 	return (
 		<Container backgroundColor={theme.colors.grey_Light}>
 			<Block width='100%'
-						 display='flex'
-						 flexDirection='column'
-						 border='none'
-						 boxSizing='border-box'
-						 padding='0px 40px 0px 40px'
-						 marginBottom='46px'>
+				display='flex'
+				flexDirection='column'
+				border='none'
+				boxSizing='border-box'
+				padding='0px 40px 0px 40px'
+				marginBottom='46px'>
 
 				<Header />
 
@@ -203,33 +248,33 @@ export const Resume = () => {
 						fontWeight='400'
 						fontSize='36px' />
 					<Span text='Сюда вы можете загрузить своё резюме и/или воспользоваться нашей формой для для создания CV.'
-								fontFamily='Nunito'
-								fontSize='18px'
-								fontWeight='400'
-								marginTop='24px' />
+						fontFamily='Nunito'
+						fontSize='18px'
+						fontWeight='400'
+						marginTop='24px' />
 
 					<Button display='flex'
-									justifyContent='center'
-									alignItems='center'
-									border='2px solid #7400FF'
-									borderRadius='50px'
-									padding='20px 40px 20px 40px'
-									marginTop='24px'
-									marginBottom='5px'
+						justifyContent='center'
+						alignItems='center'
+						border='2px solid #7400FF'
+						borderRadius='50px'
+						padding='20px 40px 20px 40px'
+						marginTop='24px'
+						marginBottom='5px'
 					>
 						<Image src={ImgDownload} />
 						<Input id='fileAdd' cursor='pointer' marginRight='-250px' type='file' onChange={handleResumeUpload}
-									 opacity='0' />
+							opacity='0' />
 						<Label htmlFor='fileAdd' fontFamily='Nunito' fontSize='18px'
-									 text='Загрузить своё резюме' />
+							text='Загрузить своё резюме' />
 					</Button>
 
 					<Span fontFamily='Nunito' fontSize='16px'
-								text='Формат для загрузки pdf. Размер файла не должен привышать 10 Мб.'
-								color={theme.colors.grey} />
+						text='Формат для загрузки pdf. Размер файла не должен привышать 10 Мб.'
+						color={theme.colors.grey} />
 					<Block marginTop='48px'>
 						<Span fontFamily='Nunito' fontSize='18px'
-									text='Чтобы создать резюме, которое можно будет отправлять напрямую рекрутерам и HR, заполните все поля. Вы в любое время сможете внести изменения :)'
+							text='Чтобы создать резюме, которое можно будет отправлять напрямую рекрутерам и HR, заполните все поля. Вы в любое время сможете внести изменения :)'
 						/>
 					</Block>
 				</Block>
@@ -238,20 +283,23 @@ export const Resume = () => {
 				<Contacts handleInputChange={handleInputChange} inputsData={inputsData} />
 				<Sammery handleInputChange={handleInputChange} inputsData={inputsData} />
 				<Skills handleInputChange={handleInputChange} inputsData={inputsData} />
-				<Expirience />
-				<Education />
+				<Expirience handleInputChange={handleInputChange} inputsData={inputsData} />
+				<Education handleInputChange={handleInputChange} inputsData={inputsData}
+				/>
 
 				<Button display='flex'
-								justifyContent='center'
-								alignItems='center'
-								border='none'
-								borderRadius='50px'
-								padding='20px 40px 20px 40px'
-								margin='0 auto'
-								backgroundColor={theme.colors.disable_grey}
-								width='400px'>
+					justifyContent='center'
+					alignItems='center'
+					border='none'
+					borderRadius='50px'
+					padding='20px 40px 20px 40px'
+					margin='0 auto'
+					backgroundColor={isFormFull ? theme.colors.Primary_Purple : theme.colors.disable_grey}
+					width='400px'
+					onClick={saveRezumeCV}
+					disabled={!isFormFull}>
 					<Span marginLeft='5px' fontFamily='Nunito' fontSize='18px'
-								text='Сохранить' color={theme.colors.grey} />
+						text='Сохранить' color={isFormFull ? theme.colors.white : theme.colors.grey} />
 				</Button>
 
 			</Block>

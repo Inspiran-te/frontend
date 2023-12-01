@@ -15,16 +15,16 @@ export interface IInputsData {
         summary: string
     }
     skill: {
-        skills: string
-       
+        skills: string[]
+
     },
     education: {
         institutions: [
             {
                 name: string,
                 position: string,
-                startDate: Date | null,
-                endDate: Date | null,
+                startDate: string,
+                endDate: string,
                 description: string
             }
         ]
@@ -34,10 +34,18 @@ export interface IInputsData {
             {
                 name: string,
                 position: string,
-                startDate: Date | null,
-                endDate: Date | null,
+                startDate: string,
+                endDate: string,
                 description: string
             }
         ]
     }
-} 
+}
+
+export interface IInstitution {
+    name: string,
+    position: string,
+    startDate: string,
+    endDate: string,
+    description: string
+}
