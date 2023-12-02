@@ -73,8 +73,8 @@ export const Expirience: React.FC<ExpirienceProps> = ({ handleInputChange, input
                             padding='16px 24px 16px 24px'
                             borderRadius='50px' 
                             onChange={handleInputChange}
-                                name='experience.name'
-                                value={inputsData.experience.companies[0].name}/>
+                                name='experience.companyName'
+                                value={inputsData.experience.companies[0].companyName}/>
                     </Block>
 
                     <Block display='flex' flexDirection='column' marginLeft='20px'>
@@ -90,8 +90,8 @@ export const Expirience: React.FC<ExpirienceProps> = ({ handleInputChange, input
                             padding='16px 24px 16px 24px'
                             borderRadius='50px'
                             onChange={handleInputChange}
-                                name='experience.position'
-                                value={inputsData.experience.companies[0].position}
+                                name='experience.companyPosition'
+                                value={inputsData.experience.companies[0].companyPosition}
                         />
                     </Block>
 
@@ -112,8 +112,8 @@ export const Expirience: React.FC<ExpirienceProps> = ({ handleInputChange, input
                             padding='16px 24px 16px 24px'
                             borderRadius='50px'
                             onChange={handleInputChange}
-                            name='experience.startDate'
-                            value={inputsData.experience.companies[0].startDate}
+                            name='experience.companyStartDate'
+                            value={inputsData.experience.companies[0].companyStartDate}
                         />
                     </Block>
 
@@ -130,8 +130,8 @@ export const Expirience: React.FC<ExpirienceProps> = ({ handleInputChange, input
                             padding='16px 24px 16px 24px'
                             borderRadius='50px'
                             onChange={handleInputChange}
-                            name='experience.endDate'
-                            value={inputsData.experience.companies[0].endDate}
+                            name='experience.companyEndDate'
+                            value={inputsData.experience.companies[0].companyEndDate}
                         />
                     </Block>
 
@@ -155,8 +155,8 @@ export const Expirience: React.FC<ExpirienceProps> = ({ handleInputChange, input
                         padding='24px 24px 24px 24px'
                         borderRadius='24px'
                         onChange={handleInputChange}
-                            name='experience.description'
-                            value={inputsData.experience.companies[0].description}
+                            name='experience.companyDescription'
+                            value={inputsData.experience.companies[0].companyDescription}
                     />
 
                     <Block backgroundColor='#EFEFF9'

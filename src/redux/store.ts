@@ -2,10 +2,12 @@ import { combineReducers, configureStore } from '@reduxjs/toolkit'
 import { persistReducer, persistStore } from 'redux-persist'
 import storage from 'redux-persist/lib/storage'
 import { authApi } from '../api/auth'
+import { resumeApi } from '../api/userResume'
 import authReducer from '../features/authSlice'
 
 const rootReducer = combineReducers({
 	[authApi.reducerPath]: authApi.reducer,
+	[resumeApi.reducerPath]: resumeApi.reducer,
 	auth: authReducer
 })
 
@@ -22,6 +24,7 @@ export const store = configureStore({
 	middleware: (getDefaultMiddleware) =>
 		getDefaultMiddleware({ serializableCheck: false })
 			.concat(authApi.middleware)
+			.concat(resumeApi.middleware)
 })
 
 export const persistor = persistStore(store)

@@ -21,22 +21,22 @@ export interface IInputsData {
     education: {
         institutions: [
             {
-                name: string,
-                position: string,
-                startDate: string,
-                endDate: string,
-                description: string
+                institutionName: string,
+                institutionFaculty: string,
+                institutionStartDate: string,
+                institutionEndDate: string,
+                institutionDescription: string
             }
         ]
     },
     experience: {
         companies: [
             {
-                name: string,
-                position: string,
-                startDate: string,
-                endDate: string,
-                description: string
+                companyName: string,
+                companyPosition: string,
+                companyStartDate: string,
+                companyEndDate: string,
+                companyDescription: string
             }
         ]
     }

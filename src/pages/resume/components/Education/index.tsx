@@ -77,8 +77,8 @@ export const Education: React.FC<EducationProps> = ({ handleInputChange, inputsD
                                 padding='16px 24px 16px 24px'
                                 borderRadius='50px'
                                 onChange={handleInputChange}
-                                name='education.name'
-                                value={inputsData.education.institutions[0].name} />
+                                name='education.institutionName'
+                                value={inputsData.education.institutions[0].institutionName} />
                         </Block>
 
                         <Block display='flex' flexDirection='column' marginLeft='20px'>
@@ -98,8 +98,8 @@ export const Education: React.FC<EducationProps> = ({ handleInputChange, inputsD
                                 padding='16px 24px 16px 24px'
                                 borderRadius='50px'
                                 onChange={handleInputChange}
-                                name='education.position'
-                                value={inputsData.education.institutions[0].position}
+                                name='education.institutionFaculty'
+                                value={inputsData.education.institutions[0].institutionFaculty}
                             />
                         </Block>
                     </Block>
@@ -143,8 +143,8 @@ export const Education: React.FC<EducationProps> = ({ handleInputChange, inputsD
                             padding='16px 24px 16px 24px'
                             borderRadius='50px'
                             onChange={handleInputChange}
-                            name='education.startDate'
-                            value={inputsData.education.institutions[0].startDate}
+                            name='education.institutionStartDate'
+                            value={inputsData.education.institutions[0].institutionStartDate}
 
                         />
                     </Block>
@@ -162,8 +162,8 @@ export const Education: React.FC<EducationProps> = ({ handleInputChange, inputsD
                             padding='16px 24px 16px 24px'
                             borderRadius='50px'
                             onChange={handleInputChange}
-                            name='education.endDate'
-                            value={inputsData.education.institutions[0].endDate}
+                            name='education.institutionEndDate'
+                            value={inputsData.education.institutions[0].institutionEndDate}
                         />
                     </Block>
 
@@ -183,8 +183,8 @@ export const Education: React.FC<EducationProps> = ({ handleInputChange, inputsD
                         padding='24px 24px 24px 24px'
                         borderRadius='24px'
                         onChange={handleInputChange}
-                        name='education.description'
-                        value={inputsData.education.institutions[0].description}
+                        name='education.institutionDescription'
+                        value={inputsData.education.institutions[0].institutionDescription}
                     />
 
                 </Block>

@@ -20,6 +20,7 @@ import axios from 'axios'
 import Label from '../../components/ui/Label'
 import { UploadedResume } from './components/UploadedResume'
 import { IInputsData, IInstitution } from './types'
+import { useDeleteResumeMutation, useGetResumeQuery } from '../../api/userResume'
 
 export const Resume = () => {
 	const [resumeUser, setResumeUser] = useState('')
@@ -45,30 +46,31 @@ export const Resume = () => {
 		education: {
 			institutions: [
 				{
-					name: "",
-					position: "",
-					startDate: "",
-					endDate: "",
-					description: ""
+					institutionName: "",
+					institutionFaculty: "",
+					institutionStartDate: "",
+					institutionEndDate: "",
+					institutionDescription: ""
 				}
 			]
 		},
 		experience: {
 			companies: [
 				{
-					name: "",
-					position: "",
-					startDate: "",
-					endDate: "",
-					description: ""
+					companyName: "",
+					companyPosition: "",
+					companyStartDate: "",
+					companyEndDate: "",
+					companyDescription: ""
 				}
 			]
 		}
-
 	})
 
 	const userId = useSelector((state: RootState) => state.auth.auth.id)
 	const userToken = useSelector((state: RootState) => state.auth.auth.access)
+	const [deleteResume] = useDeleteResumeMutation();
+	const { data } = useGetResumeQuery({ userId, userToken });
 
 	const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		const { name, value } = e.target;
@@ -95,13 +97,13 @@ export const Resume = () => {
 			}));
 		} else if (name.startsWith("skill")) {
 			// const skillField = name.split(".")[1];
-		
+
 			setInputsData((prevState) => ({
-			  ...prevState,
-			  skill: {
-				...prevState.skill,
-				skills: [value],
-			  },
+				...prevState,
+				skill: {
+					...prevState.skill,
+					skills: [value],
+				},
 			}));
 		} else if (name.startsWith("education")) {
 			const educationField = name.split(".")[1];
@@ -137,21 +139,10 @@ export const Resume = () => {
 	};
 	console.log('inputsData', inputsData);
 
-
 	const hasResume = async () => {
-		try {
-			const response = await axios.get(`http://45.141.79.27:8084/pdf/uploaded/${userId}`,
-				{
-					headers: {
-						'Authorization': `Bearer ${userToken}`
-					}
-				})
-			setResumeUser(response.data)
-		} catch (error) {
-			console.error(error)
-		}
-
+		setResumeUser(data)
 	}
+
 	const handleResumeUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
 		const selectedFile = e.target.files![0]
 
@@ -173,15 +164,10 @@ export const Resume = () => {
 			}
 		}
 	}
-
+	
 	const deleteUploadUserResume = async () => {
 		try {
-			await axios.delete(`http://45.141.79.27:8084/pdf/uploaded/${userId}`,
-				{
-					headers: {
-						'Authorization': `Bearer ${userToken}`
-					}
-				})
+			await deleteResume({ userId, userToken });
 			setResumeUser('')
 		} catch (error) {
 			console.error(error)
@@ -192,7 +178,6 @@ export const Resume = () => {
 		try {
 			await axios.post(`http://45.141.79.27:8084/resume/${userId}`, inputsData, {
 				headers: {
-					
 					'Authorization': `Bearer ${userToken}`,
 					'Content-Type': 'application/json'
 				}
@@ -205,9 +190,9 @@ export const Resume = () => {
 	}
 
 
-	useEffect(() => {
-		hasResume()
-	}, [])
+	// useEffect(() => {
+	// 	// hasResume()
+	// }, [])
 
 	useEffect(() => {
 		const isContactValid = Object.values(inputsData.contact).every(value => value !== '');
