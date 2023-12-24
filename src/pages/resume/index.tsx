@@ -19,13 +19,31 @@ import { Input } from '../../components/ui/Input'
 import axios from 'axios'
 import Label from '../../components/ui/Label'
 import { UploadedResume } from './components/UploadedResume'
-import { IInputsData, IInstitution } from './types'
-import { useDeleteResumeMutation, useGetResumeQuery } from '../../api/userResume'
+import { ICompany, IInputsData, IInstitution } from './types'
+import { useDeleteResumeMutation } from '../../api/userResume'
 
 export const Resume = () => {
-	const [resumeUser, setResumeUser] = useState('')
+	const [resumeUser, setResumeUser] = useState<Uint8Array>()
 	const [isFormFull, setIsFormFull] = useState(false);
-	const [inputsData, setInputsData] = useState<IInputsData>({
+	const [file, setFile] = useState()
+	const [dataExpiriense, setDataExpiriense] = useState<ICompany[]>([ // костыль помогает работе кода, пока не придумал как избавиться.
+		{
+			companyName: "",
+			companyPosition: "",
+			companyStartDate: "",
+			companyEndDate: "",
+			companyDescription: ""
+		},
+		{
+			companyName: "",
+			companyPosition: "",
+			companyStartDate: "",
+			companyEndDate: "",
+			companyDescription: ""
+		},
+	])
+
+	const [inputsData, setInputsData] = useState<IInputsData>({ // итоговое состояние данных которое отправляем на сервер
 		contact: {
 			name: "",
 			surname: "",
@@ -44,35 +62,55 @@ export const Resume = () => {
 			skills: [""]
 		},
 		education: {
-			institutions: [
-				{
-					institutionName: "",
-					institutionFaculty: "",
-					institutionStartDate: "",
-					institutionEndDate: "",
-					institutionDescription: ""
-				}
-			]
+			institutions: []
 		},
 		experience: {
-			companies: [
-				{
-					companyName: "",
-					companyPosition: "",
-					companyStartDate: "",
-					companyEndDate: "",
-					companyDescription: ""
-				}
-			]
+			companies: []
 		}
 	})
 
 	const userId = useSelector((state: RootState) => state.auth.auth.id)
 	const userToken = useSelector((state: RootState) => state.auth.auth.access)
 	const [deleteResume] = useDeleteResumeMutation();
-	const { data } = useGetResumeQuery({ userId, userToken });
 
-	const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+	// фунция добалвяет данные из инпутов компаний
+	const handleInputChangeCompany = (event: React.ChangeEvent<HTMLInputElement>, index: number, field: keyof ICompany) => {
+		setInputsData(prevState => {
+			const newCompanies = [...prevState.experience.companies];
+			newCompanies[index] = {
+				...newCompanies[index],
+				[field]: event.target.value
+			};
+			return {
+				...prevState,
+				experience: {
+					...prevState.experience,
+					companies: newCompanies
+				}
+			};
+		});
+	};
+
+	//функция добавляет данные из инпутов институтов 
+	const handleInputChangeInstitutions = (event: React.ChangeEvent<HTMLInputElement>, index: number, field: keyof IInstitution) => {
+		setInputsData(prevState => {
+			const newInstitution = [...prevState.education.institutions];
+			newInstitution[index] = {
+				...newInstitution[index],
+				[field]: event.target.value
+			};
+			return {
+				...prevState,
+				education: {
+					...prevState.education,
+					institutions: newInstitution
+				}
+			};
+		});
+	};
+
+
+	const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => { // функция добавляет данные из инпутов кроме компаний и институтов
 		const { name, value } = e.target;
 
 		if (name.startsWith("contact")) {
@@ -96,7 +134,6 @@ export const Resume = () => {
 				},
 			}));
 		} else if (name.startsWith("skill")) {
-			// const skillField = name.split(".")[1];
 
 			setInputsData((prevState) => ({
 				...prevState,
@@ -105,45 +142,41 @@ export const Resume = () => {
 					skills: [value],
 				},
 			}));
-		} else if (name.startsWith("education")) {
-			const educationField = name.split(".")[1];
-
-			setInputsData((prevState) => ({
-				...prevState,
-				education: {
-					...prevState.education,
-					institutions: [
-						{
-							...prevState.education.institutions[0],
-							[educationField]: value,
-						},
-					],
-				},
-			}));
-		} else if (name.startsWith("experience")) {
-			const experienceField = name.split(".")[1];
-
-			setInputsData((prevState) => ({
-				...prevState,
-				experience: {
-					...prevState.experience,
-					companies: [
-						{
-							...prevState.experience.companies[0],
-							[experienceField]: value,
-						},
-					],
-				},
-			}));
-		}
+		} 
 	};
+
 	console.log('inputsData', inputsData);
 
-	const hasResume = async () => {
-		setResumeUser(data)
-	}
+	const hasResume = async () => { // проверяет наличие загруженного пользователем резюме
+		try {
+			const response = await axios.get(`http://45.141.79.27:8084/pdf/uploaded/${userId}`, {
+				headers: {
+					'Authorization': `Bearer ${userToken}`
+				}
+			});
+			setResumeUser(response.data);
 
-	const handleResumeUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+		} catch (error) {
+			console.error(error);
+		}
+	};
+
+	const hasResumeCV = async () => { // проверяет наличие сохраненного пользователем резюме собранного по данным из инпутов
+		try {
+			const response = await axios.get(`http://45.141.79.27:8084/resume/${userId}`, {
+				headers: {
+					'Authorization': `Bearer ${userToken}`
+				}
+			});
+			setFile(response.data);
+
+		} catch (error) {
+			console.error(error);
+		}
+	};
+
+	//фунция загрузки резюме пользователя
+	const handleResumeUpload = async (e: React.ChangeEvent<HTMLInputElement>) => { 
 		const selectedFile = e.target.files![0]
 
 		if (selectedFile) {
@@ -164,17 +197,17 @@ export const Resume = () => {
 			}
 		}
 	}
-	
-	const deleteUploadUserResume = async () => {
+
+	const deleteUploadUserResume = async () => { // удаление загруженного пользователем резюме
 		try {
 			await deleteResume({ userId, userToken });
-			setResumeUser('')
+			setResumeUser(undefined)
 		} catch (error) {
 			console.error(error)
 		}
 	}
 
-	const saveRezumeCV = async () => {
+	const saveRezumeCV = async () => { // сохранение резюме по введенным данным
 		try {
 			await axios.post(`http://45.141.79.27:8084/resume/${userId}`, inputsData, {
 				headers: {
@@ -189,12 +222,46 @@ export const Resume = () => {
 		}
 	}
 
+	const downloadResumeUser = async () => { // функция для скачивания своего загруженного резюме в формате PDF
+		try {
+			const { data } = await axios.get(`http://45.141.79.27:8084/pdf/uploadedPdf/${userId}`, {
+				headers: {
+					'Authorization': `Bearer ${userToken}`,
+				}
+			});
+			setFile(data)
+			console.log(file);
 
-	// useEffect(() => {
-	// 	// hasResume()
-	// }, [])
+			const url = URL.createObjectURL(new Blob([data]));
 
-	useEffect(() => {
+			const link = document.createElement('a');
+			link.href = url;
+			link.download = 'resume.pdf';
+			link.click();
+
+			URL.revokeObjectURL(url);
+
+			console.log('Successfully downloaded resume');
+		} catch (error) {
+			console.error(error);
+		}
+	};
+
+	useEffect(() => { // этот эффект проверяет наличие резюме
+		hasResume()
+		hasResumeCV()
+	}, [])
+
+	useEffect(() => { // костыль помогает работе кода, пока не придумал как избавиться.
+		setInputsData((prevInputsData) => ({
+			...prevInputsData,
+			experience: {
+				companies: [...dataExpiriense],
+			},
+		}));
+	}, [dataExpiriense]);
+
+	useEffect(() => { //Этот эффект делает кнопку активной при заполнении инпутов
 		const isContactValid = Object.values(inputsData.contact).every(value => value !== '');
 		const isSummaryValid = inputsData.summary.summary !== '';
 		const isSkillValid = inputsData.skill.skills.length > 0;
@@ -263,13 +330,27 @@ export const Resume = () => {
 						/>
 					</Block>
 				</Block>
-				{resumeUser && <UploadedResume deleteUploadUserResume={deleteUploadUserResume} />}
+				{resumeUser && <UploadedResume
+					deleteUploadUserResume={deleteUploadUserResume}
+					downloadResumeUser={downloadResumeUser}
+				/>}
+				{file && <UploadedResume
+					deleteUploadUserResume={deleteUploadUserResume}
+					downloadResumeUser={downloadResumeUser}
+				/>}
 
 				<Contacts handleInputChange={handleInputChange} inputsData={inputsData} />
 				<Sammery handleInputChange={handleInputChange} inputsData={inputsData} />
 				<Skills handleInputChange={handleInputChange} inputsData={inputsData} />
-				<Expirience handleInputChange={handleInputChange} inputsData={inputsData} />
-				<Education handleInputChange={handleInputChange} inputsData={inputsData}
+				<Expirience
+					handleInputChange={handleInputChange}
+					inputsData={inputsData}
+					handleInputChangeCompany={handleInputChangeCompany}
+					setInputsData={setInputsData} />
+				<Education
+					handleInputChange={handleInputChange}
+					inputsData={inputsData}
+					handleInputChangeInstitutions={handleInputChangeInstitutions}
 				/>
 
 				<Button display='flex'

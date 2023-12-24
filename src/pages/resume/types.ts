@@ -1,5 +1,20 @@
-export interface IInputsData {
+export interface ICompany {
+    companyName: string;
+    companyPosition: string;
+    companyStartDate: string;
+    companyEndDate: string;
+    companyDescription: string;
+}
 
+export interface IInstitution {
+    institutionName: string,
+    institutionFaculty: string,
+    institutionStartDate: string,
+    institutionEndDate: string,
+    institutionDescription: string
+}
+
+export interface IInputsData {
     contact: {
         name: string,
         surname: string,
@@ -19,26 +34,11 @@ export interface IInputsData {
 
     },
     education: {
-        institutions: [
-            {
-                institutionName: string,
-                institutionFaculty: string,
-                institutionStartDate: string,
-                institutionEndDate: string,
-                institutionDescription: string
-            }
-        ]
+        institutions: IInstitution[]
     },
     experience: {
-        companies: [
-            {
-                companyName: string,
-                companyPosition: string,
-                companyStartDate: string,
-                companyEndDate: string,
-                companyDescription: string
-            }
-        ]
+        companies: ICompany[]
+
     }
 }
 
@@ -49,3 +49,5 @@ export interface IInstitution {
     endDate: string,
     description: string
 }
+
+

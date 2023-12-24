@@ -30,5 +30,6 @@ export interface IBlockProps {
 	flexWrap?: string;
 	gap?: string;
 	onClick?: () => void;
-	borderColor?: string
+	borderColor?: string;
+	cursor?: string;
 }

@@ -25,7 +25,18 @@ export const resumeApi = createApi({
           },
         }),
       }),
+      uploadResumeUser: builder.mutation<any, IResumeRequest & { formData: FormData }>({
+        query: ({ userId, userToken, formData }) => ({
+          url: `/pdf/uploadedPdf/${userId}`,
+          method: 'POST',
+          headers: {
+            'Content-Type': 'multipart/form-data',
+            'Authorization': `Bearer ${userToken}`,
+          },
+          body: formData,
+        }),
+      }),
     }),
   })
   
-  export const { useGetResumeQuery, useDeleteResumeMutation } = resumeApi
+  export const { useGetResumeQuery, useDeleteResumeMutation, useUploadResumeUserMutation } = resumeApi

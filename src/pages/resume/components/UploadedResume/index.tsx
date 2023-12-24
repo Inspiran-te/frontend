@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { theme } from '../../../../theme/theme'
 import { Block } from '../../../../components/ui/Block'
 import Span from '../../../../components/ui/Span'
@@ -6,13 +6,10 @@ import Image from '../../../../components/ui/Img'
 import CrossIcon from '../../../../assets/crossIcon.svg'
 import resumeIcon from '../../../../assets/CVResume.svg'
 import uploadedResume from '../../../../assets/uploadResumeIcon.svg'
+import { UploadedResumeProps } from './types'
 
+export const UploadedResume: React.FC<UploadedResumeProps> = ({ deleteUploadUserResume, downloadResumeUser }) => {
 
-interface UploadedResumeProps {
-    deleteUploadUserResume: ()=> void;
-}
-export const UploadedResume: React.FC<UploadedResumeProps> = ({deleteUploadUserResume}) => {
- 
     return (
         <Block display='flex'
             justifyContent='space-between'
@@ -26,24 +23,28 @@ export const UploadedResume: React.FC<UploadedResumeProps> = ({deleteUploadUserR
             <Block display='flex'
                 alignItems='center'>
 
-                <Image src={resumeIcon}/>
+                <Image src={resumeIcon} />
 
                 <Block marginLeft='40px' display='flex' flexDirection='column' >
                     <Span text='Резюме' fontSize='24px'
-                    fontFamily='Unbounded'/>
-                    <Block marginTop='28px' display='flex' alignItems='center'>
-                        <Image src={uploadedResume}/>
-                        <Span text='Resume' fontSize='16px' fontFamily='Nunito' 
-                        color={theme.colors.Primary_Purple}
-                        marginLeft='5px'
-                        fontWeight='500'/>
+                        fontFamily='Unbounded' />
+                    <Block marginTop='28px' display='flex' alignItems='center'
+                        onClick={downloadResumeUser}
+                        cursor='pointer'>
+                        <Image src={uploadedResume} />
+                        <Span text='Resume' fontSize='16px' fontFamily='Nunito'
+                            color={theme.colors.Primary_Purple}
+                            marginLeft='5px'
+                            fontWeight='500' />
                     </Block>
                 </Block>
             </Block>
-           
-            <Block display='flex' alignItems='center' onClick={deleteUploadUserResume}>
-                <Image src={CrossIcon} marginRight='5px'/>
-                <Span text='Удалить' fontSize='16px' fontFamily='Nunito' color={theme.colors.grey}/>
+
+            <Block display='flex' alignItems='center'
+                onClick={deleteUploadUserResume}
+                cursor='pointer'>
+                <Image src={CrossIcon} marginRight='5px' />
+                <Span text='Удалить' fontSize='16px' fontFamily='Nunito' color={theme.colors.grey} />
             </Block>
         </Block>
     )
