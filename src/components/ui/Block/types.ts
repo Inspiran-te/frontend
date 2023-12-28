@@ -32,4 +32,6 @@ export interface IBlockProps {
 	onClick?: () => void;
 	borderColor?: string;
 	cursor?: string;
+	zIndex?: string;
+	borderTop?: string;
 }

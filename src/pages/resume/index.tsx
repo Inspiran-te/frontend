@@ -21,6 +21,8 @@ import Label from '../../components/ui/Label'
 import { UploadedResume } from './components/UploadedResume'
 import { ICompany, IInputsData, IInstitution } from './types'
 import { useDeleteResumeMutation } from '../../api/userResume'
+import { UploadedResumeCV } from './components/UploadedResumeCV'
+import { saveAs } from 'file-saver';
 
 export const Resume = () => {
 	const [resumeUser, setResumeUser] = useState<Uint8Array>()
@@ -73,7 +75,7 @@ export const Resume = () => {
 	const userToken = useSelector((state: RootState) => state.auth.auth.access)
 	const [deleteResume] = useDeleteResumeMutation();
 
-	// фунция добалвяет данные из инпутов компаний
+	// фунция собирает данные из input компаний
 	const handleInputChangeCompany = (event: React.ChangeEvent<HTMLInputElement>, index: number, field: keyof ICompany) => {
 		setInputsData(prevState => {
 			const newCompanies = [...prevState.experience.companies];
@@ -91,7 +93,7 @@ export const Resume = () => {
 		});
 	};
 
-	//функция добавляет данные из инпутов институтов 
+	//функция собирает данные из input институтов 
 	const handleInputChangeInstitutions = (event: React.ChangeEvent<HTMLInputElement>, index: number, field: keyof IInstitution) => {
 		setInputsData(prevState => {
 			const newInstitution = [...prevState.education.institutions];
@@ -197,6 +199,20 @@ export const Resume = () => {
 			}
 		}
 	}
+	const downloadResumeUser = async () => {
+		try {
+		  const response = await axios.get(`http://45.141.79.27:8084/pdf/uploadedPdf/${userId}`, {
+			headers: {
+			  'Authorization': `Bearer ${userToken}`,
+			}
+		  });
+		  const blob = new Blob([response.data], { type: 'application/pdf' });
+		  saveAs(blob, 'file.pdf');
+		
+		} catch (error) {
+		  console.error(error);
+		}
+	  }
 
 	const deleteUploadUserResume = async () => { // удаление загруженного пользователем резюме
 		try {
@@ -222,21 +238,44 @@ export const Resume = () => {
 		}
 	}
 
-	const downloadResumeUser = async () => { // функция для скачивания своего загруженного резюме в формате PDF
+	// const downloadResumeUser = async () => { // функция для скачивания своего загруженного резюме в формате PDF
+	// 	try {
+	// 		const { data } = await axios.get(`http://45.141.79.27:8084/pdf/uploadedPdf/${userId}`, {
+	// 			headers: {
+	// 				'Authorization': `Bearer ${userToken}`,
+	// 			}
+	// 		});
+			
+	// 		console.log(data);
+
+	// 		const url = URL.createObjectURL(new Blob([data]));
+
+	// 		const link = document.createElement('a');
+	// 		link.href = url;
+	// 		link.download = 'resume.pdf';
+	// 		link.click();
+
+	// 		URL.revokeObjectURL(url);
+
+	// 		console.log('Successfully downloaded resume');
+	// 	} catch (error) {
+	// 		console.error(error);
+	// 	}
+	// };
+
+	const downloadResumeUserCV = async () => { // функция для скачивания своего загруженного резюме в формате PDF
 		try {
-			const { data } = await axios.get(`http://45.141.79.27:8084/pdf/uploadedPdf/${userId}`, {
+			const { data } = await axios.get(`http://45.141.79.27:8084/pdf/generated/17`, {
 				headers: {
 					'Authorization': `Bearer ${userToken}`,
 				}
 			});
-			setFile(data)
-			console.log(file);
-
-			const url = URL.createObjectURL(new Blob([data]));
+			
+			const url = URL.createObjectURL(new Blob(data));
 
 			const link = document.createElement('a');
 			link.href = url;
-			link.download = 'resume.pdf';
+			link.download = 'resumeCV.pdf';
 			link.click();
 
 			URL.revokeObjectURL(url);
@@ -334,9 +373,9 @@ export const Resume = () => {
 					deleteUploadUserResume={deleteUploadUserResume}
 					downloadResumeUser={downloadResumeUser}
 				/>}
-				{file && <UploadedResume
+				{file && <UploadedResumeCV
 					deleteUploadUserResume={deleteUploadUserResume}
-					downloadResumeUser={downloadResumeUser}
+					downloadResumeUserCV={downloadResumeUserCV}
 				/>}
 
 				<Contacts handleInputChange={handleInputChange} inputsData={inputsData} />
