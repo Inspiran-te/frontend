@@ -3,6 +3,7 @@ export interface IRegistrationRequest {
 	surname: string
 	email: string
 	password: string
+	secondPassword: string
 	id: string | null
 	refreshToken: string | null
 	accessToken: string | null

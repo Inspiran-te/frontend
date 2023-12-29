@@ -14,13 +14,12 @@ export const InputWrapper = styled.input<InputProps>`
   font-size: ${props => props.fontSize};
   padding: ${props => props.padding};
   border-radius: ${props => props.borderRadius};
+	border-color: ${props => props.borderColor};
   rows: ${props => props.rows};
   cols: ${props => props.cols};
   opacity: ${props => props.opacity};
   z-index: ${props => props.zIndex};
   cursor: ${props => props.cursor};
-	
-	&:hover {
-		border-color: red;
-	}
+	text-align: ${props => props.textAlign};
+	outline-color: ${props => props.outlineColor};
 `

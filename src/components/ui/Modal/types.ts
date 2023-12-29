@@ -12,3 +12,17 @@ export interface IModalProps {
 	visible?: boolean;
 	onClose?: () => void
 }
+
+
+export interface IModalContentProps {
+	width?: string;
+	height?: string;
+	backgroundColor?: string;
+	display?: string;
+	justifyContent?: string;
+	alignItems?: string;
+	borderRadius?: string;
+	children?: React.ReactNode
+	visible?: boolean;
+	onClose?: () => void
+}

@@ -2,6 +2,7 @@ import styled from 'styled-components'
 import { IBlockProps } from './types'
 
 export const BlockWrapper = styled.div<IBlockProps>`
+	margin: ${props => props.margin};
   margin-bottom: ${props => props.marginBottom};
   margin-top: ${props => props.marginTop};
   margin-left: ${props => props.marginLeft};
@@ -24,9 +25,11 @@ export const BlockWrapper = styled.div<IBlockProps>`
   text-align: ${props => props.textAlign};
   position: ${props => props.position};
   top: ${props => props.top};
+	left: ${props => props.left}
   box-shadow: ${props => props.boxShadow};
   border-bottom: ${props => props.borderBottom};
   flex-wrap: ${props => props.flexWrap};
   gap: ${props => props.gap};
+	cursor: ${props => props.cursor};
 `
 

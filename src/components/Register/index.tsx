@@ -4,14 +4,17 @@ import Github from '../../assets/GithubIcon.svg'
 import LinkedIN from '../../assets/LinkedINicon.svg'
 import Letter from '../../assets/letterInput.svg'
 import LockIcon from '../../assets/lockIcon.svg'
-import PasswordEye from '../../assets/EyeOn.png'
+import EyeOn from '../../assets/EyeOn.svg'
+import EyeOff from '../../assets/EyeOff.svg'
 import SuccessIcon from '../../assets/SuccessIcon.svg'
+import Close from '../../assets/Close.svg'
 import { Button } from '../ui/Button'
 import { Block } from '../ui/Block'
 import { Input } from '../ui/Input'
 import Label from '../../components/ui/Label'
 import Span from '../../components/ui/Span'
 import TitleH1 from '../../components/ui/Text/TitleH1'
+import TitleH2 from '../ui/Text/TitleH2'
 import { theme } from '../../theme/theme'
 import { GreyLine } from '../ui/Line'
 import Link from '../../components/ui/Route'
@@ -25,6 +28,7 @@ import Arrow from '../../assets/arrow.svg'
 import { useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import { setCredentials } from '../../features/authSlice'
+import { TOU } from './components/TOU'
 
 export const RegistrationWrapperLeft = () => {
 	const [newUser, setNewUser] = useState<IRegistrationRequest>({
@@ -32,12 +36,15 @@ export const RegistrationWrapperLeft = () => {
 		surname: '',
 		email: '',
 		password: '',
+		secondPassword: '',
 		id: '',
 		accessToken: '',
 		refreshToken: ''
 	})
 	const [isModalVisible, setIsModalVisible] = useState(false)
-	const [passwordShown, setPasswordShown] = useState(false)
+	const [termsOfUse, setTermsOfUse] = useState(false)
+	const [firstPasswordShown, setFirstPasswordShown] = useState(false)
+	const [secondPasswordShown, setSecondPasswordShown] = useState(false)
 	const [isFormValid, setIsFormValid] = useState(false)
 	const navigate = useNavigate()
 	const dispatch = useDispatch()
@@ -46,7 +53,7 @@ export const RegistrationWrapperLeft = () => {
 
 	const handleRegisterUser = async () => {
 		try {
-			if (newUser) {
+			if (newUser && newUser.password === newUser.secondPassword) {
 				await registration(newUser)
 					.unwrap()
 					.then((result) => {
@@ -74,17 +81,25 @@ export const RegistrationWrapperLeft = () => {
 		navigate('/auth/login')
 	}
 
-	const showPassword = () => {
-		setPasswordShown(!passwordShown)
+	const onTOUModalToggle = () => {
+		setTermsOfUse(!termsOfUse)
+	}
+
+	const togglePasswordVisibility = (passwordType: 'first' | 'second') => {
+		if (passwordType === 'first') {
+			setFirstPasswordShown(!firstPasswordShown)
+		} else if (passwordType === 'second') {
+			setSecondPasswordShown(!secondPasswordShown)
+		}
 	}
 
 	useEffect(() => {
-		const isValid = newUser.name !== '' && newUser.surname !== '' && newUser.email !== '' && newUser.password !== ''
+		const isValid = newUser.name !== '' && newUser.surname !== '' && newUser.email !== '' && newUser.password !== '' && newUser.secondPassword !== ''
 		setIsFormValid(isValid)
 	}, [newUser])
 
 	return (
-		<WrapperLeft>
+		<WrapperLeft alignItems='center' display='flex' justifyContent='center'>
 			<TitleH1 text='Регистрация'
 							 fontSize='50px'
 							 fontWeight='500'
@@ -245,7 +260,7 @@ export const RegistrationWrapperLeft = () => {
 							 marginTop='5px'
 				>
 					<Image src={LockIcon} alt='' />
-					<Input type={passwordShown ? 'text' : 'password'}
+					<Input type={firstPasswordShown ? 'text' : 'password'}
 								 placeholder='Придумайте пароль'
 								 backgroundColor={theme.colors.grey_Light}
 								 border='none'
@@ -258,7 +273,31 @@ export const RegistrationWrapperLeft = () => {
 								 onChange={(e) => {
 									 setNewUser({ ...newUser, password: e.target.value })
 								 }} />
-					<Image src={PasswordEye} alt='' onClick={showPassword} cursor='pointer' />
+					<Image src={firstPasswordShown ? EyeOff : EyeOn} alt='' onClick={() => togglePasswordVisibility('first')} cursor='pointer' />
+				</Block>
+				<Block backgroundColor={theme.colors.grey_Light}
+							 display='flex'
+							 alignItems='center'
+							 borderRadius='50px'
+							 padding='16px 0px 16px 24px'
+							 border='none'
+							 marginTop='24px'
+				>
+					<Image src={LockIcon} alt='' />
+					<Input type={secondPasswordShown ? 'text' : 'password'}
+								 placeholder='Повторите пароль'
+								 backgroundColor={theme.colors.grey_Light}
+								 border='none'
+								 outline='none'
+								 width='328px'
+								 fontFamily='Nunito'
+								 fontSize='18px'
+								 marginRight='9px'
+								 value={newUser.secondPassword}
+								 onChange={(e) => {
+									 setNewUser({ ...newUser, secondPassword: e.target.value })
+								 }} />
+					<Image src={secondPasswordShown ? EyeOff : EyeOn} alt='' onClick={() => togglePasswordVisibility('second')} cursor='pointer' />
 				</Block>
 
 				<Span marginTop='16px' marginBottom='20px' display='flex' flexDirection='column' color={theme.colors.grey}
@@ -289,10 +328,21 @@ export const RegistrationWrapperLeft = () => {
 				<Span text='Нажимая кнопку «Зарегистрироваться», вы принимаете условия' color={theme.colors.grey} />
 				<Span text='пользовательского соглашения' cursor='pointer'
 							color={theme.colors.Primary_Purple}
-							fontWeight='500' />
+							fontWeight='500'
+							onClick={onTOUModalToggle}
+				/>
 			</Span>
 
-			{isModalVisible ? <Modal visible={isModalVisible}>
+			{termsOfUse ?
+				<Modal visible={termsOfUse} width='960px'>
+					<Block display='flex' justifyContent='space-between' width='908px' margin='20px 24px 0 28px' fontFamily='Unbounded'>
+						<TitleH2 text='Пользовательское соглашение'/>
+						<Image src={Close} cursor='pointer' onClick={onTOUModalToggle}/>
+					</Block>
+					<TOU/>
+				</Modal> : null }
+
+			{isModalVisible ? <Modal visible={isModalVisible} width='600px' display='flex' alignItems='center' justifyContent='center'>
 				<img src={SuccessIcon} alt='Success' />
 				<TitleH1 text='Спасибо'
 								 fontSize='50px'
@@ -317,7 +367,7 @@ export const RegistrationWrapperLeft = () => {
 					<Span text='Войти' color='#FFFFFF' marginRight='10px' fontFamily='Nunito' fontSize='18px' />
 					<Image src={Arrow} alt='' />
 				</Button>
-			</Modal> : null}
+			</Modal> : null }
 
 		</WrapperLeft>
 	)

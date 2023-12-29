@@ -19,16 +19,19 @@ export interface IBlockProps {
 	fontFamily?: string;
 	fontWeight?: string;
 	justifyContent?: string;
+	margin?: string;
 	marginLeft?: string;
 	marginRight?: string;
 	boxSizing?: string;
 	textAlign?: string;
 	position?: string;
 	top?: string;
+	left?: string;
 	boxShadow?: string;
 	borderBottom?: string;
 	flexWrap?: string;
 	gap?: string;
 	onClick?: () => void;
-	borderColor?: string
+	borderColor?: string;
+	cursor?: string;
 }

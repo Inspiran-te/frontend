@@ -17,4 +17,5 @@ export const Span = styled.span<ISpan>`
 	display: ${props => props.display};
 	flex-direction: ${props => props.flexDirection};
   padding: ${props => props.padding};
+	margin: ${props => props.margin};
 `

@@ -1,4 +1,4 @@
-import { ReactNode } from 'react'
+import { ReactNode, MouseEvent } from 'react'
 
 export interface ISpan {
 	text?: string;
@@ -19,4 +19,6 @@ export interface ISpan {
 	flexDirection?: string;
 	marginLeft?: string;
 	padding?: string;
+	margin?: string;
+	onClick?: () => void
 }

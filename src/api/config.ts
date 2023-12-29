@@ -1,7 +1,7 @@
 import { BaseQueryFn, FetchArgs, fetchBaseQuery, FetchBaseQueryError } from '@reduxjs/toolkit/query'
 import { RootState } from '../redux/store'
 
-export const localApiPath = 'http://45.141.79.27:8083'
+export const localApiPath = 'https://simplelms.ru/'
 
 const createQuery = (baseUrl: string) =>
 	fetchBaseQuery({

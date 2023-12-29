@@ -18,4 +18,7 @@ export interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
 	opacity?: string;
 	zIndex?: number;
 	cursor?: string;
+	borderColor?: string;
+	textAlign?: string;
+	outlineColor?: string;
 }

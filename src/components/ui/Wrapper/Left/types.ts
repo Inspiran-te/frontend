@@ -4,4 +4,7 @@ export interface IWrapperLeftProps {
 	height?: string;
 	textAlign?: string;
 	children?: React.ReactNode
+	display?: string;
+	justifyContent?: string;
+	alignItems?: string;
 }

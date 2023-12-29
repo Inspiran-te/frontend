@@ -5,7 +5,8 @@ import LinkedIN from '../../assets/LinkedINicon.svg'
 import Letter from '../../assets/letterInput.svg'
 import LockIcon from '../../assets/lockIcon.svg'
 import Arrow from '../../assets/arrow.svg'
-import PasswordEye from '../../assets/EyeOn.png'
+import EyeOn from '../../assets/EyeOn.svg'
+import EyeOff from '../../assets/EyeOff.svg'
 import { theme } from '../../theme/theme'
 import { Button } from '../ui/Button'
 import { Block } from '../ui/Block'
@@ -32,7 +33,7 @@ export const LoginWrapperLeft = () => {
 		refreshToken: '',
 		id: ''
 	})
-
+	const [passwordShown, setPasswordShown] = useState(false)
 
 	const navigate = useNavigate()
 	const dispatch = useDispatch()
@@ -62,8 +63,12 @@ export const LoginWrapperLeft = () => {
 		}
 	}
 
+	const showPassword = () => {
+		setPasswordShown(!passwordShown)
+	}
+
 	return (
-		<WrapperLeft height='840px'>
+		<WrapperLeft height='840px' alignItems='center' display='flex' justifyContent='center'>
 			<TitleH1 text='Вход'
 							 fontSize='50px'
 							 fontWeight='500'
@@ -174,7 +179,7 @@ export const LoginWrapperLeft = () => {
 							 marginTop='5px'
 				>
 					<Image src={LockIcon} alt='' />
-					<Input type='password'
+					<Input type={passwordShown ? 'text' : 'password'}
 								 placeholder='Введите пароль'
 								 backgroundColor={theme.colors.grey_Light}
 								 border='none'
@@ -186,7 +191,7 @@ export const LoginWrapperLeft = () => {
 									 setUser({ ...user, password: e.target.value })
 								 }}
 					/>
-					<Image src={PasswordEye} alt='' />
+					<Image src={passwordShown ? EyeOff : EyeOn} alt='' onClick={showPassword} cursor='pointer' />
 				</Block>
 				<Button display='flex'
 								alignItems='center'
@@ -203,11 +208,10 @@ export const LoginWrapperLeft = () => {
 				</Button>
 			</Block>
 			<Span marginTop='20px' fontFamily='Nunito'>
-				<Span text='Забыли пароль? ' color={theme.colors.grey} fontSize='14px' />
+				<Span text='Забыли пароль? ' color={theme.colors.grey} />
 				<Link text='Восстановить здесь' cursor='pointer'
 							to='/auth/recover'
 							active
-							fontWeight='500'
 							textDecoration='none' />
 			</Span>
 		</WrapperLeft>

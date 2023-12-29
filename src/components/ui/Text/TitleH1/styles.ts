@@ -10,4 +10,5 @@ export const TitleWrapper = styled.h1<ITitleH1>`
   color: ${props => props.color};
   font-family: ${props => props.fontFamily};
 	text-align: ${props => props.textAlign};
+	margin: ${props => props.margin}
 `

@@ -8,4 +8,5 @@ export interface ITitleH1 {
 	fontWeight?: string;
 	fontFamily?: string;
 	textAlign?: string;
+	margin?: string
 }
