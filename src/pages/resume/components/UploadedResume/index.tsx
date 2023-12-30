@@ -8,7 +8,9 @@ import resumeIcon from '../../../../assets/CVResume.svg'
 import uploadedResume from '../../../../assets/uploadResumeIcon.svg'
 import { UploadedResumeProps } from './types'
 
-export const UploadedResume: React.FC<UploadedResumeProps> = ({ deleteUploadUserResume, downloadResumeUser }) => {
+const userResumePath = 'http://45.141.79.27:8084/pdf/uploadedPdf'
+
+export const UploadedResume: React.FC<UploadedResumeProps> = ({ deleteUploadUserResume, downloadResume }) => {
 
     return (
         <Block display='flex'
@@ -29,7 +31,7 @@ export const UploadedResume: React.FC<UploadedResumeProps> = ({ deleteUploadUser
                     <Span text='Резюме' fontSize='24px'
                         fontFamily='Unbounded' />
                     <Block marginTop='28px' display='flex' alignItems='center'
-                        onClick={downloadResumeUser}
+                        onClick={() => downloadResume(userResumePath)}
                         cursor='pointer'>
                         <Image src={uploadedResume} />
                         <Span text='Resume' fontSize='16px' fontFamily='Nunito'

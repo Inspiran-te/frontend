@@ -20,30 +20,13 @@ import axios from 'axios'
 import Label from '../../components/ui/Label'
 import { UploadedResume } from './components/UploadedResume'
 import { ICompany, IInputsData, IInstitution } from './types'
-import { useDeleteResumeMutation } from '../../api/userResume'
+import { useDeleteResumeCVMutation, useDeleteResumeMutation } from '../../api/userResume'
 import { UploadedResumeCV } from './components/UploadedResumeCV'
-import { saveAs } from 'file-saver';
 
 export const Resume = () => {
 	const [resumeUser, setResumeUser] = useState<Uint8Array>()
 	const [isFormFull, setIsFormFull] = useState(false);
-	const [file, setFile] = useState()
-	const [dataExpiriense, setDataExpiriense] = useState<ICompany[]>([ // костыль помогает работе кода, пока не придумал как избавиться.
-		{
-			companyName: "",
-			companyPosition: "",
-			companyStartDate: "",
-			companyEndDate: "",
-			companyDescription: ""
-		},
-		{
-			companyName: "",
-			companyPosition: "",
-			companyStartDate: "",
-			companyEndDate: "",
-			companyDescription: ""
-		},
-	])
+	const [cvResume, setCvResume] = useState()
 
 	const [inputsData, setInputsData] = useState<IInputsData>({ // итоговое состояние данных которое отправляем на сервер
 		contact: {
@@ -67,13 +50,27 @@ export const Resume = () => {
 			institutions: []
 		},
 		experience: {
-			companies: []
+			companies: [{
+				companyName: "",
+				companyPosition: "",
+				companyStartDate: "",
+				companyEndDate: "",
+				companyDescription: ""
+			},
+			{
+				companyName: "",
+				companyPosition: "",
+				companyStartDate: "",
+				companyEndDate: "",
+				companyDescription: ""
+			},]
 		}
 	})
 
 	const userId = useSelector((state: RootState) => state.auth.auth.id)
 	const userToken = useSelector((state: RootState) => state.auth.auth.access)
 	const [deleteResume] = useDeleteResumeMutation();
+	const [deleteResumeCV] = useDeleteResumeCVMutation();
 
 	// фунция собирает данные из input компаний
 	const handleInputChangeCompany = (event: React.ChangeEvent<HTMLInputElement>, index: number, field: keyof ICompany) => {
@@ -111,8 +108,8 @@ export const Resume = () => {
 		});
 	};
 
-
-	const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => { // функция добавляет данные из инпутов кроме компаний и институтов
+	// функция добавляет данные из инпутов кроме компаний и институтов
+	const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		const { name, value } = e.target;
 
 		if (name.startsWith("contact")) {
@@ -144,41 +141,29 @@ export const Resume = () => {
 					skills: [value],
 				},
 			}));
-		} 
+		}
 	};
 
-	console.log('inputsData', inputsData);
-
-	const hasResume = async () => { // проверяет наличие загруженного пользователем резюме
+	//функция проверяет наличие резюме загруженного пользователем и резюме CV
+	const hasResume = async (type: string, path: string, userId: string, userToken: string) => {
 		try {
-			const response = await axios.get(`http://45.141.79.27:8084/pdf/uploaded/${userId}`, {
+			const response = await axios.get(`http://45.141.79.27:8084/${path}/${userId}`, {
 				headers: {
 					'Authorization': `Bearer ${userToken}`
 				}
 			});
-			setResumeUser(response.data);
-
+			if (type === 'resumeUser') {
+				setResumeUser(response.data);
+			} else if (type === 'cvResume') {
+				setCvResume(response.data);
+			}
 		} catch (error) {
 			console.error(error);
 		}
 	};
-
-	const hasResumeCV = async () => { // проверяет наличие сохраненного пользователем резюме собранного по данным из инпутов
-		try {
-			const response = await axios.get(`http://45.141.79.27:8084/resume/${userId}`, {
-				headers: {
-					'Authorization': `Bearer ${userToken}`
-				}
-			});
-			setFile(response.data);
-
-		} catch (error) {
-			console.error(error);
-		}
-	};
-
+	
 	//фунция загрузки резюме пользователя
-	const handleResumeUpload = async (e: React.ChangeEvent<HTMLInputElement>) => { 
+	const handleResumeUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
 		const selectedFile = e.target.files![0]
 
 		if (selectedFile) {
@@ -192,32 +177,27 @@ export const Resume = () => {
 						'Authorization': `Bearer ${userToken}`
 					}
 				})
-				hasResume()
+				hasResume('resumeUser', 'pdf/uploaded', userId!, userToken!);
 				console.log('успешно выполнено')
 			} catch (error) {
 				console.error(error)
 			}
 		}
 	}
-	const downloadResumeUser = async () => {
-		try {
-		  const response = await axios.get(`http://45.141.79.27:8084/pdf/uploadedPdf/${userId}`, {
-			headers: {
-			  'Authorization': `Bearer ${userToken}`,
-			}
-		  });
-		  const blob = new Blob([response.data], { type: 'application/pdf' });
-		  saveAs(blob, 'file.pdf');
-		
-		} catch (error) {
-		  console.error(error);
-		}
-	  }
 
 	const deleteUploadUserResume = async () => { // удаление загруженного пользователем резюме
 		try {
 			await deleteResume({ userId, userToken });
 			setResumeUser(undefined)
+		} catch (error) {
+			console.error(error)
+		}
+	}
+
+	const deleteUserResumeCV = async () => { // удаление CV резюме
+		try {
+			await deleteResumeCV({ userId, userToken });
+			setCvResume(undefined)
 		} catch (error) {
 			console.error(error)
 		}
@@ -231,74 +211,33 @@ export const Resume = () => {
 					'Content-Type': 'application/json'
 				}
 			})
-
 			console.log('успешно выполнено сохранение резюме')
 		} catch (error) {
 			console.error(error)
 		}
 	}
 
-	// const downloadResumeUser = async () => { // функция для скачивания своего загруженного резюме в формате PDF
-	// 	try {
-	// 		const { data } = await axios.get(`http://45.141.79.27:8084/pdf/uploadedPdf/${userId}`, {
-	// 			headers: {
-	// 				'Authorization': `Bearer ${userToken}`,
-	// 			}
-	// 		});
-			
-	// 		console.log(data);
-
-	// 		const url = URL.createObjectURL(new Blob([data]));
-
-	// 		const link = document.createElement('a');
-	// 		link.href = url;
-	// 		link.download = 'resume.pdf';
-	// 		link.click();
-
-	// 		URL.revokeObjectURL(url);
-
-	// 		console.log('Successfully downloaded resume');
-	// 	} catch (error) {
-	// 		console.error(error);
-	// 	}
-	// };
-
-	const downloadResumeUserCV = async () => { // функция для скачивания своего загруженного резюме в формате PDF
+	const downloadResume = async (urlPath: string) => {
 		try {
-			const { data } = await axios.get(`http://45.141.79.27:8084/pdf/generated/17`, {
-				headers: {
-					'Authorization': `Bearer ${userToken}`,
-				}
+			const response = await axios.get(`${urlPath}/${userId}`, {
+				responseType: 'blob',
 			});
-			
-			const url = URL.createObjectURL(new Blob(data));
-
+			const url = window.URL.createObjectURL(new Blob([response.data]));
 			const link = document.createElement('a');
 			link.href = url;
-			link.download = 'resumeCV.pdf';
+			link.setAttribute('download', 'Resume.pdf');
+			document.body.appendChild(link);
 			link.click();
-
-			URL.revokeObjectURL(url);
-
-			console.log('Successfully downloaded resume');
+			document.body.removeChild(link);
 		} catch (error) {
 			console.error(error);
 		}
 	};
 
 	useEffect(() => { // этот эффект проверяет наличие резюме
-		hasResume()
-		hasResumeCV()
+		hasResume('resumeUser', 'pdf/uploaded', userId!, userToken!);
+		hasResume('cvResume', 'resume', userId!, userToken!);
 	}, [])
-
-	useEffect(() => { // костыль помогает работе кода, пока не придумал как избавиться.
-		setInputsData((prevInputsData) => ({
-			...prevInputsData,
-			experience: {
-				companies: [...dataExpiriense],
-			},
-		}));
-	}, [dataExpiriense]);
 
 	useEffect(() => { //Этот эффект делает кнопку активной при заполнении инпутов
 		const isContactValid = Object.values(inputsData.contact).every(value => value !== '');
@@ -371,11 +310,11 @@ export const Resume = () => {
 				</Block>
 				{resumeUser && <UploadedResume
 					deleteUploadUserResume={deleteUploadUserResume}
-					downloadResumeUser={downloadResumeUser}
+					downloadResume={downloadResume}
 				/>}
-				{file && <UploadedResumeCV
-					deleteUploadUserResume={deleteUploadUserResume}
-					downloadResumeUserCV={downloadResumeUserCV}
+				{cvResume && <UploadedResumeCV
+					deleteUserResumeCV={deleteUserResumeCV}
+					downloadResume={downloadResume}
 				/>}
 
 				<Contacts handleInputChange={handleInputChange} inputsData={inputsData} />
@@ -406,9 +345,7 @@ export const Resume = () => {
 					<Span marginLeft='5px' fontFamily='Nunito' fontSize='18px'
 						text='Сохранить' color={isFormFull ? theme.colors.white : theme.colors.grey} />
 				</Button>
-
 			</Block>
-
 		</Container>
 	)
 }

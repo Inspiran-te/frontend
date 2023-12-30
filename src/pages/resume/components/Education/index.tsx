@@ -21,8 +21,8 @@ export const Education: React.FC<EducationProps> = ({ handleInputChange, inputsD
     const [isOpen, setIsOpen] = useState(true);
     const [educationBlocks, setEducationBlocks] = useState<JSX.Element[]>([]);
 
-    const duplicateEducationBlocks = () => {
-        const newIndex = inputsData.education.institutions.length;
+    const duplicateEducationBlocks = () => { // функция добавляющая блоки 
+        const newIndex = inputsData.education.institutions.length; // номер объекта в массиве, который затем помогает добавить данные по индексу объекта в состояние
         setEducationBlocks([...educationBlocks,
         <EducationBlock
             key={educationBlocks.length}

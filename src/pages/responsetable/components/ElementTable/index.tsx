@@ -23,24 +23,19 @@ export const ElementsTable = ({ data }: ElementTableProps) => {
     const toggleDropdown = (id: string) => {
         setIsOpen((prevState) => ({ ...prevState, [id]: !prevState[id] }));
     };
-    const getColor = (option: string) => {
+    const getColor = (option: string) => { // функция по виду опции возвращает цвет текста
         switch (option) {
             case 'Отклик':
                 return '#5B93FF';
             case 'Тех собес':
-
                 return '#3598AE';
             case 'Кейс интервью':
-
                 return '#5D9229';
             case 'HR интервью':
-
                 return 'orange';
             case 'Менеджер':
-
                 return '#973799';
             case 'Оффер':
-
                 return '#3D9761';
             default:
                 return 'black';
@@ -63,13 +58,13 @@ export const ElementsTable = ({ data }: ElementTableProps) => {
                         fontFamily='Nunito'
                         position='relative'
                         borderRadius={isOpen[item.id] ? '8px 8px 0 0' : '8px'}
-                        boxShadow={isOpen[item.id] ? '0px 0px 2px 0px rgba(0, 0, 0, 0.20)':''}
-                        >
+                        boxShadow={isOpen[item.id] ? '0px 0px 2px 0px rgba(0, 0, 0, 0.20)' : ''}
+                    >
                         <Block onClick={() => toggleDropdown(item.id)}
                             padding='10px 20px 10px 20px'
                             display='flex'
                             color={getColor(selectedOption[item.id])}
-                            >
+                        >
                             {selectedOption[item.id] || 'Выберите опцию'}
                             {isOpen[item.id] ? <Image src={ArrowUp} marginLeft='20px' /> : <Image src={ArrowDown} marginLeft='20px' />}
                         </Block>
@@ -90,7 +85,7 @@ export const ElementsTable = ({ data }: ElementTableProps) => {
                                         color={getColor(option)}
                                         onClick={() => onOptionClicked(option, item.id)}
                                         key={options.length}
-                                        >
+                                    >
                                         {option}
                                     </Block>
                                 ))}

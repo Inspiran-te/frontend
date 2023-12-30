@@ -25,6 +25,15 @@ export const resumeApi = createApi({
           },
         }),
       }),
+      deleteResumeCV: builder.mutation<any, IResumeRequest>({
+        query: ({ userId, userToken }) => ({
+          url: `/resume/${userId}`,
+          method: 'DELETE',
+          headers: {
+            'Authorization': `Bearer ${userToken}`,
+          },
+        }),
+      }),
       uploadResumeUser: builder.mutation<any, IResumeRequest & { formData: FormData }>({
         query: ({ userId, userToken, formData }) => ({
           url: `/pdf/uploadedPdf/${userId}`,
@@ -39,4 +48,4 @@ export const resumeApi = createApi({
     }),
   })
   
-  export const { useGetResumeQuery, useDeleteResumeMutation, useUploadResumeUserMutation } = resumeApi
+  export const { useGetResumeQuery, useDeleteResumeMutation, useUploadResumeUserMutation, useDeleteResumeCVMutation } = resumeApi

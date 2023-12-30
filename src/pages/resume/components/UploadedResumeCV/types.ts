@@ -1,4 +1,4 @@
 export interface UploadedResumeProps {
-    deleteUploadUserResume: ()=> void;
-    downloadResumeUserCV: ()=> void
+    deleteUserResumeCV: ()=> void;
+    downloadResume: (urlPath: string)=> void
 }
