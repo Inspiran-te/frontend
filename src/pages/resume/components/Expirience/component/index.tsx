@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { theme } from '../../../../../theme/theme'
 import { Block } from '../../../../../components/ui/Block'
 import Span from '../../../../../components/ui/Span'
@@ -8,8 +8,9 @@ import Smile from '../../../../../assets/smile.png'
 import { Line } from '../../../../../components/ui/Line/styles'
 import Label from '../../../../../components/ui/Label'
 import { Input } from '../../../../../components/ui/Input'
+import { ExpirienceDataProps } from './types'
 
-export const WorkBlock = () => {
+export const WorkBlock: React.FC<ExpirienceDataProps> = ({ handleInputChangeCompany, inputsData, index }) => {
 
     return (<>
         <Line marginTop='40px' marginBottom='40px' width='100%' />
@@ -26,7 +27,10 @@ export const WorkBlock = () => {
                     fontFamily='Nunito'
                     fontSize='18px'
                     padding='16px 24px 16px 24px'
-                    borderRadius='50px' />
+                    borderRadius='50px'
+                    onChange={(e) => handleInputChangeCompany(e, index, 'companyName')}
+                    value={inputsData?.experience.companies[index]?.companyName}
+                />
             </Block>
 
             <Block display='flex' flexDirection='column' marginLeft='20px'>
@@ -41,6 +45,8 @@ export const WorkBlock = () => {
                     fontSize='18px'
                     padding='16px 24px 16px 24px'
                     borderRadius='50px'
+                    onChange={(e) => handleInputChangeCompany(e, index, 'companyPosition')}
+                    value={inputsData?.experience.companies[index]?.companyPosition}
                 />
             </Block>
         </Block>
@@ -59,6 +65,8 @@ export const WorkBlock = () => {
                     fontSize='18px'
                     padding='16px 24px 16px 24px'
                     borderRadius='50px'
+                    onChange={(e) => handleInputChangeCompany(e, index, 'companyStartDate')}
+                    value={inputsData?.experience.companies[index]?.companyStartDate}
                 />
             </Block>
 
@@ -74,6 +82,8 @@ export const WorkBlock = () => {
                     fontSize='18px'
                     padding='16px 24px 16px 24px'
                     borderRadius='50px'
+                    onChange={(e) => handleInputChangeCompany(e, index, 'companyEndDate')}
+                    value={inputsData?.experience.companies[index]?.companyEndDate}
                 />
             </Block>
 
@@ -97,6 +107,8 @@ export const WorkBlock = () => {
                 fontSize='18px'
                 padding='24px 24px 24px 24px'
                 borderRadius='24px'
+                onChange={(e) => handleInputChangeCompany(e, index, 'companyDescription')}
+                value={inputsData?.experience.companies[index]?.companyDescription}
             />
 
             <Block backgroundColor='#EFEFF9'

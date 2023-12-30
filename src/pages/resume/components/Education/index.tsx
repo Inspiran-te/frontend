@@ -15,13 +15,20 @@ import Smile from '../../../../assets/smile.png'
 import PlusIcon from '../../../../assets/plusIcon.svg'
 import { changeOpenBlock } from '../../../../helpers'
 import { EducationBlock } from './component'
+import { EducationProps } from './types'
 
-export const Education = () => {
+export const Education: React.FC<EducationProps> = ({ handleInputChange, inputsData, handleInputChangeInstitutions }) => {
     const [isOpen, setIsOpen] = useState(true);
     const [educationBlocks, setEducationBlocks] = useState<JSX.Element[]>([]);
 
-    const duplicateEducationBlocks = () => {
-        setEducationBlocks([...educationBlocks, <EducationBlock key={educationBlocks.length} />]);
+    const duplicateEducationBlocks = () => { // функция добавляющая блоки 
+        const newIndex = inputsData.education.institutions.length; // номер объекта в массиве, который затем помогает добавить данные по индексу объекта в состояние
+        setEducationBlocks([...educationBlocks,
+        <EducationBlock
+            key={educationBlocks.length}
+            index={newIndex}
+            handleInputChangeInstitutions={handleInputChangeInstitutions}
+            inputsData={inputsData} />]);
     };
     return (
         <Block display='flex'
@@ -74,7 +81,9 @@ export const Education = () => {
                                 fontFamily='Nunito'
                                 fontSize='18px'
                                 padding='16px 24px 16px 24px'
-                                borderRadius='50px' />
+                                borderRadius='50px'
+                                onChange={(e) => handleInputChangeInstitutions(e, 0, 'institutionName')}
+                                value={inputsData.education.institutions[0]?.institutionName} />
                         </Block>
 
                         <Block display='flex' flexDirection='column' marginLeft='20px'>
@@ -93,6 +102,8 @@ export const Education = () => {
                                 fontSize='18px'
                                 padding='16px 24px 16px 24px'
                                 borderRadius='50px'
+                                onChange={(e) => handleInputChangeInstitutions(e, 0, 'institutionFaculty')}
+                                value={inputsData.education.institutions[0]?.institutionFaculty}
                             />
                         </Block>
                     </Block>
@@ -135,6 +146,9 @@ export const Education = () => {
                             fontSize='18px'
                             padding='16px 24px 16px 24px'
                             borderRadius='50px'
+                            onChange={(e) => handleInputChangeInstitutions(e, 0, 'institutionStartDate')}
+                            value={inputsData.education.institutions[0]?.institutionStartDate}
+
                         />
                     </Block>
 
@@ -150,6 +164,8 @@ export const Education = () => {
                             fontSize='18px'
                             padding='16px 24px 16px 24px'
                             borderRadius='50px'
+                            onChange={(e) => handleInputChangeInstitutions(e, 0, 'institutionEndDate')}
+                            value={inputsData.education.institutions[0]?.institutionEndDate}
                         />
                     </Block>
 
@@ -168,6 +184,8 @@ export const Education = () => {
                         fontSize='18px'
                         padding='24px 24px 24px 24px'
                         borderRadius='24px'
+                        onChange={(e) => handleInputChangeInstitutions(e, 0, 'institutionDescription')}
+                        value={inputsData.education.institutions[0]?.institutionDescription}
                     />
 
                 </Block>
@@ -191,7 +209,10 @@ export const Education = () => {
                                 fontFamily='Nunito'
                                 fontSize='18px'
                                 padding='16px 24px 16px 24px'
-                                borderRadius='50px' />
+                                borderRadius='50px'
+                                onChange={(e) => handleInputChangeInstitutions(e, 1, 'institutionName')}
+                                value={inputsData.education.institutions[1]?.institutionName}
+                            />
                         </Block>
 
                         <Block display='flex' flexDirection='column' marginLeft='20px'>
@@ -210,6 +231,8 @@ export const Education = () => {
                                 fontSize='18px'
                                 padding='16px 24px 16px 24px'
                                 borderRadius='50px'
+                                onChange={(e) => handleInputChangeInstitutions(e, 1, 'institutionFaculty')}
+                                value={inputsData.education.institutions[1]?.institutionFaculty}
                             />
                         </Block>
                     </Block>
@@ -251,6 +274,8 @@ export const Education = () => {
                             fontSize='18px'
                             padding='16px 24px 16px 24px'
                             borderRadius='50px'
+                            onChange={(e) => handleInputChangeInstitutions(e, 1, 'institutionStartDate')}
+                            value={inputsData.education.institutions[1]?.institutionStartDate}
                         />
                     </Block>
 
@@ -266,6 +291,8 @@ export const Education = () => {
                             fontSize='18px'
                             padding='16px 24px 16px 24px'
                             borderRadius='50px'
+                            onChange={(e) => handleInputChangeInstitutions(e, 1, 'institutionEndDate')}
+                            value={inputsData.education.institutions[1]?.institutionEndDate}
                         />
                     </Block>
 
@@ -284,6 +311,8 @@ export const Education = () => {
                         fontSize='18px'
                         padding='24px 24px 24px 24px'
                         borderRadius='24px'
+                        onChange={(e) => handleInputChangeInstitutions(e, 1, 'institutionDescription')}
+                        value={inputsData.education.institutions[1]?.institutionDescription}
                     />
 
                 </Block>

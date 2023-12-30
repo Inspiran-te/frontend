@@ -19,131 +19,150 @@ import { Input } from '../../components/ui/Input'
 import axios from 'axios'
 import Label from '../../components/ui/Label'
 import { UploadedResume } from './components/UploadedResume'
-import { IInputsData } from './types'
+import { ICompany, IInputsData, IInstitution } from './types'
+import { useDeleteResumeCVMutation, useDeleteResumeMutation } from '../../api/userResume'
+import { UploadedResumeCV } from './components/UploadedResumeCV'
 
 export const Resume = () => {
-	const [resumeUser, setResumeUser] = useState('')
-	const [inputsData, setInputsData] = useState<IInputsData>({
+	const [resumeUser, setResumeUser] = useState<Uint8Array>()
+	const [isFormFull, setIsFormFull] = useState(false);
+	const [cvResume, setCvResume] = useState()
+
+	const [inputsData, setInputsData] = useState<IInputsData>({ // итоговое состояние данных которое отправляем на сервер
 		contact: {
-			name: '',
-			surname: '',
-			email: '',
-			phone: '',
-			linkedin: '',
-			github: '',
-			behance: '',
-			site: '',
-			country: ''
+			name: "",
+			surname: "",
+			email: "",
+			phone: "",
+			linkedin: "",
+			github: "",
+			behance: "",
+			site: "",
+			country: ""
 		},
 		summary: {
-			summary: ''
+			summary: ""
 		},
 		skill: {
-			skills: ''
+			skills: [""]
 		},
 		education: {
-			institutions: [
-				{
-					name: '',
-					position: '',
-					startDate: null,
-					endDate: null,
-					description: ''
-				}
-			]
+			institutions: []
 		},
 		experience: {
-			companies: [
-				{
-					name: '',
-					position: '',
-					startDate: null,
-					endDate: null,
-					description: ''
-				}
-			]
+			companies: [{
+				companyName: "",
+				companyPosition: "",
+				companyStartDate: "",
+				companyEndDate: "",
+				companyDescription: ""
+			},
+			{
+				companyName: "",
+				companyPosition: "",
+				companyStartDate: "",
+				companyEndDate: "",
+				companyDescription: ""
+			},]
 		}
-
 	})
 
 	const userId = useSelector((state: RootState) => state.auth.auth.id)
 	const userToken = useSelector((state: RootState) => state.auth.auth.access)
+	const [deleteResume] = useDeleteResumeMutation();
+	const [deleteResumeCV] = useDeleteResumeCVMutation();
 
+	// фунция собирает данные из input компаний
+	const handleInputChangeCompany = (event: React.ChangeEvent<HTMLInputElement>, index: number, field: keyof ICompany) => {
+		setInputsData(prevState => {
+			const newCompanies = [...prevState.experience.companies];
+			newCompanies[index] = {
+				...newCompanies[index],
+				[field]: event.target.value
+			};
+			return {
+				...prevState,
+				experience: {
+					...prevState.experience,
+					companies: newCompanies
+				}
+			};
+		});
+	};
+
+	//функция собирает данные из input институтов 
+	const handleInputChangeInstitutions = (event: React.ChangeEvent<HTMLInputElement>, index: number, field: keyof IInstitution) => {
+		setInputsData(prevState => {
+			const newInstitution = [...prevState.education.institutions];
+			newInstitution[index] = {
+				...newInstitution[index],
+				[field]: event.target.value
+			};
+			return {
+				...prevState,
+				education: {
+					...prevState.education,
+					institutions: newInstitution
+				}
+			};
+		});
+	};
+
+	// функция добавляет данные из инпутов кроме компаний и институтов
 	const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-		const { name, value } = e.target
-		setInputsData((prevState) => ({
+		const { name, value } = e.target;
 
-			...prevState,
-			contact: {
-				...prevState.contact,
-				[name]: value
-			},
-			summary: {
-				...prevState.summary,
-				[name]: value
-			},
-			skill: {
-				...prevState.skill,
-				skills: value
-			},
-			education: {
-				...prevState.education,
-				institutions: [
-					{
-						name: '',
-						position: '',
-						startDate: null,
-						endDate: null,
-						description: ''
-					}
-				]
-			},
-			experience: {
-				...prevState.experience,
-				companies: [
-					{
-						name: '',
-						position: '',
-						startDate: null,
-						endDate: null,
-						description: ''
-					}
-				]
-			}
-		}))
-	}
+		if (name.startsWith("contact")) {
+			const contactField = name.split(".")[1];
 
-	// const addInstitution = () => {
-	// 	setInputsData((prevState) => ({
-	// 		...prevState,
-	// 		education: {
-	// 		  ...prevState.education,
-	// 		  institutions: [
-	// 			{
-	// 			  name: '',
-	// 			  position: '',
-	// 			  startDate: null,
-	// 			  endDate: null,
-	// 			  description: ''
-	// 			}
-	// 		  ]
-	// 		}
-	// 	  }));
-	// }
-	const hasResume = async () => {
-		try {
-			const response = await axios.get(`http://45.141.79.27:8084/pdf/uploaded/${userId}`,
-				{
-					headers: {
-						'Authorization': `Bearer ${userToken}`
-					}
-				})
-			setResumeUser(response.data)
-		} catch (error) {
-			console.error(error)
+			setInputsData((prevState) => ({
+				...prevState,
+				contact: {
+					...prevState.contact,
+					[contactField]: value,
+				},
+			}));
+		} else if (name.startsWith("summary")) {
+			const summaryField = name.split(".")[1];
+
+			setInputsData((prevState) => ({
+				...prevState,
+				summary: {
+					...prevState.summary,
+					[summaryField]: value,
+				},
+			}));
+		} else if (name.startsWith("skill")) {
+
+			setInputsData((prevState) => ({
+				...prevState,
+				skill: {
+					...prevState.skill,
+					skills: [value],
+				},
+			}));
 		}
+	};
 
-	}
+	//функция проверяет наличие резюме загруженного пользователем и резюме CV
+	const hasResume = async (type: string, path: string, userId: string, userToken: string) => {
+		try {
+			const response = await axios.get(`http://45.141.79.27:8084/${path}/${userId}`, {
+				headers: {
+					'Authorization': `Bearer ${userToken}`
+				}
+			});
+			if (type === 'resumeUser') {
+				setResumeUser(response.data);
+			} else if (type === 'cvResume') {
+				setCvResume(response.data);
+			}
+		} catch (error) {
+			console.error(error);
+		}
+	};
+	
+	//фунция загрузки резюме пользователя
 	const handleResumeUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
 		const selectedFile = e.target.files![0]
 
@@ -158,7 +177,7 @@ export const Resume = () => {
 						'Authorization': `Bearer ${userToken}`
 					}
 				})
-				hasResume()
+				hasResume('resumeUser', 'pdf/uploaded', userId!, userToken!);
 				console.log('успешно выполнено')
 			} catch (error) {
 				console.error(error)
@@ -166,33 +185,89 @@ export const Resume = () => {
 		}
 	}
 
-	const deleteUploadUserResume = async () => {
+	const deleteUploadUserResume = async () => { // удаление загруженного пользователем резюме
 		try {
-			await axios.delete(`http://45.141.79.27:8084/pdf/uploaded/${userId}`,
-				{
-					headers: {
-						'Authorization': `Bearer ${userToken}`
-					}
-				})
-			setResumeUser('')
+			await deleteResume({ userId, userToken });
+			setResumeUser(undefined)
 		} catch (error) {
 			console.error(error)
 		}
 	}
 
-	useEffect(() => {
-		hasResume()
+	const deleteUserResumeCV = async () => { // удаление CV резюме
+		try {
+			await deleteResumeCV({ userId, userToken });
+			setCvResume(undefined)
+		} catch (error) {
+			console.error(error)
+		}
+	}
+
+	const saveRezumeCV = async () => { // сохранение резюме по введенным данным
+		try {
+			await axios.post(`http://45.141.79.27:8084/resume/${userId}`, inputsData, {
+				headers: {
+					'Authorization': `Bearer ${userToken}`,
+					'Content-Type': 'application/json'
+				}
+			})
+			console.log('успешно выполнено сохранение резюме')
+		} catch (error) {
+			console.error(error)
+		}
+	}
+
+	const downloadResume = async (urlPath: string) => {
+		try {
+			const response = await axios.get(`${urlPath}/${userId}`, {
+				responseType: 'blob',
+			});
+			const url = window.URL.createObjectURL(new Blob([response.data]));
+			const link = document.createElement('a');
+			link.href = url;
+			link.setAttribute('download', 'Resume.pdf');
+			document.body.appendChild(link);
+			link.click();
+			document.body.removeChild(link);
+		} catch (error) {
+			console.error(error);
+		}
+	};
+
+	useEffect(() => { // этот эффект проверяет наличие резюме
+		hasResume('resumeUser', 'pdf/uploaded', userId!, userToken!);
+		hasResume('cvResume', 'resume', userId!, userToken!);
 	}, [])
+
+	useEffect(() => { //Этот эффект делает кнопку активной при заполнении инпутов
+		const isContactValid = Object.values(inputsData.contact).every(value => value !== '');
+		const isSummaryValid = inputsData.summary.summary !== '';
+		const isSkillValid = inputsData.skill.skills.length > 0;
+		const isEducationValid = inputsData.education.institutions.every(institution => {
+			return Object.values(institution).every(value => value !== '');
+		});
+		const isExperienceValid = inputsData.experience.companies.every(company => {
+			return Object.values(company).every(value => value !== '');
+		});
+
+		setIsFormFull(
+			isContactValid &&
+			isSummaryValid &&
+			isSkillValid &&
+			isEducationValid &&
+			isExperienceValid
+		);
+	}, [inputsData]);
 
 	return (
 		<Container backgroundColor={theme.colors.grey_Light}>
 			<Block width='100%'
-						 display='flex'
-						 flexDirection='column'
-						 border='none'
-						 boxSizing='border-box'
-						 padding='0px 40px 0px 40px'
-						 marginBottom='46px'>
+				display='flex'
+				flexDirection='column'
+				border='none'
+				boxSizing='border-box'
+				padding='0px 40px 0px 40px'
+				marginBottom='46px'>
 
 				<Header />
 
@@ -203,59 +278,74 @@ export const Resume = () => {
 						fontWeight='400'
 						fontSize='36px' />
 					<Span text='Сюда вы можете загрузить своё резюме и/или воспользоваться нашей формой для для создания CV.'
-								fontFamily='Nunito'
-								fontSize='18px'
-								fontWeight='400'
-								marginTop='24px' />
+						fontFamily='Nunito'
+						fontSize='18px'
+						fontWeight='400'
+						marginTop='24px' />
 
 					<Button display='flex'
-									justifyContent='center'
-									alignItems='center'
-									border='2px solid #7400FF'
-									borderRadius='50px'
-									padding='20px 40px 20px 40px'
-									marginTop='24px'
-									marginBottom='5px'
+						justifyContent='center'
+						alignItems='center'
+						border='2px solid #7400FF'
+						borderRadius='50px'
+						padding='20px 40px 20px 40px'
+						marginTop='24px'
+						marginBottom='5px'
 					>
 						<Image src={ImgDownload} />
 						<Input id='fileAdd' cursor='pointer' marginRight='-250px' type='file' onChange={handleResumeUpload}
-									 opacity='0' />
+							opacity='0' />
 						<Label htmlFor='fileAdd' fontFamily='Nunito' fontSize='18px'
-									 text='Загрузить своё резюме' />
+							text='Загрузить своё резюме' />
 					</Button>
 
 					<Span fontFamily='Nunito' fontSize='16px'
-								text='Формат для загрузки pdf. Размер файла не должен привышать 10 Мб.'
-								color={theme.colors.grey} />
+						text='Формат для загрузки pdf. Размер файла не должен привышать 10 Мб.'
+						color={theme.colors.grey} />
 					<Block marginTop='48px'>
 						<Span fontFamily='Nunito' fontSize='18px'
-									text='Чтобы создать резюме, которое можно будет отправлять напрямую рекрутерам и HR, заполните все поля. Вы в любое время сможете внести изменения :)'
+							text='Чтобы создать резюме, которое можно будет отправлять напрямую рекрутерам и HR, заполните все поля. Вы в любое время сможете внести изменения :)'
 						/>
 					</Block>
 				</Block>
-				{resumeUser && <UploadedResume deleteUploadUserResume={deleteUploadUserResume} />}
+				{resumeUser && <UploadedResume
+					deleteUploadUserResume={deleteUploadUserResume}
+					downloadResume={downloadResume}
+				/>}
+				{cvResume && <UploadedResumeCV
+					deleteUserResumeCV={deleteUserResumeCV}
+					downloadResume={downloadResume}
+				/>}
 
 				<Contacts handleInputChange={handleInputChange} inputsData={inputsData} />
 				<Sammery handleInputChange={handleInputChange} inputsData={inputsData} />
 				<Skills handleInputChange={handleInputChange} inputsData={inputsData} />
-				<Expirience />
-				<Education />
+				<Expirience
+					handleInputChange={handleInputChange}
+					inputsData={inputsData}
+					handleInputChangeCompany={handleInputChangeCompany}
+					setInputsData={setInputsData} />
+				<Education
+					handleInputChange={handleInputChange}
+					inputsData={inputsData}
+					handleInputChangeInstitutions={handleInputChangeInstitutions}
+				/>
 
 				<Button display='flex'
-								justifyContent='center'
-								alignItems='center'
-								border='none'
-								borderRadius='50px'
-								padding='20px 40px 20px 40px'
-								margin='0 auto'
-								backgroundColor={theme.colors.disable_grey}
-								width='400px'>
+					justifyContent='center'
+					alignItems='center'
+					border='none'
+					borderRadius='50px'
+					padding='20px 40px 20px 40px'
+					margin='0 auto'
+					backgroundColor={isFormFull ? theme.colors.Primary_Purple : theme.colors.disable_grey}
+					width='400px'
+					onClick={saveRezumeCV}
+					disabled={!isFormFull}>
 					<Span marginLeft='5px' fontFamily='Nunito' fontSize='18px'
-								text='Сохранить' color={theme.colors.grey} />
+						text='Сохранить' color={isFormFull ? theme.colors.white : theme.colors.grey} />
 				</Button>
-
 			</Block>
-
 		</Container>
 	)
 }

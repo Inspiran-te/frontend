@@ -7,3 +7,7 @@ export type elementData = {
     contactsRecruiter: string,
     commets: string,
 }
+
+export type ElementTableProps = {
+    data: elementData[];
+}

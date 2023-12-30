@@ -1,5 +1,20 @@
-export interface IInputsData {
+export interface ICompany {
+    companyName: string;
+    companyPosition: string;
+    companyStartDate: string;
+    companyEndDate: string;
+    companyDescription: string;
+}
 
+export interface IInstitution {
+    institutionName: string,
+    institutionFaculty: string,
+    institutionStartDate: string,
+    institutionEndDate: string,
+    institutionDescription: string
+}
+
+export interface IInputsData {
     contact: {
         name: string,
         surname: string,
@@ -15,29 +30,24 @@ export interface IInputsData {
         summary: string
     }
     skill: {
-        skills: string
-       
+        skills: string[]
+
     },
     education: {
-        institutions: [
-            {
-                name: string,
-                position: string,
-                startDate: Date | null,
-                endDate: Date | null,
-                description: string
-            }
-        ]
+        institutions: IInstitution[]
     },
     experience: {
-        companies: [
-            {
-                name: string,
-                position: string,
-                startDate: Date | null,
-                endDate: Date | null,
-                description: string
-            }
-        ]
+        companies: ICompany[]
+
     }
-} 
+}
+
+export interface IInstitution {
+    name: string,
+    position: string,
+    startDate: string,
+    endDate: string,
+    description: string
+}
+
+

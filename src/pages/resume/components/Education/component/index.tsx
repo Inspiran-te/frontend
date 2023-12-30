@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { theme } from '../../../../../theme/theme'
 import { Block } from '../../../../../components/ui/Block'
 import Span from '../../../../../components/ui/Span'
@@ -8,8 +8,9 @@ import Smile from '../../../../../assets/smile.png'
 import { Line } from '../../../../../components/ui/Line/styles'
 import Label from '../../../../../components/ui/Label'
 import { Input } from '../../../../../components/ui/Input'
+import { EducationDataProps } from './types'
 
-export const EducationBlock = () => {
+export const EducationBlock: React.FC<EducationDataProps> = ({ handleInputChangeInstitutions, index, inputsData }) => {
 
     return (<>
         <Line marginTop='40px' marginBottom='40px' width='100%' />
@@ -30,7 +31,10 @@ export const EducationBlock = () => {
                     fontFamily='Nunito'
                     fontSize='18px'
                     padding='16px 24px 16px 24px'
-                    borderRadius='50px' />
+                    borderRadius='50px'
+                    onChange={(e) => handleInputChangeInstitutions(e, index, 'institutionName')}
+                    value={inputsData?.education.institutions[index]?.institutionName} />
+
             </Block>
 
             <Block display='flex' flexDirection='column' marginLeft='20px'>
@@ -49,6 +53,8 @@ export const EducationBlock = () => {
                     fontSize='18px'
                     padding='16px 24px 16px 24px'
                     borderRadius='50px'
+                    onChange={(e) => handleInputChangeInstitutions(e, index, 'institutionFaculty')}
+                    value={inputsData?.education.institutions[index]?.institutionFaculty}
                 />
             </Block>
 
@@ -60,7 +66,7 @@ export const EducationBlock = () => {
                 padding='26px 20px 26px 20px'
                 height='40px'
                 width='370px'
-                >
+            >
                 <Image width='24px' height='24px' src={Smile} alt="" />
 
                 <Span marginLeft='20px'
@@ -89,6 +95,8 @@ export const EducationBlock = () => {
                     fontSize='18px'
                     padding='16px 24px 16px 24px'
                     borderRadius='50px'
+                    onChange={(e) => handleInputChangeInstitutions(e, index, 'institutionStartDate')}
+                    value={inputsData?.education.institutions[index]?.institutionStartDate}
                 />
             </Block>
 
@@ -104,6 +112,8 @@ export const EducationBlock = () => {
                     fontSize='18px'
                     padding='16px 24px 16px 24px'
                     borderRadius='50px'
+                    onChange={(e) => handleInputChangeInstitutions(e, index, 'institutionEndDate')}
+                    value={inputsData?.education.institutions[index]?.institutionEndDate}
                 />
             </Block>
 
@@ -121,6 +131,8 @@ export const EducationBlock = () => {
                 fontSize='18px'
                 padding='24px 24px 24px 24px'
                 borderRadius='24px'
+                onChange={(e) => handleInputChangeInstitutions(e, index, 'institutionDescription')}
+                value={inputsData?.education.institutions[index]?.institutionDescription}
             />
         </Block>
 

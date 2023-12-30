@@ -8,9 +8,9 @@ import resumeIcon from '../../../../assets/CVResume.svg'
 import uploadedResume from '../../../../assets/uploadResumeIcon.svg'
 import { UploadedResumeProps } from './types'
 
-const userResumePath = 'http://45.141.79.27:8084/pdf/uploadedPdf'
+const userResumeCVPath = 'http://45.141.79.27:8084/pdf/generated'
 
-export const UploadedResume: React.FC<UploadedResumeProps> = ({ deleteUploadUserResume, downloadResume }) => {
+export const UploadedResumeCV: React.FC<UploadedResumeProps> = ({ deleteUserResumeCV, downloadResume }) => {
 
     return (
         <Block display='flex'
@@ -28,10 +28,10 @@ export const UploadedResume: React.FC<UploadedResumeProps> = ({ deleteUploadUser
                 <Image src={resumeIcon} />
 
                 <Block marginLeft='40px' display='flex' flexDirection='column' >
-                    <Span text='Резюме' fontSize='24px'
+                    <Span text='РезюмеCV' fontSize='24px'
                         fontFamily='Unbounded' />
                     <Block marginTop='28px' display='flex' alignItems='center'
-                        onClick={() => downloadResume(userResumePath)}
+                        onClick={() => downloadResume(userResumeCVPath)}
                         cursor='pointer'>
                         <Image src={uploadedResume} />
                         <Span text='Resume' fontSize='16px' fontFamily='Nunito'
@@ -43,7 +43,7 @@ export const UploadedResume: React.FC<UploadedResumeProps> = ({ deleteUploadUser
             </Block>
 
             <Block display='flex' alignItems='center'
-                onClick={deleteUploadUserResume}
+                onClick={deleteUserResumeCV}
                 cursor='pointer'>
                 <Image src={CrossIcon} marginRight='5px' />
                 <Span text='Удалить' fontSize='16px' fontFamily='Nunito' color={theme.colors.grey} />

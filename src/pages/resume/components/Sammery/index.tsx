@@ -55,7 +55,7 @@ export const Sammery: React.FC<SummeryProps> = ({ handleInputChange, inputsData 
                         fontSize='18px'
                         padding='24px 24px 24px 24px'
                         borderRadius='24px'
-                        name='summary'
+                        name='summary.summary'
 						value={inputsData.summary.summary}
                         onChange={handleInputChange} 
                     />

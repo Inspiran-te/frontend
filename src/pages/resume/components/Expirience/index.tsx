@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { theme } from '../../../../theme/theme'
 import { Block } from '../../../../components/ui/Block'
 import Span from '../../../../components/ui/Span'
@@ -15,15 +15,23 @@ import Label from '../../../../components/ui/Label'
 import { Line } from '../../../../components/ui/Line/styles'
 import { changeOpenBlock } from '../../../../helpers'
 import { WorkBlock } from './component/index'
+import { ExpirienceProps } from './types'
+import { ICompany } from '../../types'
 
-export const Expirience = () => {
+export const Expirience: React.FC<ExpirienceProps> = ({ handleInputChange, inputsData,
+    handleInputChangeCompany, setInputsData, }) => {
     const [isOpen, setIsOpen] = useState(true);
     const [workBlocks, setWorkBlocks] = useState<JSX.Element[]>([]);
-
+    
     const duplicateWorkBlocks = () => {
-        setWorkBlocks([...workBlocks, <WorkBlock key={workBlocks.length} />]);
+        const newIndex = inputsData.experience.companies.length;
+        setWorkBlocks([...workBlocks, 
+        <WorkBlock key={workBlocks.length}
+        handleInputChangeCompany={handleInputChangeCompany}
+            index={newIndex}
+        />]);       
     };
-
+   
     return (
         <Block display='flex'
             justifyContent='center'
@@ -43,12 +51,11 @@ export const Expirience = () => {
                 <Block display='flex'
                     justifyContent='center'
                     alignItems='center'
-                >
+                    >
                     <Image src={ExpirienceIcon} alt="" />
                     <Span fontFamily='Unbounded' fontSize='24px'
                         text='Опыт работы' marginLeft='7px'
                     />
-
                 </Block>
 
                 {isOpen && <Image src={ArrowUp} alt="" onClick={() => changeOpenBlock(isOpen, setIsOpen)} />}
@@ -70,7 +77,10 @@ export const Expirience = () => {
                             fontFamily='Nunito'
                             fontSize='18px'
                             padding='16px 24px 16px 24px'
-                            borderRadius='50px' />
+                            borderRadius='50px'
+                            onChange={(e) => handleInputChangeCompany(e, 0, 'companyName')}
+                            value={inputsData?.experience.companies[0]?.companyName}
+                        />
                     </Block>
 
                     <Block display='flex' flexDirection='column' marginLeft='20px'>
@@ -85,6 +95,8 @@ export const Expirience = () => {
                             fontSize='18px'
                             padding='16px 24px 16px 24px'
                             borderRadius='50px'
+                            onChange={(e) => handleInputChangeCompany(e, 0, 'companyPosition')}
+                            value={inputsData?.experience.companies[0]?.companyPosition}
                         />
                     </Block>
 
@@ -104,6 +116,8 @@ export const Expirience = () => {
                             fontSize='18px'
                             padding='16px 24px 16px 24px'
                             borderRadius='50px'
+                            onChange={(e) => handleInputChangeCompany(e, 0, 'companyStartDate')}
+                            value={inputsData?.experience.companies[0]?.companyStartDate}
                         />
                     </Block>
 
@@ -119,6 +133,8 @@ export const Expirience = () => {
                             fontSize='18px'
                             padding='16px 24px 16px 24px'
                             borderRadius='50px'
+                            onChange={(e) => handleInputChangeCompany(e, 0, 'companyEndDate')}
+                            value={inputsData?.experience.companies[0]?.companyEndDate}
                         />
                     </Block>
 
@@ -141,6 +157,8 @@ export const Expirience = () => {
                         fontSize='18px'
                         padding='24px 24px 24px 24px'
                         borderRadius='24px'
+                        onChange={(e) => handleInputChangeCompany(e, 0, 'companyDescription')}
+                        value={inputsData?.experience.companies[0]?.companyDescription}
                     />
 
                     <Block backgroundColor='#EFEFF9'
@@ -179,7 +197,9 @@ export const Expirience = () => {
                             fontFamily='Nunito'
                             fontSize='18px'
                             padding='16px 24px 16px 24px'
-                            borderRadius='50px' />
+                            borderRadius='50px'
+                            onChange={(e) => handleInputChangeCompany(e, 1, 'companyName')}
+                            value={inputsData?.experience.companies[1]?.companyName}/>
                     </Block>
 
                     <Block display='flex' flexDirection='column' marginLeft='20px'>
@@ -194,6 +214,8 @@ export const Expirience = () => {
                             fontSize='18px'
                             padding='16px 24px 16px 24px'
                             borderRadius='50px'
+                            onChange={(e) => handleInputChangeCompany(e, 1, 'companyPosition')}
+                            value={inputsData?.experience.companies[1]?.companyPosition}
                         />
                     </Block>
                 </Block>
@@ -212,6 +234,8 @@ export const Expirience = () => {
                             fontSize='18px'
                             padding='16px 24px 16px 24px'
                             borderRadius='50px'
+                            onChange={(e) => handleInputChangeCompany(e, 1, 'companyStartDate')}
+                            value={inputsData?.experience.companies[1]?.companyStartDate}
                         />
                     </Block>
 
@@ -227,6 +251,8 @@ export const Expirience = () => {
                             fontSize='18px'
                             padding='16px 24px 16px 24px'
                             borderRadius='50px'
+                            onChange={(e) => handleInputChangeCompany(e, 1, 'companyEndDate')}
+                            value={inputsData?.experience.companies[1]?.companyEndDate}
                         />
                     </Block>
 
@@ -250,6 +276,8 @@ export const Expirience = () => {
                         fontSize='18px'
                         padding='24px 24px 24px 24px'
                         borderRadius='24px'
+                        onChange={(e) => handleInputChangeCompany(e, 1, 'companyDescription')}
+                        value={inputsData?.experience.companies[1]?.companyDescription}
                     />
 
                     <Block backgroundColor='#EFEFF9'

@@ -28,5 +28,8 @@ export const BlockWrapper = styled.div<IBlockProps>`
   border-bottom: ${props => props.borderBottom};
   flex-wrap: ${props => props.flexWrap};
   gap: ${props => props.gap};
+  cursor: ${props => props.cursor};
+  z-index: ${props => props.zIndex};
+  border-top: ${props => props.borderTop};
 `
 
